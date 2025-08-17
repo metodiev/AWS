@@ -42,7 +42,7 @@ It expands layer by layer, like a skill tree — from **foundations** to **grand
 
 
 
-## Phase 5 – Data and AI (3,501–4,500)
+## Phase 5 – Data and AI
 - Data lakes: S3, Glue, Athena, LakeFormation  
 - Redshift performance tuning  
 - EMR and Spark clusters on AWS  
