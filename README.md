@@ -1,4 +1,4 @@
-# 🌌 AWS Grandmaster Roadmap
+# AWS Grandmaster Roadmap
 
 This roadmap outlines a **AWS Mastery Journey**.  
 It expands layer by layer, like a skill tree — from **foundations** to **grandmaster projects**.
@@ -16,7 +16,7 @@ It expands layer by layer, like a skill tree — from **foundations** to **grand
 
 
 ## Phase 2 – Professional Architectures 
-- High availability & disaster recovery  
+- High availability and disaster recovery  
 - Multi-region VPC design  
 - Route 53, CloudFront, Global Accelerator  
 - Cost optimization strategies  
@@ -25,7 +25,7 @@ It expands layer by layer, like a skill tree — from **foundations** to **grand
 
 
 
-## Phase 3 – DevOps & Automation 
+## Phase 3 – DevOps and Automation 
 - IaC: CloudFormation, CDK, Terraform  
 - CI/CD: CodePipeline, Jenkins, GitHub Actions  
 - Containers: ECS, EKS, Fargate  
@@ -35,29 +35,29 @@ It expands layer by layer, like a skill tree — from **foundations** to **grand
 
 
 ## Phase 4 – Serverless Architectures 
-- Lambda tuning & orchestration  
+- Lambda tuning and orchestration  
 - API Gateway, Step Functions  
 - EventBridge, SQS, SNS, Kinesis  
 - *Hands-on*: Uber-like backend with serverless stack  
 
 
 
-## Phase 5 – Data & AI (3,501–4,500)
+## Phase 5 – Data and AI (3,501–4,500)
 - Data lakes: S3, Glue, Athena, LakeFormation  
 - Redshift performance tuning  
-- EMR & Spark clusters on AWS  
+- EMR and Spark clusters on AWS  
 - Kinesis for real-time analytics  
-- SageMaker ML training & deployment  
+- SageMaker ML training and deployment  
 - *Goal*: AWS Data Analytics Specialty  
 
 
 
-##  Phase 6 – Security & Governance 
+##  Phase 6 – Security and Governance 
 - IAM deep dive (cross-account, federation)  
 - Encryption (KMS, CloudHSM, Nitro Enclaves)  
 - Security Hub, GuardDuty, Macie  
 - Compliance: HIPAA, PCI, FedRAMP  
-- AWS Organizations & multi-account strategy  
+- AWS Organizations and multi-account strategy  
 - *Goal*: AWS Security Specialty  
 
 
@@ -65,7 +65,7 @@ It expands layer by layer, like a skill tree — from **foundations** to **grand
 ##  Phase 7 – Edge and IoT
 - IoT Core, Greengrass, FreeRTOS  
 - Hybrid cloud: Snowball, Snowmobile, Outposts  
-- Edge compute: Wavelength & Local Zones  
+- Edge compute: Wavelength and Local Zones  
 - *Hands-on*: Industrial IoT project  
 
 
@@ -93,7 +93,7 @@ It expands layer by layer, like a skill tree — from **foundations** to **grand
 - Chaos engineering: simulate data center outage  
 - AI-driven cost optimization engine  
 - Contribute open-source AWS SDK/Terraform modules  
-- Teach & mentor: AWS Hero, re:Invent speaker  
+- Teach and mentor: AWS Hero, re:Invent speaker  
 
 
 
