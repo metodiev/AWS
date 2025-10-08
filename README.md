@@ -1,3 +1,12 @@
+<!-- ====== Badges (centered) ====== -->
+<p align="center">
+  <!-- Example badges using Shields.io -->
+  <img src="https://img.shields.io/badge/AWS_Grandmaster_Roadmap-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" alt="AWS Grandmaster Roadmap" />
+  <img src="https://img.shields.io/badge/AWS_Cloud-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white" alt="AWS" />
+  <img src="https://img.shields.io/badge/Tutorials-0078D7?style=for-the-badge&logo=bookstack&logoColor=white" alt="Tutorials" />
+</p>
+
+
 # AWS Grandmaster Roadmap
 
 This roadmap outlines a **AWS Mastery Journey**.  
