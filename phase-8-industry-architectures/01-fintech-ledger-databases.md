@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 01 of 08
 > ⬅️ Previous: [Roadmap home](../README.md) · ➡️ Next: [Fraud Detection Pipelines](./02-fraud-detection-pipelines.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A ledger is not a table of balances. It is a **log of facts** that were true at a point in time, with balances derived from that log. The distinction is not academic: if you `UPDATE accounts SET balance = balance - 100`, you have destroyed the previous state, and there is no way to prove after the fact that the change was legitimate. A ledger instead appends an entry that says "on this date, 100 units moved from account A to account B", and the balance is a `SUM` over the entries. Corrections are new, opposite entries — never edits.
 
@@ -25,7 +25,7 @@ A ledger is not a table of balances. It is a **log of facts** that were true at 
 
 **Hash chaining** turns a log into tamper-evident evidence. Each entry stores a cryptographic digest of its own contents plus the digest of the previous entry, so the chain is `h(n) = H(h(n-1) || canonical(n))`. Changing any historical row breaks that row's digest, and because the next row committed the old digest, every subsequent link fails verification too. Recomputing the whole chain is the only way to hide an edit, and that requires write access to production data you should not have.
 
-### ⚠️ Amazon QLDB is retired — plan around it
+### Amazon QLDB is retired — plan around it
 
 Amazon QLDB (Quantum Ledger Database) **reached end of support on 31 July 2025**. Existing ledgers were made read-only before that date, and the service **cannot be used for new workloads**. If you are following an older tutorial that starts with "create a QLDB ledger", that path is closed. AWS guidance points to building the same guarantees on general-purpose managed databases:
 
@@ -54,7 +54,7 @@ The migration is real work, not a drop-in substitute. The advantage is that you 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The write path for a money movement, from API call to verified chain:
 
@@ -128,7 +128,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Build a Verifiable Ledger on Aurora PostgreSQL
+## Hands-on Lab: Build a Verifiable Ledger on Aurora PostgreSQL
 
 **Goal:** Create an append-only double-entry ledger with a SHA-256 hash chain, prove that tampering is detected, and prove that the database refuses edits.
 
@@ -467,7 +467,7 @@ A Lambda consumer attached to `arn:aws:dynamodb:eu-west-1:123456789012:table/wal
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Confirm the engine version you are pinning to
@@ -511,7 +511,7 @@ aws dynamodb transact-write-items --transact-items file://ledger-txn.json
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -527,7 +527,7 @@ aws dynamodb transact-write-items --transact-items file://ledger-txn.json
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -542,7 +542,7 @@ aws dynamodb transact-write-items --transact-items file://ledger-txn.json
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Aurora Serverless v2 is billed in **ACUs** (roughly 2 GiB of memory plus proportional CPU). At the time of writing, US-East-1 pricing is about **$0.12 per ACU-hour**, and a 0.5 ACU minimum costs roughly **$43 per month** if it never scales in. For a ledger that is write-heavy but consistent, that is usually far cheaper than provisioning `db.r6g.large` at about **$0.29 per hour** (~$210 per month) with the same storage.
 
@@ -556,7 +556,7 @@ What drives the bill, in order:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **IAM database authentication over passwords.** `--enable-iam-database-authentication` plus `GRANT rds_iam TO ledger_writer` gives short-lived credentials from the instance role. No password in a secret is a password that cannot leak.
 - **Two personas, two roles.** The posting role gets `EXECUTE` on `ledger.post_entry` and `INSERT`/`SELECT` on the journal. The reporting role gets `SELECT` and nothing else, on the reader endpoint.
@@ -569,7 +569,7 @@ What drives the bill, in order:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend the lab into a multi-tenant ledger: add a `ledger_id` column to `journal_entry` and `journal_line`, create one independent hash chain per tenant, and change `post_entry` to accept a `ledger_id` and lock only that tenant's chain. Then write a verification function that reports, per tenant, the number of broken links and whether the chain head matches a value you exported earlier.
 
@@ -577,7 +577,7 @@ Success looks like: two tenants can post concurrently without blocking each othe
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon QLDB — end of support notice](https://aws.amazon.com/qldb/)
 - [Amazon Aurora PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraPostgreSQL.html)
@@ -589,7 +589,7 @@ Success looks like: two tenants can post concurrently without blocking each othe
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have a ledger that can be trusted, and a rule you can reuse everywhere: if the industry requires evidence, the evidence has to be generated at write time and stored where the writer cannot erase it. The next lesson consumes the events this ledger produces and turns them into a real-time decision — is this transaction fraudulent, right now, before it settles?
 

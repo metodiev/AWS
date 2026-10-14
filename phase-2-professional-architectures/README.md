@@ -6,7 +6,7 @@ Everything here assumes the Phase 1 fundamentals: VPCs and subnets, IAM roles, A
 
 ![Phase 2 at a glance](https://img.shields.io/badge/Phase_2-Professional_Architectures-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Design **highly available** workloads with Multi-AZ placement, load balancing, health checks, and stateless tiers
 - Choose a **disaster recovery strategy** (backup & restore → pilot light → warm standby → active/active) from real RTO/RPO targets and cost
@@ -15,7 +15,7 @@ Everything here assumes the Phase 1 fundamentals: VPCs and subnets, IAM roles, A
 - Drive **cost optimization** with the right purchasing model, storage class, and rightsizing evidence
 - Run a **Well-Architected review** and turn its findings into an engineering backlog
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -45,7 +45,7 @@ flowchart LR
     appB --> dbA
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -58,7 +58,7 @@ flowchart LR
 | 07 | [Cost Optimization](./07-cost-optimization.md) | Cost Explorer, Budgets, Savings Plans vs RIs, Spot, rightsizing, S3 classes, Graviton, tags | Intermediate |
 | 08 | [Well-Architected Framework](./08-well-architected-framework.md) | The six pillars, design principles, Well-Architected Tool workflow, milestones | Beginner |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Project: "Continental" — a two-region, DR-proven web platform**
 
@@ -74,7 +74,7 @@ Take the 3-tier application you built in Phase 1 and turn it into something you 
 6. **Cost report:** a Cost Explorer breakdown by service for 30 days, one Savings Plan or Reserved Instance purchase recommendation with the math, and one S3 lifecycle policy that moves data to a colder class.
 7. **Well-Architected review:** a completed workload review in the Well-Architected Tool, one milestone saved, and the top five high-risk items converted into backlog tickets.
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] I can explain the difference between Multi-AZ and multi-region, and when each is required
 - [ ] I can pick a DR strategy from an RTO/RPO statement and justify the cost
@@ -87,7 +87,7 @@ Take the 3-tier application you built in Phase 1 and turn it into something you 
 - [ ] I can produce a rightsizing recommendation backed by metrics rather than guesswork
 - [ ] I have completed at least one Well-Architected review with saved milestones
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [Disaster Recovery of Workloads on AWS (whitepaper)](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-workloads-on-aws.html)
@@ -98,6 +98,6 @@ Take the 3-tier application you built in Phase 1 and turn it into something you 
 - [AWS Global Accelerator Developer Guide](https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html)
 - [AWS Pricing Calculator](https://calculator.aws/)
 
-## ➡️ Next Phase
+## Next Phase
 
 [Phase 3 — DevOps and Automation](../phase-3-devops-and-automation/README.md)

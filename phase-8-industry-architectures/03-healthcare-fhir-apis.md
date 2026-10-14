@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 03 of 08
 > ⬅️ Previous: [Fraud Detection Pipelines](./02-fraud-detection-pipelines.md) · ➡️ Next: [HIPAA-Ready Storage](./04-hipaa-ready-storage.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Healthcare interoperability used to mean HL7 v2 pipe-delimited messages and CSV extracts bolted onto each EHR. **HL7 FHIR** (Fast Healthcare Interoperability Resources) replaced that with a REST API over a defined resource model: `Patient`, `Encounter`, `Observation`, `Condition`, `MedicationRequest`, `Practitioner`, `Organization`, `Coverage`, and about 145 others. A `Patient` is a JSON resource with a stable `id`, standard search parameters, and references to related resources. FHIR R4 is the version regulators standardized on, including the US ONC Cures Act rules and the CMS Interoperability and Patient Access final rule.
 
@@ -44,7 +44,7 @@ Healthcare interoperability used to mean HL7 v2 pipe-delimited messages and CSV 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The ingestion and consumption paths. Import and export move through S3, which is where your encryption and access controls live:
 
@@ -140,7 +140,7 @@ erDiagram
 
 ---
 
-## 🧪 Hands-on Lab: A FHIR Datastore with SMART Authorization and De-Identified Export
+## Hands-on Lab: A FHIR Datastore with SMART Authorization and De-Identified Export
 
 **Goal:** Create a HealthLake FHIR datastore, load NDJSON bundles, query resources over the FHIR REST API, run a bulk export, and redact PHI from a clinical note.
 
@@ -325,7 +325,7 @@ aws comprehendmedical start-phi-detection-job \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inventory your datastores and their endpoints
@@ -361,7 +361,7 @@ aws comprehendmedical infer-snomedct --text "heart attack"
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -377,7 +377,7 @@ aws comprehendmedical infer-snomedct --text "heart attack"
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -392,7 +392,7 @@ aws comprehendmedical infer-snomedct --text "heart attack"
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 HealthLake is priced on **data stored per GB-month** plus **per API request**, with separate charges for import and export jobs. As a rough planning figure at the time of writing, storing a few hundred GB of FHIR data and serving single-digit millions of REST requests a month lands in the low hundreds of dollars — but the drivers are what matter:
 
@@ -405,7 +405,7 @@ HealthLake is priced on **data stored per GB-month** plus **per API request**, w
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The datastore is PHI from the first byte.** Encryption with a customer managed KMS key, restrictive key policy, and CloudTrail on `kms:Decrypt` are the baseline, not the goal.
 - **Two authorization strategies, two threat models.** SigV4 for service-to-service calls keeps a long-lived role off the internet; SMART on FHIR puts a token in a browser. Do not let a browser-facing token be usable by a backend.
@@ -419,7 +419,7 @@ HealthLake is priced on **data stored per GB-month** plus **per API request**, w
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a SMART on FHIR authorizer Lambda that allows a token to read only the patient bound to its `patient` launch context claim, denies any request carrying a `system/*` scope from a browser-facing client, and writes a decision record (token subject, patient, resource type, operation, decision, reason) to a separate audit log group. Then write three test events: one legitimate `patient/Observation.read`, one attempt to read a different patient's `Observation`, and one `system/*.read` from the same client.
 
@@ -427,7 +427,7 @@ Success looks like: the first returns allow, the second and third return deny wi
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [HL7 FHIR R4 specification](https://hl7.org/fhir/R4/)
 - [Amazon HealthLake Developer Guide](https://docs.aws.amazon.com/healthlake/latest/devguide/what-is-amazon-health-lake.html)
@@ -439,7 +439,7 @@ Success looks like: the first returns allow, the second and third return deny wi
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now expose clinical data through a standards-based API with patient-scoped authorization. The next lesson takes the same data and answers the storage questions underneath it: which services you may actually put PHI in, how the encryption and retention evidence is produced, and how to prove to an auditor that a record could not have been altered or deleted early.
 

@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 05 of 18
 > ⬅️ Previous: [Service Control Policies](./04-service-control-policies.md) · ➡️ Next: [Amazon Machine Images](./06-amis.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon EC2** provides resizable virtual machines. You pick an **AMI** (the operating system and preinstalled software), an **instance type** (CPU, memory, network, and storage characteristics), a **network placement** (VPC and subnet), and a **security group**. Everything else — the hypervisor, the hardware, the datacenter — is AWS's problem.
 
@@ -51,7 +51,7 @@ There is an important consequence of virtualization that surprises people: **sto
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Instance lifecycle — note where billing stops and starts:
 
@@ -87,7 +87,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Launch and Bootstrap an Instance
+## Hands-on Lab: Launch and Bootstrap an Instance
 
 **Goal:** Launch a Linux instance that installs and starts a web server automatically at boot, and verify it via its public DNS name.
 
@@ -187,7 +187,7 @@ aws ec2 terminate-instances --instance-ids i-0123456789abcdef0
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List instances with their state, type, and name tag
@@ -223,7 +223,7 @@ aws cloudwatch get-metric-statistics \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -237,7 +237,7 @@ aws cloudwatch get-metric-statistics \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -250,7 +250,7 @@ aws cloudwatch get-metric-statistics \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Four separate line items appear on your bill for one running instance, and it is worth being able to name all four:
 
@@ -265,7 +265,7 @@ A useful habit: tag every lab instance with `Environment=lab` and set a budget a
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **IMDSv2 enforced.** The instance metadata service hands out temporary IAM credentials to anything that can reach `169.254.169.254`. Requiring a token defeats the classic SSRF-to-credential-theft attack.
 - **No long-lived credentials on the box.** An attached IAM role rotates credentials automatically and appears in CloudTrail under the session name, making attribution possible.
@@ -276,7 +276,7 @@ A useful habit: tag every lab instance with `Environment=lab` and set a budget a
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Launch two instances in the same subnet from the same AMI. Give the first an IAM role with S3 read access, and the second no role at all. From each instance, attempt `aws s3 ls` using the instance profile. Confirm one succeeds and the other fails with `Unable to locate credentials`.
 
@@ -286,7 +286,7 @@ Success looks like: `describe-instances` shows `t3.small`, the role-less instanc
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
 - [Instance Types](https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html)
@@ -296,7 +296,7 @@ Success looks like: `describe-instances` shows `t3.small`, the role-less instanc
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 User data is fine for a lab, but running `dnf update` on every boot is slow and non-deterministic. The next lesson replaces boot-time configuration with a prebuilt golden image.
 

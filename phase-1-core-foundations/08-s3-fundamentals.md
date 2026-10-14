@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 08 of 18
 > ⬅️ Previous: [Auto Scaling](./07-auto-scaling.md) · ➡️ Next: [Amazon EBS](./09-ebs.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon S3** is object storage. You put **objects** (the data plus metadata) into **buckets** (a flat namespace of keys). There is no real directory structure — the console shows folders, but the underlying model is a flat key space where a key like `logs/2026/10/14/app.log` is a single string, not three nested containers. This matters because the leading portion of a key determines how S3 partitions the data, which is the key to performance.
 
@@ -41,7 +41,7 @@ Every bucket should have the following enabled from creation, and there is no go
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The object model and how access is decided:
 
@@ -72,7 +72,7 @@ A useful way to remember the trade-off: as you move down that chain, **storage c
 
 ---
 
-## 🧪 Hands-on Lab: Create a Hardened Versioned Bucket
+## Hands-on Lab: Create a Hardened Versioned Bucket
 
 **Goal:** Create a bucket that cannot be made public, encrypts by default, keeps every version, and serves a private file via a time-limited presigned URL.
 
@@ -169,7 +169,7 @@ That URL works for anyone, for 15 minutes, without any credentials — and the b
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List buckets (this is an account-level operation, not per-region)
@@ -205,7 +205,7 @@ aws s3 presign "s3://$BUCKET/incoming/file.zip" --expires-in 3600 --region eu-we
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -220,7 +220,7 @@ aws s3 presign "s3://$BUCKET/incoming/file.zip" --expires-in 3600 --region eu-we
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -234,7 +234,7 @@ aws s3 presign "s3://$BUCKET/incoming/file.zip" --expires-in 3600 --region eu-we
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 S3 billing has four components, and the one people forget most often is the fourth:
 
@@ -251,7 +251,7 @@ Third: **request patterns**. If something is listing a large bucket every few mi
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Four layers decide access:** Block Public Access, the bucket policy, the IAM identity policy, and any ACL. Explicit deny at any layer wins.
 - **Object ownership must be `BucketOwnerEnforced`** on new buckets. This disables ACLs entirely and removes an entire class of accidental-access bug.
@@ -280,7 +280,7 @@ An upload-encryption enforcement statement:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create a bucket that enforces all four of these properties, and prove each one with a command:
 
@@ -293,7 +293,7 @@ Success looks like: an unencrypted `put-object` returns `AccessDenied`, a plain 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
 - [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html)
@@ -304,7 +304,7 @@ Success looks like: an unencrypted `put-object` returns `AccessDenied`, a plain 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 S3 is object storage for data you address by key. The next two lessons cover block and file storage — the primitives you use when an operating system, not an application, needs to read and write.
 

@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 09 of 18
 > ⬅️ Previous: [S3 Fundamentals](./08-s3-fundamentals.md) · ➡️ Next: [Amazon EFS](./10-efs.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon EBS** provides network-attached block storage for EC2. To the operating system it looks like a local disk, but it lives on separate hardware and is reached over the network. That single design fact explains almost every EBS behaviour:
 
@@ -60,7 +60,7 @@ Snapshots are **incremental, stored in S3 behind the scenes, and regionally repl
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Volume lifecycle and its relationship to snapshots and AZs:
 
@@ -96,7 +96,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Add a Persistent Data Volume
+## Hands-on Lab: Add a Persistent Data Volume
 
 **Goal:** Attach a `gp3` volume to an instance, format and mount it, make the mount survive a reboot, snapshot it, and restore the data to a new volume.
 
@@ -198,7 +198,7 @@ sudo xfs_growfs /data
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List volumes with type, size, state, and encryption status
@@ -243,7 +243,7 @@ aws ec2 describe-volumes --volume-ids vol-0123456789abcdef0 \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -258,7 +258,7 @@ aws ec2 describe-volumes --volume-ids vol-0123456789abcdef0 \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -273,7 +273,7 @@ aws ec2 describe-volumes --volume-ids vol-0123456789abcdef0 \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 You pay for **provisioned capacity, not used capacity**. A 500 GB volume that is 2% full costs the same as one that is full, so rightsizing volumes is a straightforward saving.
 
@@ -296,7 +296,7 @@ Third: **snapshot retention**. Incremental snapshots are cheap individually but 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encrypt by default.** Set account-level EBS encryption so no new volume can be unencrypted. Encryption covers the volume, its snapshots, and any volumes created from those snapshots.
 - **KMS key choice matters.** `aws/ebs` (the AWS-managed key) is zero-effort but gives you no control over key policy or access audit granularity. A customer-managed key lets you restrict who can decrypt, and enables cross-account sharing under your terms.
@@ -318,7 +318,7 @@ done
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take an existing instance with no data volume and add one, then prove all four properties:
 
@@ -331,7 +331,7 @@ Success looks like: `lsblk` shows the volume after a reboot, `describe-volumes` 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EBS User Guide](https://docs.aws.amazon.com/ebs/latest/userguide/what-is-ebs.html)
 - [EBS Volume Types](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html)
@@ -341,7 +341,7 @@ Success looks like: `lsblk` shows the volume after a reboot, `describe-volumes` 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 EBS gives one instance its own fast disk. But what happens when ten instances need to read and write the *same* files at the same time? EBS cannot help, and that is exactly the problem the next lesson solves.
 

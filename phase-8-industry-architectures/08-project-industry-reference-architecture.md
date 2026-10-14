@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 08 of 08
 > ⬅️ Previous: [Government — Air-Gapped Regions](./07-government-air-gapped-regions.md) · ➡️ Next: [Phase 9 — Cutting-Edge AWS](../phase-9-cutting-edge-aws/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 This capstone is the delivery artifact for the phase. You are given a regulated business brief, and you must produce what an architecture review board and an auditor would each accept: one architecture, one control set, one residency decision, one cost model, and a review that admits where the design is weak. The vertical here is **healthcare**, and specifically a payer with a provider-facing portal, because it puts every constraint from this phase in the same system: PHI (Lesson 04), a standards-based clinical API (Lesson 03), transactional claims integrity (Lesson 01), and an insider-abuse detection problem (Lesson 02).
 
@@ -50,7 +50,7 @@ This capstone is the delivery artifact for the phase. You are given a regulated 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The complete reference architecture. Data classification is annotated on each store in the surrounding text; only the non-PHI presentation tier is served through CloudFront.
 
@@ -213,7 +213,7 @@ erDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Assemble and Defend the Architecture
+## Hands-on Lab: Assemble and Defend the Architecture
 
 **Goal:** Build the account, network, data, identity, and observability baseline for the Meridian reference architecture, then produce the Well-Architected review that goes with it.
 
@@ -446,7 +446,7 @@ Run the review as a real conversation, and record the risks you are accepting wi
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Which accounts exist, and their classification tags
@@ -486,7 +486,7 @@ aws ce get-cost-and-usage --time-period Start=2026-01-01,End=2026-02-01 --granul
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -502,7 +502,7 @@ aws ce get-cost-and-usage --time-period Start=2026-01-01,End=2026-02-01 --granul
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -518,7 +518,7 @@ aws ce get-cost-and-usage --time-period Start=2026-01-01,End=2026-02-01 --granul
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The cost model below is built on volume units, not on an infrastructure inventory. Rates are indicative US-East-1 figures at the time of writing and must be confirmed against current pricing; the purpose is to show which driver dominates so the numbers can be challenged and re-derived.
 
@@ -558,7 +558,7 @@ What to take from this:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 Controls are listed by NIST SP 800-53 family so that an assessor can trace a requirement to an implementation. Each row also implies an evidence artifact.
 
@@ -582,7 +582,7 @@ Finally, the residency decision belongs in this section because it is a security
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the Meridian architecture and produce the **business continuity and residency dossier**: the RPO and RTO for each data store, the mechanism that delivers each one, the failure scenario it survives, and the test that proves it. Include one scenario in which the primary Region is entirely unavailable, and one in which the primary Region is available but HealthLake is not.
 
@@ -590,7 +590,7 @@ Success looks like: every data store has a named mechanism, a measured recovery 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [AWS HIPAA Eligible Services Reference](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)
@@ -603,7 +603,7 @@ Success looks like: every data store has a named mechanism, a measured recovery 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have now delivered an architecture that a board, an auditor, and a finance team can each evaluate on their own terms. That is the pattern for the rest of your career: constraints first, evidence second, cost always. Phase 9 turns the same discipline toward services that are still changing quickly, where the constraint is often that the design must survive the next release.
 

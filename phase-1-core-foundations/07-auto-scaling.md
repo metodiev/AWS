@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 07 of 18
 > ⬅️ Previous: [Amazon Machine Images](./06-amis.md) · ➡️ Next: [S3 Fundamentals](./08-s3-fundamentals.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An **Auto Scaling group (ASG)** maintains a desired number of healthy instances matching a **launch template**. It does three distinct jobs, and conflating them causes most ASG problems:
 
@@ -49,7 +49,7 @@ Finally, **instance refresh** is how you roll out a new AMI. Instead of manually
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 An Auto Scaling group spanning two AZs behind a load balancer:
 
@@ -87,7 +87,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: A Self-Healing, Auto-Scaling Web Tier
+## Hands-on Lab: A Self-Healing, Auto-Scaling Web Tier
 
 **Goal:** Build an ASG behind an Application Load Balancer that maintains two healthy instances, replaces a terminated one automatically, and scales out under CPU load.
 
@@ -204,7 +204,7 @@ aws autoscaling describe-scaling-activities --auto-scaling-group-name phase1-web
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Change capacity manually
@@ -238,7 +238,7 @@ aws autoscaling describe-policies --auto-scaling-group-name phase1-web-asg
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -255,7 +255,7 @@ A useful rule of thumb for choosing min and max: set **min** to what you need at
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -269,7 +269,7 @@ A useful rule of thumb for choosing min and max: set **min** to what you need at
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Auto Scaling is **free** — you pay only for the instances it runs and the load balancer in front of them. The economics of autoscaling are about matching spend to demand.
 
@@ -285,7 +285,7 @@ One warning: a badly configured scale-out policy on a metrics-driven loop can cr
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Scaling must not change your security posture.** Because every instance comes from the same launch template, a security misconfiguration in the template is replicated across the fleet. Review the template as security-critical code.
 - **Never put secrets in user data.** User data is visible via the instance metadata service and in the EC2 console. Fetch secrets at runtime using the instance role.
@@ -297,7 +297,7 @@ One warning: a badly configured scale-out policy on a metrics-driven loop can cr
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the ASG from the lab and add two behaviours:
 
@@ -308,7 +308,7 @@ Success looks like: `describe-scaling-activities` shows the scheduled action fir
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 - [Target Tracking Scaling Policies](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html)
@@ -318,7 +318,7 @@ Success looks like: `describe-scaling-activities` shows the scheduled action fir
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have elastic compute. The next three lessons cover where the state lives — starting with the service that holds more data than any other in AWS, and the one most likely to appear on an exam or in an incident.
 

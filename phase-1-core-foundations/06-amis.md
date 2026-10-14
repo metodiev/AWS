@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 06 of 18
 > ⬅️ Previous: [EC2 Basics](./05-ec2-basics.md) · ➡️ Next: [Auto Scaling](./07-auto-scaling.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An **AMI** is the template an EC2 instance boots from. Internally it is three things: one or more **EBS snapshots** of the root volume (and any additional volumes you included), a set of **block device mappings** describing which snapshot becomes which device, and **launch permissions** describing who may use it.
 
@@ -39,7 +39,7 @@ A pragmatic hybrid: bake the slow, rarely-changing layers (OS patches, language 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The baking pipeline — this is what "no manual steps" looks like:
 
@@ -73,7 +73,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Create and Use a Golden AMI
+## Hands-on Lab: Create and Use a Golden AMI
 
 **Goal:** Install a web server and a monitoring agent on an instance, bake it into an AMI, and launch an identical copy that serves content immediately with no user data.
 
@@ -177,7 +177,7 @@ aws ec2 copy-image \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List your own AMIs with creation date
@@ -208,7 +208,7 @@ The SSM parameter lookup deserves special attention — it is the correct way to
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -222,7 +222,7 @@ The SSM parameter lookup deserves special attention — it is the correct way to
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -235,7 +235,7 @@ The SSM parameter lookup deserves special attention — it is the correct way to
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 An AMI itself is free, but **the EBS snapshots behind it are not**. Snapshot storage is billed per GB-month based on the data actually stored, and because EBS snapshots are incremental, a chain of daily golden images costs far less than the sum of their full sizes — only changed blocks are charged after the first snapshot.
 
@@ -247,7 +247,7 @@ Practical figures: a 10 GB root volume snapshot chain for 30 daily images typica
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Patch cadence is the whole point.** The value of a golden image is that it is *known* patched. An unmaintained image is just an old OS with a friendly name. Rebuild on a schedule — monthly at minimum — and treat the rebuild as the patch mechanism.
 - **Never bake secrets.** Anything in the image is readable by anyone who can launch it. Fetch secrets at boot from Secrets Manager or Parameter Store using the instance role.
@@ -258,7 +258,7 @@ Practical figures: a 10 GB root volume snapshot chain for 30 daily images typica
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build an automated image pipeline description for a two-tier application:
 
@@ -270,7 +270,7 @@ Success looks like: you can explain exactly which state is baked into each image
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Machine Images (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
 - [Create an AMI from an Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html)
@@ -280,7 +280,7 @@ Success looks like: you can explain exactly which state is baked into each image
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Golden images make instance launches fast and identical — which is the prerequisite for the next lesson. Auto Scaling groups are only reliable when every instance they launch is truly interchangeable.
 

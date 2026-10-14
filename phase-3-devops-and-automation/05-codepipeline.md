@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 05 of 13
 > ⬅️ Previous: [Terraform on AWS](./04-terraform-on-aws.md) · ➡️ Next: [Jenkins on AWS](./06-jenkins-on-aws.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 CodePipeline is an orchestrator, not a builder. It models a release as **stages**, each containing **actions**, and each action is delegated to a service: CodeCommit or CodeStar Connections for source, CodeBuild for anything that runs commands, CodeDeploy for traffic shifting, Lambda for custom logic, and Manual Approval for humans. Between stages, CodePipeline moves **artifacts** — zip files and JSON — through an S3 bucket, which is why the artifact bucket's encryption key policy is often the thing that breaks a cross-account pipeline.
 
@@ -45,7 +45,7 @@ Two pipeline features deserve early adoption. **V2 pipelines** add `Triggers` wi
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A four-stage pipeline with an approval gate and an artifact store:
 
@@ -100,7 +100,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Source to ECS Blue/Green with an Approval Gate
+## Hands-on Lab: Source to ECS Blue/Green with an Approval Gate
 
 **Goal:** Build a pipeline that tests code, pushes an image to ECR, waits for approval, and deploys to ECS using CodeDeploy blue/green.
 
@@ -407,7 +407,7 @@ aws codepipeline stop-pipeline-execution \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inspect the full action history of the latest execution
@@ -456,7 +456,7 @@ aws deploy stop-deployment --deployment-id d-XXXXXXXXX --auto-rollback-enabled
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -473,7 +473,7 @@ aws deploy stop-deployment --deployment-id d-XXXXXXXXX --auto-rollback-enabled
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -488,7 +488,7 @@ aws deploy stop-deployment --deployment-id d-XXXXXXXXX --auto-rollback-enabled
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 CodePipeline charges **$1.00 per active pipeline per month** (the first pipeline is free, and V2 pipelines count per pipeline, not per action). CodeBuild is billed per build minute: `BUILD_GENERAL1_SMALL` on ARM is roughly **$0.0034/minute**, and a 6-minute build running 200 times a month costs about $4 — until someone enables `cache` badly or leaves a 45-minute integration suite in the critical path. CodeDeploy for EC2 and ECS has **no extra charge**. CodeCommit charges $1 per active user per month and $1 per GB-month of storage for existing accounts.
 
@@ -496,7 +496,7 @@ Where the money actually goes is the pipeline's blast radius. Trigger filters me
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Separate roles per concern.** The pipeline role moves artifacts; the CodeBuild role pushes images and reads secrets; the CodeDeploy role shifts traffic. One shared administrator role means a compromised buildspec can deploy anywhere.
 - **Scope the artifact bucket.** Block public access, deny non-TLS requests, and use a KMS key policy that lists only the accounts that need to read artifacts.
@@ -508,7 +508,7 @@ Where the money actually goes is the pipeline's blast radius. Trigger filters me
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a `SecurityScan` stage between `Build` and `Approve`. It should run a second CodeBuild project that executes `docker scan` or `trivy image` against the pushed image tag, write a report artifact, and fail the stage when a `CRITICAL` vulnerability is found. Then trigger the pipeline with a deliberately vulnerable base image and confirm the approval stage is never reached.
 
@@ -516,7 +516,7 @@ Success looks like: `list-action-executions` shows the scan action `Failed` with
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What is AWS CodePipeline?](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html)
 - [CodeBuild buildspec Reference](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
@@ -527,7 +527,7 @@ Success looks like: `list-action-executions` shows the scan action `Failed` with
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 CodePipeline is the native, lowest-maintenance option, but plenty of organizations already run Jenkins and need it to work well on AWS. The next lesson covers running Jenkins properly — controller, elastic agents, plugins, and credentials — without leaving it wide open on the internet.
 

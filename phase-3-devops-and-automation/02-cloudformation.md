@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 02 of 13
 > ⬅️ Previous: [Infrastructure as Code Fundamentals](./01-infrastructure-as-code-fundamentals.md) · ➡️ Next: [AWS CDK](./03-aws-cdk.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **template** is a JSON or YAML document describing resources. A **stack** is an instance of that template in one account and region, plus the state record CloudFormation keeps for it. You never talk to the resources directly through CloudFormation — you declare the end state, submit it, and CloudFormation orders the API calls, retries, and rolls back on failure.
 
@@ -47,7 +47,7 @@ Finally, **dynamic references** let a template read live values at deploy time: 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The stack lifecycle, including the rollback paths you will meet in production:
 
@@ -98,7 +98,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: A Realistic Stack with Change Sets and Rollback
+## Hands-on Lab: A Realistic Stack with Change Sets and Rollback
 
 **Goal:** Deploy a VPC with two public subnets, a versioned bucket, and an SSM parameter; then practise the change-set and rollback workflow on it.
 
@@ -335,7 +335,7 @@ aws s3 rb "s3://phase3lab-dev-artifacts-$(aws sts get-caller-identity --query Ac
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Package a template that references local files (Lambda code, nested templates) and upload to S3
@@ -398,7 +398,7 @@ aws cloudformation describe-stack-resources --stack-name phase3lab-prod-network 
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -414,7 +414,7 @@ aws cloudformation describe-stack-resources --stack-name phase3lab-prod-network 
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -429,7 +429,7 @@ aws cloudformation describe-stack-resources --stack-name phase3lab-prod-network 
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 CloudFormation has **no charge** for templates, stacks, change sets, drift detection, or StackSets. You pay only for the resources created — plus a small S3 cost for nested-stack templates and packaged artifacts (pennies per month), and CloudTrail data events if you audit every API call.
 
@@ -437,7 +437,7 @@ The bill lever is what templates provision by default. A NAT Gateway at roughly 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Never store secrets in template properties.** Use `{{resolve:ssm-secure:/app/db/password}}` or `{{resolve:secretsmanager:MySecret:SecretString:password}}`; CloudFormation resolves them at apply time and marks them sensitive in resource properties.
 - **Plan IAM changes like network changes.** A role with `"Action": "*"` in a template is a finding, and `CAPABILITY_AUTO_EXPAND` means nested templates are expanded without your review — pair it with StackSet or S3 permission controls.
@@ -449,7 +449,7 @@ The bill lever is what templates provision by default. A NAT Gateway at roughly 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a nested stack to the lab. Create a child template `app.yaml` that takes `VpcId` and `SubnetIds` as parameters and creates a security group plus an Application Load Balancer, then reference it from a new `root.yaml` with `AWS::CloudFormation::Stack`, passing the imported values from `network.yaml` via `Fn::ImportValue`.
 
@@ -457,7 +457,7 @@ Success looks like: `aws cloudformation package` uploads `app.yaml` to S3, `crea
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
 - [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html)
@@ -467,7 +467,7 @@ Success looks like: `aws cloudformation package` uploads `app.yaml` to S3, `crea
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Templates are powerful but verbose, and YAML cannot express loops, types, or reusable abstractions. The next lesson replaces hand-written templates with real code that synthesizes them: the AWS Cloud Development Kit.
 

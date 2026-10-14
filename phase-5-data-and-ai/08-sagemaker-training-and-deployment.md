@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 08 of 09
 > ⬅️ Previous: [Kinesis Real-Time Analytics](./07-kinesis-real-time-analytics.md) · ➡️ Next: [Capstone — Serverless Data Pipeline](./09-project-serverless-data-pipeline.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon SageMaker** is a set of services that cover the machine learning lifecycle: a development environment (Studio), managed training compute, automatic hyperparameter search, a model registry, orchestration (Pipelines), and several deployment targets. The important conceptual split is between three phases that have completely different cost and scaling characteristics.
 
@@ -87,7 +87,7 @@ The **Model Registry** stores model packages: a versioned group of artifacts, in
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The end-to-end lifecycle, with the registry as the gate:
 
@@ -123,7 +123,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Train, Tune, Register, and Serve
+## Hands-on Lab: Train, Tune, Register, and Serve
 
 **Goal:** Create a Studio domain with idle shutdown, train an XGBoost model on Spot with checkpoints, run a small tuning job, register the best model behind an approval gate, and deploy a serverless endpoint.
 
@@ -366,7 +366,7 @@ You should see an `InService` endpoint that returns predictions without any prov
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Training jobs: history, artifacts, and failure reason
@@ -395,7 +395,7 @@ aws sagemaker start-pipeline-execution --pipeline-name orders-mlops
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -410,7 +410,7 @@ aws sagemaker start-pipeline-execution --pipeline-name orders-mlops
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -426,7 +426,7 @@ aws sagemaker start-pipeline-execution --pipeline-name orders-mlops
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 | Component | Approximate price (eu-west-1) | Notes |
 |-----------|-------------------------------|-------|
@@ -447,7 +447,7 @@ A practical safety routine: before any experiment, write down the expected cost 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The execution role is everything.** Scope it to the specific buckets, ECR repositories, and KMS keys the workload needs, and use a different role per environment. Never attach `AmazonSageMakerFullAccess` plus `AmazonS3FullAccess`.
 - **Run Studio in VPC-only mode** with interface endpoints for S3, ECR, and the SageMaker APIs, so no notebook traffic traverses the internet.
@@ -460,7 +460,7 @@ A practical safety routine: before any experiment, write down the expected cost 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a complete, gated deployment workflow with Amazon SageMaker Pipelines:
 
@@ -472,7 +472,7 @@ Build a complete, gated deployment workflow with Amazon SageMaker Pipelines:
 Success looks like: the first execution stops at the condition step with the later steps skipped, the second registers a model package, and only the manually approved version can be deployed to an endpoint. Then delete the endpoint and confirm the billing stops.
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon SageMaker Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
 - [SageMaker Studio Domains](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated.html)
@@ -485,7 +485,7 @@ Success looks like: the first execution stops at the condition step with the lat
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have every component of the phase. The capstone puts them together: a streaming ingestion path, a Glue transformation, an Athena query layer, a governed permission model, and a dashboard — built entirely from managed services.
 

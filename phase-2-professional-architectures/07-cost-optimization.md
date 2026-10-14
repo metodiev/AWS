@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 07 of 08
 > ⬅️ Previous: [Global Accelerator](./06-global-accelerator.md) · ➡️ Next: [Well-Architected Framework](./08-well-architected-framework.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Cost optimization is an engineering discipline, not an accounting task. The bill is a technical artifact: every line item is the consequence of an instance size, a storage class, a data path, or a commitment you did or did not make. The cloud's pricing model — pay for what you use, with discounts for predicting what you will use — means the same architecture can cost twice as much depending purely on how it is purchased and sized.
 
@@ -73,7 +73,7 @@ Savings Plans replaced the flexibility problem of RIs: instead of buying a speci
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The order in which you should attack cost — each step makes the next one cheaper:
 
@@ -118,7 +118,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Find the Waste, Then Buy Smart
+## Hands-on Lab: Find the Waste, Then Buy Smart
 
 **Goal:** Produce a cost breakdown by service and tag, set a budget with an alert, and generate a compute purchase recommendation.
 
@@ -355,7 +355,7 @@ aws compute-optimizer get-recommendation-summaries --region eu-west-1
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Hourly line-item data for Athena: the CUR is the only source of full granularity
@@ -459,7 +459,7 @@ aws resourcegroupstaggingapi get-resources \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -477,7 +477,7 @@ aws resourcegroupstaggingapi get-resources \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -494,7 +494,7 @@ aws resourcegroupstaggingapi get-resources \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Baseline: a two-region web platform, list prices assumed, one month = 730 hours.
 
@@ -527,7 +527,7 @@ Two points worth making about the list. First, the largest single savings come f
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Cost controls are security controls.** Anomaly detection and budget alarms are two of the fastest ways to notice a compromised access key mining cryptocurrency, because the signature is sudden GPU or compute spend in an unusual region.
 - **Guardrails against expensive mistakes:** SCPs that deny instance families you do not use (for example GPU types outside approved accounts), region restrictions, and IAM conditions that cap the size of what a team can launch.
@@ -540,7 +540,7 @@ Two points worth making about the list. First, the largest single savings come f
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Pick a real account (or the capstone project) and produce a one-page cost optimization plan:
 
@@ -553,7 +553,7 @@ Success looks like: a plan that names specific resources, specific dollar amount
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Cost Management documentation](https://docs.aws.amazon.com/cost-management/latest/userguide/what-is-costmanagement.html)
 - [Cost Explorer API reference](https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Operations_AWS_Cost_Explorer_Service.html)
@@ -567,7 +567,7 @@ Success looks like: a plan that names specific resources, specific dollar amount
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Cost optimization is one of six pillars of the AWS Well-Architected Framework. The final lesson in this phase puts it, and everything else you have built, into a repeatable review process with a tool, a set of lenses, and saved milestones that prove the architecture is improving over time.
 

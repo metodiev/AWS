@@ -4,7 +4,7 @@ This is the final phase of the roadmap, and it is deliberately different from th
 
 The reason this phase comes last is that every component depends on judgement you have already built. Multi-tenancy without a firm grasp of IAM is a data breach waiting to happen; chaos engineering without observability is just an outage; cost automation without guardrails is a deletion tool. Do not attempt these projects by copying commands — attempt them by deciding, documenting the trade-offs, and proving the result with evidence.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Design and operate a global multi-tenant SaaS platform with pooled, siloed, and bridged tenancy
 - Prove tenant isolation continuously with IAM ABAC, session tags, per-tenant KMS keys, and automated denial tests
@@ -14,7 +14,7 @@ The reason this phase comes last is that every component depends on judgement yo
 - Teach and publish: lab repositories, workshops, talks, and community programs
 - Deliver one grandmaster capstone that integrates the whole roadmap into a business-ready system
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -53,7 +53,7 @@ flowchart LR
     teaching --> community["Community programs and credentials"]
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -64,7 +64,7 @@ flowchart LR
 | 05 | [Teaching and Thought Leadership](./05-teaching-and-thought-leadership.md) | Writing technical content, building lab repositories, meetups and re:Invent submissions, Community Builders and Heroes, Workshop Studio, certifications, teaching without burnout | Intermediate |
 | 06 | [Grandmaster Capstone](./06-grandmaster-capstone.md) | One integrated system: multi-account landing zone, hybrid serverless and container workload, governed data lake, security baseline, chaos testing, and cost automation | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Atlas** — a global multi-tenant SaaS platform, delivered in four phased milestones.
 
@@ -80,7 +80,7 @@ The capstone combines every prior phase into a single system: a multi-account la
 - A cost report showing cost per tenant and the cost engine's own return on investment
 - A public workshop and talk abstract, plus the written retrospective
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] Choose and justify a tenancy model per tier (pool, silo, or bridge)
 - [ ] Enforce tenant isolation with session tags, IAM conditions, and per-tenant KMS keys
@@ -95,7 +95,7 @@ The capstone combines every prior phase into a single system: a multi-account la
 - [ ] Submit one talk abstract to a meetup or community day
 - [ ] Deliver the Atlas capstone and score at least 3 on every rubric area
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS SaaS Factory — architecture and tenancy models](https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html)
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
@@ -111,7 +111,7 @@ The capstone combines every prior phase into a single system: a multi-account la
 - [AWS Heroes](https://aws.amazon.com/developer/community/heroes/)
 - [AWS Architecture Center](https://aws.amazon.com/architecture/)
 
-## 🏁 End of the Roadmap
+## End of the Roadmap
 
 You have reached the end of the AWS Grandmaster Roadmap. From IAM users and VPC fundamentals in Phase 1 to a governed multi-account, multi-tenant platform with chaos testing and automated cost control in Phase 10, you now hold a complete, connected mental model of AWS — and, more importantly, a portfolio of systems you built, broke, fixed, and explained to other people.
 

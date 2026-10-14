@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 07 of 09
 > ⬅️ Previous: [AWS Wavelength](./06-aws-wavelength.md) · ➡️ Next: [Hybrid Cloud Patterns](./08-hybrid-cloud-patterns.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Local Zones** are AWS-owned infrastructure placed in large metropolitan areas, attached to a **parent Region**. Unlike a Wavelength Zone, which lives inside a carrier's 5G network, a Local Zone is simply AWS capacity that is physically much closer to a population center than the Region is, reachable over the ordinary internet. For a user in Los Angeles talking to `us-west-2-lax-1`, the added latency of a round trip to Oregon disappears — often 10 to 30 milliseconds of it. That is enough to change how a game feels, how responsive a virtual workstation is, and whether a real-time inference call fits in the interactive budget.
 
@@ -44,7 +44,7 @@ Where Local Zones win is latency-sensitive work that has nothing to do with a 5G
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Local ingress, Regional egress — the asymmetry that defines Local Zone design:
 
@@ -111,7 +111,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Put a Latency-Critical Tier in a Local Zone
+## Hands-on Lab: Put a Latency-Critical Tier in a Local Zone
 
 **Goal:** Opt in to a Local Zone, add its subnet to an existing VPC, run a stateless web tier there behind an ALB, and confirm that internet egress still flows through the parent Region.
 
@@ -239,7 +239,7 @@ Success looks like: measurably lower response times from a metro client, the sam
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Every Local Zone available to this parent Region with your opt-in state
@@ -274,7 +274,7 @@ aws service-quotas get-service-quota --service-code ec2 --quota-code L-1216C47A
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -289,7 +289,7 @@ aws service-quotas get-service-quota --service-code ec2 --quota-code L-1216C47A
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -304,7 +304,7 @@ aws service-quotas get-service-quota --service-code ec2 --quota-code L-1216C47A
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **Enabling Local Zones is free.** There is no charge for opting in — you pay only for the resources you create there, and those resources cost **more than the same resources in the parent Region**. The premium applies to compute, EBS, and the general-purpose resources you place in the zone, and data transfer follows Local Zone specific rates.
 
@@ -327,7 +327,7 @@ What drives the bill, in order: how much compute you place in the zone, how much
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Every control you use in a Region still applies.** Security groups, NACLs, IAM, VPC Flow Logs, KMS, and CloudTrail work in Local Zones; use them rather than inventing edge-specific trust.
 - **Public IPs come from the zone's network border group.** Know which address ranges are advertised for your zone so firewall allow lists and WAF rules are correct — a Regional-only allow list will silently block metro users.
@@ -339,7 +339,7 @@ What drives the bill, in order: how much compute you place in the zone, how much
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design a cloud gaming backend for a title launching in two metros, using Local Zones for the game server tier and the parent Region for matchmaking, player profiles, and the economy service. Produce the topology diagram, with the ALB placement, the private routing between the zone and Regional subnets, and the failover path when one Local Zone is unavailable.
 
@@ -349,7 +349,7 @@ Success looks like: a design where matchmaking and profiles never leave the Regi
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What Is AWS Local Zones?](https://docs.aws.amazon.com/local-zones/latest/ug/what-is-aws-local-zones.html)
 - [Available Local Zones](https://docs.aws.amazon.com/local-zones/latest/ug/available-local-zones.html)
@@ -361,7 +361,7 @@ Success looks like: a design where matchmaking and profiles never leave the Regi
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now place compute in the Region, in a metro, inside a carrier network, and in your own data center. The remaining problem is everything in between: the files, databases, DNS names, and identities that live on-premises and must work seamlessly with all of it. The next lesson is the hybrid integration layer — Storage Gateway, DataSync, Direct Connect versus VPN, Route 53 Resolver, and IAM Roles Anywhere — where most real hybrid projects actually fail.
 

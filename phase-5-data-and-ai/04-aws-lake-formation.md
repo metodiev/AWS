@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 04 of 09
 > ⬅️ Previous: [Amazon Athena](./03-amazon-athena.md) · ➡️ Next: [Amazon Redshift](./05-amazon-redshift.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Lake Formation (LF)** is the permission layer for the data lake. It sits between consumers (Athena, Redshift Spectrum, EMR, QuickSight, SageMaker) and the Glue Data Catalog plus S3. Before LF, access control meant IAM policies on buckets and IAM policies on catalog objects — which is coarse. IAM can say "you may read this bucket prefix" or "you may read this table". It cannot say "you may read these columns, but only these rows".
 
@@ -71,7 +71,7 @@ Filtering is not free. Row filters can defeat partition pruning when the filter 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The two paths side by side — with LF, S3 credentials are never handed to the consumer:
 
@@ -120,7 +120,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Column and Row Security with LF-Tags
+## Hands-on Lab: Column and Row Security with LF-Tags
 
 **Goal:** Register the lake, tag a PII column, create a row filter, and prove that an analyst role sees neither the `ssn` column nor other regions' rows.
 
@@ -257,7 +257,7 @@ If `ssn` returns data, either the column tag was never attached or the table is 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Turn LF on or off for a specific table (hybrid access mode)
@@ -316,7 +316,7 @@ aws lakeformation list-lf-tag-resources \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -333,7 +333,7 @@ aws lakeformation list-lf-tag-resources \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -350,7 +350,7 @@ aws lakeformation list-lf-tag-resources \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **Lake Formation itself has no additional charge.** You pay for the services that consume it: Athena per byte scanned, Glue jobs per DPU-hour, Redshift per second, EMR per instance-hour. So the cost section here is really about the costs your access design *causes*.
 
@@ -367,7 +367,7 @@ Two habits keep cost predictable. First, monitor Athena `ProcessedBytes` per wor
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Least privilege on grants.** `SELECT` and `DESCRIBE` cover read use cases; `ALTER`, `DROP`, and `ALL` belong to owners only.
 - **Never grant `--permissions-with-grant-option` outside the admin group.** It is a privilege-escalation primitive: the grantee can hand access onward.
@@ -381,7 +381,7 @@ Two habits keep cost predictable. First, monitor Athena `ProcessedBytes` per wor
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design and implement access for three teams on one governed table:
 
@@ -395,7 +395,7 @@ Success looks like: all three roles query successfully through Athena, only `Aud
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Lake Formation Developer Guide](https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html)
 - [Lake Formation Permissions Model](https://docs.aws.amazon.com/lake-formation/latest/dg/access-control-overview.html)
@@ -406,7 +406,7 @@ Success looks like: all three roles query successfully through Athena, only `Aud
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 The lake is now queryable and governed. The next lesson moves to the warehouse side of the same data — Amazon Redshift — where you trade serverless per-query billing for provisioned compute and gain the ability to tune physical layout directly.
 

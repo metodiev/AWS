@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 03 of 08
 > ⬅️ Previous: [Disaster Recovery](./02-disaster-recovery.md) · ➡️ Next: [Route 53](./04-route-53.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Networking is the part of an architecture that is hardest to change later. Subnet layouts leak into firewall rules, database connection strings, and third-party integrations; a CIDR range that collides with an acquisition's LAN can stall a migration for months. In multi-account, multi-region organizations, the goal is not "connect everything to everything" but **deliberate, controllable reachability**: networks that need to talk should be able to, networks that do not should fail to route by design.
 
@@ -47,7 +47,7 @@ Networking is the part of an architecture that is hardest to change later. Subne
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Why mesh peering does not scale, and what replaces it:
 
@@ -135,7 +135,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Two Hubs, One Network
+## Hands-on Lab: Two Hubs, One Network
 
 **Goal:** Build two Transit Gateways in different regions, attach a VPC to each, peer the TGWs, share one with another account, and verify a packet path with DNS resolution.
 
@@ -293,7 +293,7 @@ aws route53resolver associate-resolver-query-log-config \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Direct peering between two VPCs — same region or cross-region, non-overlapping CIDRs only
@@ -380,7 +380,7 @@ aws ec2 create-transit-gateway-connect \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -396,7 +396,7 @@ aws ec2 create-transit-gateway-connect \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -411,7 +411,7 @@ aws ec2 create-transit-gateway-connect \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 - **VPC peering** costs nothing for the connection itself — only data transfer, and cross-AZ transfer inside a region is billed (~$0.01/GB each direction). It is the cheapest option until the operational complexity becomes the real cost.
 - **Transit Gateway** is billed per **attachment-hour** (about $0.05/hour per VPC attachment in `eu-west-1`, roughly $36/month) plus **per-GB data processing** (~$0.02/GB). Twenty attachments is roughly $720/month before a single byte moves. That is the price of segmentation, transitive routing, and one place to manage routes.
@@ -424,7 +424,7 @@ aws ec2 create-transit-gateway-connect \
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Segmentation is a security control.** A flat TGW with one route table lets a compromised dev instance route to production; separate route tables with explicit propagation prevent that by construction.
 - **Prefer PrivateLink over peering for third parties and acquisitions.** Peering grants network reachability in both directions; PrivateLink grants exactly one service on one port.
@@ -438,7 +438,7 @@ aws ec2 create-transit-gateway-connect \
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 You are asked to connect four VPCs (production, staging, shared services, and a partner VPC in another AWS account) plus an on-premises network over Direct Connect. The production and staging VPCs both use `10.0.0.0/16`, and the partner's VPC is `10.10.0.0/16`, which also collides with your staging tier.
 
@@ -452,7 +452,7 @@ Success looks like: a reviewer can trace a packet from a staging instance to the
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Transit Gateway documentation](https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html)
 - [Transit Gateway route tables](https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html)
@@ -463,7 +463,7 @@ Success looks like: a reviewer can trace a packet from a staging instance to the
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have global, segmented connectivity — but every client still has to find the right endpoint, and every failover depends on DNS moving fast. The next lesson is Route 53: hosted zones, record types, health checks, all seven routing policies, and DNSSEC.
 

@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 05 of 11
 > ⬅️ Previous: [AWS CloudHSM](./04-aws-cloudhsm.md) · ➡️ Next: [AWS Security Hub](./06-aws-security-hub.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Nitro System** is the platform underneath every modern EC2 instance. Networking, storage, and management are handled by dedicated hardware cards rather than by a hypervisor running on the host CPU, and the hypervisor itself is deliberately thin. The consequence that matters here is that **AWS operators have no ability to log into the host, read instance memory, or touch customer data** — there is no SSH path into the Nitro controller, and AWS describes this as a design goal rather than a policy.
 
@@ -43,7 +43,7 @@ Real use cases follow directly from the property "root cannot read this memory".
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The topology: an enclave inside a Nitro instance, with the only exits being vsock to the parent and an attested KMS call to the outside world:
 
@@ -94,7 +94,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Attested Decryption in an Enclave
+## Hands-on Lab: Attested Decryption in an Enclave
 
 **Goal:** Build an enclave image, run it on an enclave-enabled instance, and prove that KMS will only decrypt when the PCR measurement matches.
 
@@ -289,7 +289,7 @@ aws ec2 modify-instance-attribute --instance-id i-0123456789abcdef0 \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Build an enclave image and print its measurements
@@ -332,7 +332,7 @@ aws ec2 describe-instances --instance-ids i-0123456789abcdef0 \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -347,7 +347,7 @@ aws ec2 describe-instances --instance-ids i-0123456789abcdef0 \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -362,7 +362,7 @@ aws ec2 describe-instances --instance-ids i-0123456789abcdef0 \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Nitro Enclaves themselves are **free** — there is no line item for the feature, the NSM, or the attestation. You pay for the EC2 instance that hosts the enclave, and that is where the design decision shows up. The enclave's vCPUs and memory are *carved out* of the instance, so if a workload needs 4 vCPUs for the enclave plus 4 for the parent, you need an instance with at least 8 vCPUs — and the parent's memory footprint usually means sizing up one class rather than sharing one.
 
@@ -370,7 +370,7 @@ Metal instances remove that friction at a much higher price point: they let you 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Attestation is only as strong as the measurement you pin.** A key policy that allows `kms:Decrypt` without a `RecipientAttestation` condition provides no enclave-specific protection at all.
 - **The parent instance remains a hostile environment by assumption.** Anyone with root on the parent can talk to your vsock API, so authenticate and validate every request the enclave accepts, and keep the API surface minimal.
@@ -383,7 +383,7 @@ Metal instances remove that friction at a much higher price point: they let you 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend the lab into a two-version rollout. Rebuild the enclave image with a trivial application change, record both `PCR0` values, and write a KMS key policy that permits decryption from **both** attested images during a migration window. Then narrow it back to only the new image and demonstrate the old image failing. Document, in five bullet points, the deployment procedure you would put in a runbook so a rebuild never silently locks production out of its own data.
 
@@ -391,7 +391,7 @@ Success looks like: `kmstool-enclave-cli` returns plaintext for the approved ima
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Nitro Enclaves User Guide](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html)
 - [Nitro Enclaves attestation](https://docs.aws.amazon.com/enclaves/latest/user/set-up-attestation.html)
@@ -403,7 +403,7 @@ Success looks like: `kmstool-enclave-cli` returns plaintext for the approved ima
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now control identity, keys, hardware custody, and isolated execution. The remaining gap is visibility: you need to know what is misconfigured, what is exposed, and what is actively attacking you — across every account. The next lesson starts that thread with Security Hub, the aggregation layer for all of it.
 

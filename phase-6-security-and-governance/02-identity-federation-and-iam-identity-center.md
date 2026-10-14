@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 02 of 11
 > ⬅️ Previous: [IAM Cross-Account Access](./01-iam-cross-account-access.md) · ➡️ Next: [AWS KMS](./03-aws-kms.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Federation** means AWS trusts somebody else's authentication. Instead of creating an IAM user with a password for each engineer, your identity provider (Okta, Entra ID, Google Workspace, Ping) authenticates the human, and AWS only issues credentials *after* receiving a signed assertion from that provider. Federation is not a nicety — it removes the largest category of long-lived credentials in most accounts.
 
@@ -42,7 +42,7 @@ The access model you choose matters more than the tooling. **RBAC** assigns perm
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Identity Center with an external IdP, SCIM, and permission sets materializing as roles in member accounts:
 
@@ -100,7 +100,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Federate a Group into Two Accounts
+## Hands-on Lab: Federate a Group into Two Accounts
 
 **Goal:** Wire an external OIDC provider, create permission sets, and prove that group membership alone decides who can reach production.
 
@@ -245,7 +245,7 @@ Attach that as the inline policy of a permission set and pass the tag through th
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Identity Center instance inventory
@@ -292,7 +292,7 @@ aws s3 ls --profile prod-admin
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -307,7 +307,7 @@ aws s3 ls --profile prod-admin
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -320,7 +320,7 @@ aws s3 ls --profile prod-admin
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 IAM Identity Center is **free** for its core capability — you pay nothing for users, groups, permission sets, or assignments. Two things do cost money. First, if you choose Identity Center's **built-in directory** instead of an external IdP, there is a per-user monthly charge for identities beyond the free allowance. Second, if your IdP offers SSO for other applications too, you are already paying the IdP vendor — federation into AWS typically costs nothing incremental.
 
@@ -328,7 +328,7 @@ The savings are indirect but large: eliminating IAM users and their access keys 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **MFA lives at the IdP, and it must be mandatory.** AWS cannot enforce MFA on SAML sessions beyond requiring a condition on the trust; make MFA a hard IdP policy for every human, including third parties.
 - **Restrict which assertion attributes become tags.** Principal tags derived from IdP attributes are a privilege-escalation vector: if a user can set `department` in a self-service profile and a policy grants access by that tag, they can grant themselves access. Treat attribute mapping as privileged configuration.
@@ -340,7 +340,7 @@ The savings are indirect but large: eliminating IAM users and their access keys 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design an entitlement model for a company with three teams (Platform, Data, Payments) and three accounts (shared-services, data-lake, prod). Write the short version of the model as a table of group → account → permission set, then implement one row of it end to end from your IdP through to a working `aws s3 ls` against the assigned account. Finally, replace one role-based assignment with an ABAC policy that keys off a `team` tag, and demonstrate that a user tagged for Data cannot start an EC2 instance tagged `team=Payments` even though the policy grants `ec2:StartInstances` on `*`.
 
@@ -348,7 +348,7 @@ Success looks like: `aws sts get-caller-identity` returns an assumed-role ARN bu
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What is IAM Identity Center?](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html)
 - [SAML federation into AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
@@ -360,7 +360,7 @@ Success looks like: `aws sts get-caller-identity` returns an assumed-role ARN bu
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Federation answers *who* the caller is. The next lesson answers what happens to the data that caller touches: KMS key policies, envelope encryption, and grants decide who can decrypt — and those decisions survive long after a session expires.
 

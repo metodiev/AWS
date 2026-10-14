@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 01 of 08
 > ⬅️ Previous: [Capstone: Secure 3-Tier Web App](../phase-1-core-foundations/18-project-secure-3-tier-web-app.md) · ➡️ Next: [Disaster Recovery](./02-disaster-recovery.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Availability** is the fraction of time a system answers correctly. It is usually written as a number of nines: 99.9% ("three nines") allows about 43 minutes of downtime per month, 99.99% allows about 4 minutes, and 99.999% allows about 26 seconds. Availability is a property of the whole path a request takes — DNS, CDN, load balancer, compute, and database — and multiplying the availability of components in series is brutal. Two components at 99.9% in series give you 99.8%. Redundancy in parallel is how you buy the number back.
 
@@ -46,7 +46,7 @@ The single most powerful availability technique is **statelessness**. If an appl
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A three-tier workload spread across three AZs. Every layer has at least two independent copies:
 
@@ -108,7 +108,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Multi-AZ ALB with Self-Healing Targets
+## Hands-on Lab: Multi-AZ ALB with Self-Healing Targets
 
 **Goal:** Build a load-balanced, Multi-AZ web tier, then deliberately kill a target and watch the load balancer route around it.
 
@@ -229,7 +229,7 @@ RDS Multi-AZ failover normally completes in 60–120 seconds, during which conne
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List every load balancer with its DNS name and state
@@ -289,7 +289,7 @@ aws autoscaling describe-scaling-activities --auto-scaling-group-name app-asg --
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -304,7 +304,7 @@ aws autoscaling describe-scaling-activities --auto-scaling-group-name app-asg --
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -319,7 +319,7 @@ aws autoscaling describe-scaling-activities --auto-scaling-group-name app-asg --
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 High availability is a redundancy purchase, and you should know what you are buying:
 
@@ -332,7 +332,7 @@ High availability is a redundancy purchase, and you should know what you are buy
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Load balancers belong in public subnets; targets do not.** Keep the compute tier in private subnets and reference the load balancer's security group as the only allowed source on the target security group.
 - **Terminate TLS at the load balancer with ACM certificates**, redirect HTTP to HTTPS at the listener level, and enforce a modern security policy (`ELBSecurityPolicy-TLS13-1-2-2021-06` or newer).
@@ -343,7 +343,7 @@ High availability is a redundancy purchase, and you should know what you are buy
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the stack you built in the lab and make it survive a full AZ failure with zero manual intervention. Add a third AZ to the Auto Scaling group, place the target group across all three, and configure a CloudWatch alarm on `UnHealthyHostCount` that notifies an SNS topic.
 
@@ -353,7 +353,7 @@ Success looks like: with all instances in one AZ terminated simultaneously, `des
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Elastic Load Balancing: what is load balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
 - [Application Load Balancer target groups and health checks](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
@@ -364,7 +364,7 @@ Success looks like: with all instances in one AZ terminated simultaneously, `des
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Multi-AZ protects you from a data center failing. It does nothing when an entire region, an account, or a logical mistake in your deployment pipeline takes everything down at once. The next lesson takes the RTO and RPO numbers you just measured and turns them into four concrete disaster recovery strategies, each with a price tag.
 

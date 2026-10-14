@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 04 of 13
 > ⬅️ Previous: [AWS CDK](./03-aws-cdk.md) · ➡️ Next: [CodePipeline](./05-codepipeline.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Terraform reads **HCL** configuration, compares it with a **state file**, and produces a plan. Every construct in HCL is about feeding that comparison: `variable` blocks parameterize, `locals` compute intermediate values, `data` blocks read facts from the provider without managing them, and `output` blocks publish values for humans or other configurations. Resources are the only blocks that create infrastructure.
 
@@ -46,7 +46,7 @@ Finally, adoption. Almost nobody starts greenfield, so `terraform import` (or th
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The Terraform run loop against remote state:
 
@@ -95,7 +95,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Remote State, a Module, and an Import
+## Hands-on Lab: Remote State, a Module, and an Import
 
 **Goal:** Build an S3-backed, DynamoDB-locked Terraform configuration that deploys a hardened artifact bucket from a reusable module, then import a pre-existing bucket into it.
 
@@ -470,7 +470,7 @@ terraform workspace select dev && terraform destroy
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Reconfigure the backend after changing the key or bucket
@@ -520,7 +520,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_arm64
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -537,7 +537,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_arm64
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -552,7 +552,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_arm64
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Terraform itself is free (HashiCorp's open-source CLI). The S3 state bucket costs cents per month, and a DynamoDB table in `PAY_PER_REQUEST` mode costs fractions of a cent per lock operation. HCP Terraform, the managed alternative, is priced per managed resource per hour with a limited free tier — worth it for teams that want remote runs and policy enforcement without operating the backend.
 
@@ -560,7 +560,7 @@ The expensive part is Terraform's power: a `for_each` over ten availability zone
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **State files contain secrets in plaintext.** RDS passwords, generated keys, and provider-returned tokens all land in state. Encrypt the S3 bucket with KMS, block public access, enable versioning, and restrict `s3:GetObject` on the state prefix to the CI role and a break-glass admin role.
 - **Never commit `.tfvars` with credentials.** Pass secrets as `TF_VAR_` environment variables from your CI secret store, or read them with `data "aws_secretsmanager_secret_version"`. `sensitive = true` only redacts output — the value is still in state.
@@ -571,7 +571,7 @@ The expensive part is Terraform's power: a `for_each` over ten availability zone
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Refactor the lab so the bucket created directly in the root configuration is fully owned by the module, then add a customer-managed KMS key and pass its ARN in through `kms_key_arn`. Use `moved` blocks so the refactor causes no destroy.
 
@@ -579,7 +579,7 @@ Success looks like: `terraform plan` reports only an in-place update to the buck
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Terraform Language Documentation](https://developer.hashicorp.com/terraform/language)
 - [S3 Backend Reference](https://developer.hashicorp.com/terraform/language/settings/backends/s3)
@@ -590,7 +590,7 @@ Success looks like: `terraform plan` reports only an in-place update to the buck
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now describe infrastructure in three different languages. What you cannot yet do is ship it automatically on every commit — that is the job of the next lesson: AWS CodePipeline, CodeBuild, and CodeDeploy working together.
 

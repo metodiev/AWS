@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 11 of 18
 > ⬅️ Previous: [Amazon EFS](./10-efs.md) · ➡️ Next: [VPC Fundamentals](./12-vpc-fundamentals.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **lifecycle configuration** is a set of rules attached to a bucket. Each rule matches a subset of objects — by prefix, tag, or object size — and applies one or more **actions** after a period of time. The two action families are **transition** (change storage class) and **expiration** (delete).
 
@@ -46,7 +46,7 @@ A fourth, easy-to-miss action is **`AbortIncompleteMultipartUpload`**. Failed or
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A complete lifecycle for a versioned log bucket:
 
@@ -78,7 +78,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Automate a Retention Schedule
+## Hands-on Lab: Automate a Retention Schedule
 
 **Goal:** Apply a lifecycle policy to a versioned bucket that moves data to cheaper classes as it ages, expires transient log data, and — critically — cleans up noncurrent versions so the bill actually falls.
 
@@ -178,7 +178,7 @@ aws s3api put-bucket-lifecycle-configuration \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Show the current lifecycle configuration
@@ -221,7 +221,7 @@ aws s3api put-bucket-inventory-configuration \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -236,7 +236,7 @@ aws s3api put-bucket-inventory-configuration \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -253,7 +253,7 @@ A subtle but expensive one worth expanding: **transitioning very small objects i
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Lifecycle policies are **free** — there is no charge for creating or evaluating rules. There are, however, charges for the transitions themselves and for early deletion.
 
@@ -279,7 +279,7 @@ The other lifecycle-adjacent saving worth knowing: **S3 Intelligent-Tiering**. F
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Lifecycle rules can delete data, so they are a security control surface.** Restrict `s3:PutLifecycleConfiguration` to a narrow role. Someone who can change a lifecycle rule can silently destroy your retention guarantee.
 - **A short expiry can defeat a compliance obligation.** If a regulation requires seven-year retention, a lifecycle rule expiring at 365 days is a compliance breach, not a cost optimization. Retention requirements must come from the business, not from an engineer's guess.
@@ -290,7 +290,7 @@ The other lifecycle-adjacent saving worth knowing: **S3 Intelligent-Tiering**. F
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 You have a bucket receiving three kinds of data, each with a different requirement:
 
@@ -304,7 +304,7 @@ Success looks like: each rule maps to a stated requirement, the total steady-sta
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Managing the Lifecycle of S3 Objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html)
 - [Lifecycle Configuration Elements](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html)
@@ -315,7 +315,7 @@ Success looks like: each rule maps to a stated requirement, the total steady-sta
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Storage is complete. The next four lessons move to networking — the part of AWS where a single misunderstanding produces an architecture that looks correct in a diagram but does not pass a single packet.
 

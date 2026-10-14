@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 04 of 11
 > ⬅️ Previous: [AWS KMS](./03-aws-kms.md) · ➡️ Next: [Nitro Enclaves](./05-nitro-enclaves.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS CloudHSM** gives you dedicated hardware security modules inside AWS. The HSM is a physical device in an AWS data center, connected to your VPC by an elastic network interface in a subnet you choose — but the *cryptographic module* is single-tenant. No other AWS customer shares the device, the partitions, or the tamper-protected key store. That property, not raw performance, is the reason CloudHSM exists.
 
@@ -45,7 +45,7 @@ You can get the best of both worlds with a **KMS custom key store**: point KMS a
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Two CloudHSM appliances in two Availability Zones, plus a custom key store so KMS applications can use them:
 
@@ -99,7 +99,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Create a Two-AZ CloudHSM Cluster
+## Hands-on Lab: Create a Two-AZ CloudHSM Cluster
 
 **Goal:** Build a highly available CloudHSM cluster, initialize it with the client SDK, and confirm a backup exists.
 
@@ -235,7 +235,7 @@ Deletion takes effect and stops billing once the final backup is written; keep t
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inventory clusters, HSMs, and their Availability Zones
@@ -278,7 +278,7 @@ aws cloudhsm describe-hsm --hsm-arn arn:aws:cloudhsm:us-east-1:111122223333:hsm/
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -293,7 +293,7 @@ aws cloudhsm describe-hsm --hsm-arn arn:aws:cloudhsm:us-east-1:111122223333:hsm/
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -307,7 +307,7 @@ aws cloudhsm describe-hsm --hsm-arn arn:aws:cloudhsm:us-east-1:111122223333:hsm/
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 CloudHSM is priced per HSM-hour and is by far the most expensive option in this phase. A single HSM costs roughly **$1.45 per hour** (us-east-1 list) which is about **$1,050 per month**; a production pair in two AZs is therefore around **$2,100 per month**, before any data transfer. Backups beyond the included retention, and cross-Region backup copies, add storage and transfer charges. Legacy Dedicated HSM is priced similarly per hour but gives you no clustering.
 
@@ -315,7 +315,7 @@ The only sane way to look at this bill is *per protected workload*: $2,100/month
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **You own custody, so you own the loss.** AWS has no escrow of your HSM keys. Document who holds the customer CA key, how backups are protected, and how recovery is tested at least annually.
 - **The cluster certificate chain is the trust anchor for the cluster.** Anyone with the customer CA key can add an HSM to your cluster or forge cluster authentication, so treat that key as your highest-value secret.
@@ -328,7 +328,7 @@ The only sane way to look at this bill is *per protected workload*: $2,100/month
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Write a one-page decision record for a fictional payments platform that must sign card transactions with an HSM-resident key, store the signing key under dual control, and prove FIPS 140-2 Level 3 to an auditor. In the record, state whether you chose KMS, KMS with a custom key store, or CloudHSM directly; name the exact CLI commands you would use to provision it; and include a worked monthly cost estimate for a two-AZ production cluster plus a DR backup Region. Finish by listing the three events that would cause you to reconsider the decision.
 
@@ -336,7 +336,7 @@ Success looks like: a decision record with a defensible cost figure (within ~10%
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS CloudHSM User Guide](https://docs.aws.amazon.com/cloudhsm/latest/userguide/introduction.html)
 - [CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/clusters.html)
@@ -348,7 +348,7 @@ Success looks like: a decision record with a defensible cost figure (within ~10%
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 CloudHSM protects keys, and KMS protects data at rest, but neither protects data *while a process is using it* on a shared instance — a root-level attacker on the host can read memory. The next lesson covers Nitro Enclaves, which carve out an isolated execution environment on a Nitro instance precisely for that gap.
 

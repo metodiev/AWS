@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 16 of 18
 > ⬅️ Previous: [Network ACLs](./15-network-acls.md) · ➡️ Next: [CloudTrail](./17-cloudtrail.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **CloudWatch** is three products wearing one name, and conflating them causes most confusion:
 
@@ -56,7 +56,7 @@ The distinction that separates useful monitoring from noise: **`INSUFFICIENT_DAT
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How the three CloudWatch surfaces connect:
 
@@ -92,7 +92,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Custom Metrics, a Useful Alarm, and a Logs Insights Query
+## Hands-on Lab: Custom Metrics, a Useful Alarm, and a Logs Insights Query
 
 **Goal:** Publish an application-level metric, alarm on a *business* condition rather than CPU, extract a metric from log lines, and query logs with Logs Insights.
 
@@ -237,7 +237,7 @@ The third one is the query that answers "did the deploy break anything?" — and
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Get statistics for a metric over a window
@@ -277,7 +277,7 @@ aws logs put-retention-policy --log-group-name /myapp/api --retention-in-days 30
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -292,7 +292,7 @@ aws logs put-retention-policy --log-group-name /myapp/api --retention-in-days 30
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -307,7 +307,7 @@ aws logs put-retention-policy --log-group-name /myapp/api --retention-in-days 30
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 CloudWatch is often the surprise line item in an AWS bill, because most of it is usage-based and grows silently. The four components:
 
@@ -331,7 +331,7 @@ One more note worth internalizing: **CloudWatch Logs and S3 are not interchangea
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Logs frequently contain sensitive data.** Application logs are where passwords, tokens, personal data, and full request bodies end up. Use the CloudWatch Logs data protection feature to detect and mask sensitive data, or scrub at the application layer before logging.
 - **Encrypt log groups with a customer-managed KMS key.** CloudWatch Logs encrypts at rest by default, but a CMK gives you control of the key policy, and therefore control of who can decrypt your logs.
@@ -343,7 +343,7 @@ One more note worth internalizing: **CloudWatch Logs and S3 are not interchangea
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a monitoring setup for a simple HTTP API with these requirements:
 
@@ -359,7 +359,7 @@ Success looks like: every alarm is actionable by an on-call engineer, the cost e
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
 - [Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
@@ -370,7 +370,7 @@ Success looks like: every alarm is actionable by an on-call engineer, the cost e
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 CloudWatch tells you how your systems are behaving. It does not tell you who changed a security group at 2am, or who deleted a bucket. That is a different question, and it needs a different service.
 

@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 18 of 18
 > ⬅️ Previous: [CloudTrail](./17-cloudtrail.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this capstone you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this capstone you will be able to:
 
 ---
 
-## 🧠 The Brief
+## The Brief
 
 You are building the production environment for a small but real application: a web frontend, an application API, and a relational database. The requirement is not "make it work" — a single EC2 instance with a public IP would technically satisfy that. The requirement is to build it the way a competent team builds it, and to be able to **defend every decision**.
 
@@ -26,7 +26,7 @@ Everything you need was covered in Lessons 01 through 17. This lesson is about c
 
 ---
 
-## 🗺️ Target Architecture
+## Target Architecture
 
 The reference design. Your implementation may differ, but every deviation must be a deliberate, documented decision.
 
@@ -82,7 +82,7 @@ flowchart LR
 
 ---
 
-## ✅ Hard Requirements
+## Hard Requirements
 
 These are not optional. Each one maps to a lesson, and a reviewer will check each one.
 
@@ -132,7 +132,7 @@ These are not optional. Each one maps to a lesson, and a reviewer will check eac
 
 ---
 
-## 🧪 Implementation Path
+## Implementation Path
 
 Work through these stages in order. Each ends with a verification step — do not proceed until it passes.
 
@@ -325,7 +325,7 @@ aws ec2 delete-vpc --vpc-id "$VPC"
 
 ---
 
-## 📋 Deliverables
+## Deliverables
 
 Produce all six. Each is a real artifact, not a summary.
 
@@ -367,7 +367,7 @@ The table from Stage 7, filled in with actual measured recovery times, plus a pa
 
 ---
 
-## 🎯 Review Questions
+## Review Questions
 
 Answer these without looking anything up. If you cannot, that lesson needs another pass.
 
@@ -382,7 +382,7 @@ Answer these without looking anything up. If you cannot, that lesson needs anoth
 
 ---
 
-## 💰 Cost Estimate Template
+## Cost Estimate Template
 
 Fill in with your actual region's pricing. A minimal version of this architecture in `eu-west-1`:
 
@@ -404,7 +404,7 @@ Now compute what this same architecture would cost if it handled 100 times the t
 
 ---
 
-## 🧩 Extension Challenges
+## Extension Challenges
 
 If you finish early, these are ordered by difficulty:
 
@@ -416,7 +416,7 @@ If you finish early, these are ordered by difficulty:
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/well-architected/latest/framework/welcome.html)
 - [Building a Three-Tier Architecture on AWS](https://docs.aws.amazon.com/whitepapers/latest/serverless-multi-tier-architectures-api-gateway-lambda/welcome.html)
@@ -427,7 +427,7 @@ If you finish early, these are ordered by difficulty:
 
 ---
 
-## 🏁 Phase 1 Complete
+## Phase 1 Complete
 
 You have built a secure, observable, auditable three-tier application and — more importantly — you can explain every decision in it.
 

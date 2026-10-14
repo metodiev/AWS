@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 01 of 18
 > ➡️ Next: [IAM Roles](./02-iam-roles.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An **IAM user** is a digital identity in AWS that represents a person or an application. It authenticates to AWS and then acts with whatever permissions its policies grant.
 
@@ -47,7 +47,7 @@ The single most important thing to internalize in this lesson is that **IAM user
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How a user's credentials turn into an authorized API call:
 
@@ -79,7 +79,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Creating an IAM User
+## Hands-on Lab: Creating an IAM User
 
 **Goal:** Create a user with a group-based permission model, and verify that the permissions are exactly what you intended — no more.
 
@@ -182,7 +182,7 @@ If the copy succeeds, the user has more than the group grants — check for a di
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Identity check — the fastest way to know who you are authenticated as
@@ -220,7 +220,7 @@ aws iam list-user-policies --user-name dev-user
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -235,7 +235,7 @@ aws iam list-user-policies --user-name dev-user
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -250,7 +250,7 @@ aws iam list-user-policies --user-name dev-user
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 IAM users, groups, policies, and MFA devices are all **free**. There is no charge for creating identities or for the API calls that manage them.
 
@@ -265,7 +265,7 @@ CloudTrail management events are free for the first trail, so the audit trail th
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Prefer federation over users.** IAM Identity Center gives humans temporary credentials through your existing identity provider, with MFA enforced centrally and no per-user passwords to manage.
 - **Root account is not a user.** Enable MFA on root, never create root access keys, and do not use root for daily work.
@@ -277,7 +277,7 @@ CloudTrail management events are free for the first trail, so the audit trail th
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 - Create a user `app-deployer` with programmatic access only.
 - Attach `AmazonEC2FullAccess` and `AmazonS3FullAccess` policies — note that in a real account you would scope these far more tightly, and the point of the exercise is to then observe how broad they are.
@@ -293,7 +293,7 @@ Success looks like: the CLI configuration is stored under the named profile `app
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS IAM Users Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html)
 - [IAM Policy Examples](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html)
@@ -304,7 +304,7 @@ Success looks like: the CLI configuration is stored under the named profile `app
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 This lesson covered how to create and configure IAM users, assign correct permissions via policies or groups, and apply AWS IAM best practices for user management. The next lesson covers the identity type you should reach for in almost every non-human scenario — and the one that removes long-lived credentials entirely.
 

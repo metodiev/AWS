@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 05 of 08
 > ⬅️ Previous: [HIPAA-Ready Storage](./04-hipaa-ready-storage.md) · ➡️ Next: [Media — IVS, Transcoder, and CDN](./06-media-ivs-transcoder-and-cdn.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Multiplayer games need something most web applications never do: a **stateful, authoritative server process** that several clients connect to simultaneously, on a machine chosen for proximity to those clients. You cannot put a game server behind an auto-scaling group of stateless containers and hope for the best, because the session's state lives in one process and every player's client is sending inputs to it dozens of times per second. **Amazon GameLift Servers** (the service formerly branded simply as Amazon GameLift, and still `gamelift` in the CLI and API) solves the parts that are genuinely hard: placing sessions on hosts, keeping capacity warm in several Regions, replacing unhealthy instances, and connecting players to the right process.
 
@@ -44,7 +44,7 @@ A **build** is your compiled game server plus the GameLift Server SDK integratio
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The path from a player tapping "Find Match" to a connected session on the nearest healthy host:
 
@@ -115,7 +115,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: A Multi-Location Fleet with FlexMatch and Latency-Aware Placement
+## Hands-on Lab: A Multi-Location Fleet with FlexMatch and Latency-Aware Placement
 
 **Goal:** Upload a game build, run it on a fleet in two locations, publish a FlexMatch ruleset that prefers low latency and balanced skill, place sessions through a latency-aware queue, and attach a target-tracking scaling policy.
 
@@ -464,7 +464,7 @@ Client-side telemetry from your game server (via the CloudWatch agent on EC2 fle
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # All fleets and their status, one line each
@@ -501,7 +501,7 @@ aws gamelift stop-matchmaking --ticket-id <ticket-id>
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -517,7 +517,7 @@ aws gamelift stop-matchmaking --ticket-id <ticket-id>
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -533,7 +533,7 @@ aws gamelift stop-matchmaking --ticket-id <ticket-id>
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 GameLift is priced per **instance-hour** of running fleet capacity, per **GB of data transfer out**, and per **matchmaking request**, with Spot fleets offering a substantial discount over on-demand in exchange for interruption tolerance. GameLift instance rates track slightly above equivalent EC2 on-demand prices, which is the price of the managed placement, replacement, and session layer.
 
@@ -549,7 +549,7 @@ What drives the bill:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The client is hostile.** Assume every value from a client is attacker-controlled until the server validates it: movement vectors, scores, item counts, and matchmaking attributes.
 - **Player sessions are the door.** Reserve them server-side, with a short expiry, and never allow a client to request one for a game session it was not matched into.
@@ -563,7 +563,7 @@ What drives the bill:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design and implement a spill-over placement strategy: a queue whose primary destination is a two-instance minimum warm fleet in the closest location, with a second destination that has zero warm capacity but scales on demand, plus a `PercentAvailableGameSessions` scaling policy on the warm fleet and a stricter one on the spill fleet. Instrument the matchmaking path so you can report, per ticket, which destination served it and how long the player waited.
 
@@ -571,7 +571,7 @@ Success looks like: a synthetic burst of 200 tickets is served without any ticke
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon GameLift Servers Developer Guide](https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-intro.html)
 - [GameLift FlexMatch ruleset reference](https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-rulesets.html)
@@ -583,7 +583,7 @@ Success looks like: a synthetic burst of 200 tickets is served without any ticke
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have the shape of a real-time, latency-bound, adversarial workload: capacity that must be warm in the right place, placement that must respect physics, and an edge that must absorb abuse. The next lesson keeps the real-time requirement but changes the payload from game state to video, where the scaling unit becomes bitrate and the CDN does most of the work.
 

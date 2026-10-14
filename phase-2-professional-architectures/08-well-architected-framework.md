@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 08 of 08
 > ⬅️ Previous: [Cost Optimization](./07-cost-optimization.md) · ➡️ Next: [Phase 3 — DevOps and Automation](../phase-3-devops-and-automation/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 The **AWS Well-Architected Framework** is a structured set of questions and best practices distilled from running thousands of workloads on AWS. It is not a checklist of services; it is a way of arguing about architecture using shared vocabulary so that a review produces decisions instead of opinions. The framework is organized into **six pillars**:
 
@@ -58,7 +58,7 @@ Finally, the framework is deliberately **iterative**. You review at design time 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The six pillars and the question each one answers:
 
@@ -114,7 +114,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Run a Real Review and Save the Milestone
+## Hands-on Lab: Run a Real Review and Save the Milestone
 
 **Goal:** Create a workload in the Well-Architected Tool, answer a pillar honestly, extract the improvement plan, and save a milestone.
 
@@ -260,7 +260,7 @@ Decode `lens-review-report.b64` to get a PDF you can attach to the review ticket
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Every check available from Trusted Advisor (full set requires a Business or higher support plan)
@@ -299,7 +299,7 @@ aws wellarchitected update-workload \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 Every pillar below lists its published design principles, then the practices this roadmap's earlier lessons put into action.
 
@@ -377,7 +377,7 @@ Every pillar below lists its published design principles, then the practices thi
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -392,7 +392,7 @@ Every pillar below lists its published design principles, then the practices thi
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The Well-Architected Tool itself is **free** — there is no charge for workloads, lens reviews, or milestones. That makes the review's cost an opportunity cost: typically two to four hours for a small workload and a day or two for a complex platform, spread across the people who own it.
 
@@ -406,7 +406,7 @@ The economics of reviewing are almost always favorable, because reviews find mon
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The Security pillar is not the whole of security.** Reviews cover design and process; they do not replace threat modeling, penetration testing, or a vulnerability management program.
 - **Never paste secrets, customer data, or internal hostnames into review notes.** Workload descriptions and answers are stored in the tool and visible to everyone with access to the account. Refer to systems by role, not by address.
@@ -418,7 +418,7 @@ The economics of reviewing are almost always favorable, because reviews find mon
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Run a full Well-Architected review of the capstone project you built in this phase, then turn it into engineering work:
 
@@ -432,7 +432,7 @@ Success looks like: a saved milestone showing a measurable reduction in risk cou
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [AWS Well-Architected Tool User Guide](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html)
@@ -447,7 +447,7 @@ Success looks like: a saved milestone showing a measurable reduction in risk cou
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Phase 2 ends here, and you now have the whole professional architecture toolkit: availability, disaster recovery, global networking, edge delivery, cost discipline, and a review process that keeps all of it honest. Phase 3 turns these architectures into deployable, repeatable systems with Infrastructure as Code, CI/CD pipelines, and containers — because the best architecture in the world is worthless if only one person can deploy it.
 

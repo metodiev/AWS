@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 04 of 18
 > ⬅️ Previous: [IAM Policies](./03-iam-policies.md) · ➡️ Next: [EC2 Basics](./05-ec2-basics.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An **SCP** is an IAM policy that you attach to an organization root, an organizational unit (OU), or an individual account inside AWS Organizations. It does not grant permissions. It defines the **maximum** permissions that any principal in the attached accounts can ever use — a hard ceiling that no identity-based policy can punch through.
 
@@ -44,7 +44,7 @@ For most organizations the pragmatic answer is deny-list at the root with a few 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Where SCPs sit relative to everything else:
 
@@ -76,7 +76,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Build a Guardrail Baseline
+## Hands-on Lab: Build a Guardrail Baseline
 
 **Goal:** Prevent two genuinely dangerous classes of action across every member account — disabling audit logging, and using the root user — while leaving normal work untouched.
 
@@ -174,7 +174,7 @@ The second command is the one that matters. If `stop-logging` succeeds, the SCP 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List every SCP in the organization
@@ -209,7 +209,7 @@ aws organizations describe-effective-policy \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -223,7 +223,7 @@ aws organizations describe-effective-policy \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -236,7 +236,7 @@ aws organizations describe-effective-policy \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 AWS Organizations, OUs, and SCPs are **free**. There is no per-policy or per-account charge.
 
@@ -246,7 +246,7 @@ One cost to be aware of: CloudTrail records every denied API call, so aggressive
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **SCPs are preventive, not detective.** They block an action up front. Pair them with CloudTrail, Config, and Security Hub so you also know when someone *tried*.
 - **Deny, don't hide.** The best guardrails target destructive actions (`Delete*`, `StopLogging`, `LeaveOrganization`, `Disable*`) rather than reading actions.
@@ -294,7 +294,7 @@ Note the `NotAction` list: global services such as IAM and Route 53 do not live 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Write an SCP that enforces two rules across a `Sandbox` OU:
 
@@ -307,7 +307,7 @@ Success looks like: the sandbox can still launch an `m5.large` and use all other
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Service Control Policies — AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
 - [SCP Syntax and Evaluation](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html)
@@ -316,7 +316,7 @@ Success looks like: the sandbox can still launch an `m5.large` and use all other
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Identity and access are now covered end to end: users, roles, policies, and organization guardrails. Next we move to the first compute primitive — EC2 — where IAM roles stop being an abstraction and start showing up as instance profiles attached to real machines.
 

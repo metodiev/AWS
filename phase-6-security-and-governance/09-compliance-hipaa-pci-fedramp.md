@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 09 of 11
 > ⬅️ Previous: [Amazon Macie](./08-amazon-macie.md) · ➡️ Next: [AWS Organizations and Multi-Account Strategy](./10-aws-organizations-multi-account-strategy.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Compliance is not a product you enable; it is a set of claims you make about your system that somebody else verifies. AWS can only make claims about the layer it operates — that is the **shared responsibility model**. AWS is responsible for security *of* the cloud: the physical data centers, the hypervisor, the managed service implementations, and the certifications that describe them. You are responsible for security *in* the cloud: your data classification, encryption choices, identity configuration, logging, and the accuracy of what you tell an auditor. Almost every compliance misunderstanding comes from assuming a certificate covers the customer's layer.
 
@@ -46,7 +46,7 @@ The last concept is **evidence engineering**. Controls that exist but cannot be 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The shared responsibility split, which is the conversation every audit starts with:
 
@@ -107,7 +107,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Build the Evidence Chain for a HIPAA Workload
+## Hands-on Lab: Build the Evidence Chain for a HIPAA Workload
 
 **Goal:** Accept the BAA, enforce HIPAA-oriented configuration continuously, and produce an assessment report an auditor can read.
 
@@ -282,7 +282,7 @@ aws securityhub get-enabled-standards
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # AWS Artifact: reports and agreements
@@ -326,7 +326,7 @@ aws ec2 describe-regions --all-regions --query 'Regions[].RegionName'
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -341,7 +341,7 @@ aws ec2 describe-regions --all-regions --query 'Regions[].RegionName'
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -356,7 +356,7 @@ aws ec2 describe-regions --all-regions --query 'Regions[].RegionName'
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The compliance services themselves are inexpensive relative to the engineering effort: **AWS Artifact is free**, **AWS Config** charges about **$0.003 per configuration item recorded** plus roughly **$0.001 per rule evaluation** per Region, **Audit Manager** is priced per assessment (approximately **$0.30 per resource assessed per month**), and **Security Hub** charges per check as covered in Lesson 06. A conformance pack with 200 rules across 40 accounts sounds cheap per rule and becomes a five-figure annual line item at scale.
 
@@ -364,7 +364,7 @@ The dominant costs are *organizational*, not technical. A broader PCI scope mean
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Compliance is a floor, not a goal.** Meeting PCI DSS does not mean your environment is hard to breach; it means it meets a baseline that many breached organizations also met.
 - **The BAA defines what you may do with PHI**, including breach notification timelines. Read it — the obligations it places on you are operational, not administrative.
@@ -376,7 +376,7 @@ The dominant costs are *organizational*, not technical. A broader PCI scope mean
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Pick one obligation you could plausibly face — HIPAA, PCI DSS, or FedRAMP Moderate — and write a two-page control mapping for a three-tier web application on AWS. For each of the areas below, name the AWS service or configuration that satisfies it, and state whether the control is **inherited from AWS**, **shared**, or **entirely yours**: encryption at rest, encryption in transit, key management, network segmentation, access control, logging and monitoring, vulnerability management, and incident response. Then deploy one conformance pack for that framework into a sandbox account and record the count of non-compliant rules before and after fixing the cheapest three.
 
@@ -384,7 +384,7 @@ Success looks like: a control table with a named implementation and a clear owne
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
 - [HIPAA compliance on AWS](https://aws.amazon.com/compliance/hipaa-compliance/)
@@ -398,7 +398,7 @@ Success looks like: a control table with a named implementation and a clear owne
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Every control in this lesson assumes you have somewhere to put it: a set of accounts with boundaries that mean something, guardrails applied consistently, and logs in a place nobody can quietly edit. The next lesson builds exactly that foundation with AWS Organizations.
 

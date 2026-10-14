@@ -15,7 +15,7 @@ This repository is a **skill tree**, not a link collection. Each phase builds on
 
 ---
 
-## 🧭 How to Use This Repo
+## How to Use This Repo
 
 1. **Read the phase overview first.** Each `README.md` inside a phase folder explains the goals, the lesson order, and the capstone project.
 2. **Work the lessons in order.** Numbering is deliberate — later lessons assume earlier ones.
@@ -41,7 +41,7 @@ flowchart LR
 
 ---
 
-## 📚 Phase Index
+## Phase Index
 
 | Phase | Focus | Lessons | Capstone |
 |-------|-------|---------|----------|
@@ -307,7 +307,7 @@ flowchart LR
 
 ---
 
-## 🎓 Certification Mapping
+## Certification Mapping
 
 The phases line up with the AWS certification ladder, so the same study serves both purposes.
 
@@ -327,7 +327,7 @@ The phases line up with the AWS certification ladder, so the same study serves b
 
 ---
 
-## 🗺️ Suggested Pace
+## Suggested Pace
 
 | Timeline | Phases | Outcome |
 |----------|--------|---------|
@@ -341,7 +341,7 @@ This is a guide, not a schedule. Depth beats speed — finishing Phase 1 with a 
 
 ---
 
-## 📖 Conventions Used in This Repo
+## Conventions Used in This Repo
 
 - **Diagrams** are Mermaid code blocks, so they render on GitHub and can be edited as text.
 - **Cost figures** are approximate `eu-west-1` prices and are meant to show relative magnitude and the right questions to ask, not to be a quote.
@@ -351,7 +351,7 @@ This is a guide, not a schedule. Depth beats speed — finishing Phase 1 with a 
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Corrections, additional labs, and clearer diagrams are welcome. When adding a lesson:
 
@@ -361,13 +361,13 @@ Corrections, additional labs, and clearer diagrams are welcome. When adding a le
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 These tutorials are for learning. Everything here creates real AWS resources that cost real money. Most labs include a teardown step — use it. Set a budget alarm before you begin, and always delete what you created.
 
 ---
 
-## 🏁 End Goal
+## End Goal
 
 - Multi-specialty mastery (Architect, DevOps, Data, Security, IoT)
 - Ability to **design AWS at Amazon's scale**

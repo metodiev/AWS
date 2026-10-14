@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 06 of 13
 > ⬅️ Previous: [CodePipeline](./05-codepipeline.md) · ➡️ Next: [GitHub Actions for AWS](./07-github-actions-for-aws.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Jenkins is a **controller-agent** (historically master-slave) system. The controller owns configuration, schedules work, and records results; **agents** are the processes that actually run build steps. That split is what makes Jenkins work well on AWS: keep exactly one stateful controller, and make everything that does real work disposable.
 
@@ -45,7 +45,7 @@ Finally, treat the controller's configuration as code. **Jenkins Configuration a
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A production Jenkins topology in one VPC, with no public access to the controller:
 
@@ -100,7 +100,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Controller on EC2 with Elastic Fargate Agents
+## Hands-on Lab: Controller on EC2 with Elastic Fargate Agents
 
 **Goal:** Run a Jenkins controller on EC2 with EFS-free durable storage, add a Fargate agent cloud, and drive a container build from a Jenkinsfile using Secrets Manager credentials.
 
@@ -324,7 +324,7 @@ aws secretsmanager list-secrets --filters Key=name,Values=jenkins/ \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Read the controller admin password when Jenkins is running in a container
@@ -371,7 +371,7 @@ java -jar jenkins-cli.jar -s https://jenkins.example.com/jenkins/ -auth @creds l
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -388,7 +388,7 @@ java -jar jenkins-cli.jar -s https://jenkins.example.com/jenkins/ -auth @creds l
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -404,7 +404,7 @@ java -jar jenkins-cli.jar -s https://jenkins.example.com/jenkins/ -auth @creds l
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The controller is a fixed cost: an `m7g.large` on-demand runs about **$0.08/hour (~$58/month)**, plus 200 GB of gp3 storage (~$16/month) and daily snapshots. That is the baseline — everything else scales with build volume, which is exactly what you want.
 
@@ -414,7 +414,7 @@ Three cost traps deserve attention. Idle agents with no `idleTimeout` are pure w
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Never expose the controller.** Terminate TLS at an ALB with an ACM certificate, keep the controller in private subnets, and allow the security group to accept traffic only from the ALB and from agents on the remoting port.
 - **Use IAM roles, not keys.** The controller's instance profile should allow `secretsmanager:GetSecretValue` on `jenkins/*` only; agents should have their own task or instance role scoped to a single ECR repository and one ECS service.
@@ -426,7 +426,7 @@ Three cost traps deserve attention. Idle agents with no `idleTimeout` are pure w
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add an EC2 Spot agent cloud alongside the Fargate one, labelled `linux-x86_64`, and change the Jenkinsfile to run the test stage on Fargate and the build stage on the Spot agent that has a warm Docker layer cache. Configure an AMI with the Jenkins inbound agent preinstalled and a Spot request at 50% of on-demand price.
 
@@ -434,7 +434,7 @@ Success looks like: `aws ec2 describe-instances --filters "Name=tag:Role,Values=
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Jenkins: Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
 - [Jenkins Configuration as Code](https://www.jenkins.io/projects/jcasc/)
@@ -445,7 +445,7 @@ Success looks like: `aws ec2 describe-instances --filters "Name=tag:Role,Values=
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Jenkins gives you maximum control at the cost of maximum operational surface. The next lesson takes the opposite approach: GitHub Actions with OIDC federation, which deletes the credential problem entirely and runs on infrastructure you never patch.
 

@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 05 of 09
 > ⬅️ Previous: [AWS Lake Formation](./04-aws-lake-formation.md) · ➡️ Next: [Amazon EMR and Spark](./06-amazon-emr-and-spark.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon Redshift** is a columnar, massively parallel data warehouse. Where Athena is serverless SQL over files, Redshift gives you a database with a leader node that plans queries, compute nodes that own fixed slices of data, and storage that can be managed locally (DC2/RMS) or backed by S3 (**Redshift Managed Storage**, RMS) on RA3. That physical layout is the whole point: with the right distribution and sort keys, a join becomes a co-located read and a range filter becomes a slice seek.
 
@@ -95,7 +95,7 @@ Redshift **Spectrum** lets the same cluster query S3 data through external table
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The cluster internals, plus the two ways data gets in:
 
@@ -129,7 +129,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Load, Tune, and Serve a Table
+## Hands-on Lab: Load, Tune, and Serve a Table
 
 **Goal:** Create a serverless workgroup, load a Parquet dataset with `COPY`, define distribution and sort keys, prove pruning with `EXPLAIN`, and build an auto-refreshing materialized view.
 
@@ -296,7 +296,7 @@ You should see one row per region, a statement status of `FINISHED`, and `svv_ta
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Provisioned cluster with RA3 nodes and a dedicated IAM role
@@ -354,7 +354,7 @@ aws redshift-data list-statements --status FINISHED --max-results 20
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -371,7 +371,7 @@ aws redshift-data list-statements --status FINISHED --max-results 20
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -387,7 +387,7 @@ aws redshift-data list-statements --status FINISHED --max-results 20
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 | Component | Approximate price (eu-west-1, on-demand) | Notes |
 |-----------|------------------------------------------|-------|
@@ -410,7 +410,7 @@ Practical controls: set a serverless usage limit with a `deactivate` breach acti
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Never make a warehouse publicly accessible unless a VPC design forces it.** Use private subnets and a VPN or Direct Connect path; if you enable `--publicly-accessible`, restrict the security group to specific CIDRs.
 - **Use IAM roles for `COPY` and `UNLOAD`, not access keys in SQL.** `COPY ... CREDENTIALS 'aws_access_key_id=...'` embeds credentials in query history forever.
@@ -425,7 +425,7 @@ Practical controls: set a serverless usage limit with a `deactivate` breach acti
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Tune a query that is currently slow:
 
@@ -438,7 +438,7 @@ Success looks like: the second `EXPLAIN` shows no broadcast of the large table, 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Redshift Management Guide](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
 - [Database Developer Guide — Design Tables](https://docs.aws.amazon.com/redshift/latest/dg/c_designing-tables-best-practices.html)
@@ -450,7 +450,7 @@ Success looks like: the second `EXPLAIN` shows no broadcast of the large table, 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Redshift is the structured, high-concurrency end of the analytics spectrum. The next lesson takes the other extreme: arbitrary Spark workloads on petabyte-scale data, running on clusters you size yourself with EMR.
 

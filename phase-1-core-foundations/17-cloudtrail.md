@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 17 of 18
 > ⬅️ Previous: [CloudWatch](./16-cloudwatch.md) · ➡️ Next: [Capstone: Secure 3-Tier Web App](./18-project-secure-3-tier-web-app.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **CloudTrail** records API activity in your account. Every time someone — a person, an application, a role, an AWS service — calls an API, CloudTrail writes an event describing who did it, when, from where, and the request parameters. It is the authoritative answer to "who changed that?" and the foundation of every audit, compliance, and incident response process on AWS.
 
@@ -50,7 +50,7 @@ Finally, understand CloudTrail's limits. It records the API call, not the effect
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 CloudTrail's position in the account and where events flow:
 
@@ -91,7 +91,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: A Hardened Multi-Region Organization Trail
+## Hands-on Lab: A Hardened Multi-Region Organization Trail
 
 **Goal:** Create a trail that covers all regions, delivers to a locked-down S3 bucket with log file validation, feeds CloudWatch Logs for alerting, and can answer a specific investigative question.
 
@@ -287,7 +287,7 @@ aws cloudtrail lookup-events \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Confirm a trail's configuration and status
@@ -329,7 +329,7 @@ aws cloudtrail lookup-events \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -346,7 +346,7 @@ aws cloudtrail lookup-events \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -361,7 +361,7 @@ aws cloudtrail lookup-events \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The first copy of management events is **free**: one multi-region trail recording management events across all regions, without data events, incurs no CloudTrail charge. Delivery to S3 costs only the S3 storage, which is small.
 
@@ -384,7 +384,7 @@ A realistic figure: an organization trail with management events plus data event
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **CloudTrail is a target, not just a tool.** The first action of a competent attacker with admin credentials is to disable or tamper with logging. Alert on `StopLogging`, `DeleteTrail`, and `UpdateTrail` in real time. This single alarm has more detection value than almost any other.
 - **Separate the writer from the reader and the deleter.** Deliver logs to a dedicated archive account that production accounts cannot write to except through CloudTrail itself, and cannot delete from at all. The `DenyDeletionOfLogs` policy statement is the mechanism.
@@ -397,7 +397,7 @@ A realistic figure: an organization trail with management events plus data event
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 You are handed a security incident. An S3 bucket containing customer data was found to be publicly readable for an unknown period, and it has now been fixed. Answer these questions using CloudTrail, and where you cannot answer, name the tool or log source that would have been needed:
 
@@ -413,7 +413,7 @@ Success looks like: questions 1, 2, 4, and 5 are answered from management events
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
 - [CloudTrail Record Contents](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference.html)
@@ -424,7 +424,7 @@ Success looks like: questions 1, 2, 4, and 5 are answered from management events
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have every building block of Phase 1: identity, compute, storage, networking, and observability. The final lesson of the phase assembles them into a single production-shaped architecture, and holds you to the standard of being able to explain every design decision.
 

@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 05 of 09
 > ⬅️ Previous: [Amazon Snow Family](./04-aws-snow-family.md) · ➡️ Next: [AWS Wavelength](./06-aws-wavelength.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Outposts** puts AWS-owned, AWS-operated hardware in your building and makes it part of a Region. You create a subnet on the Outpost, launch EC2 instances into it, attach EBS volumes, create RDS instances, run ECS or EKS clusters — and all of it appears in the AWS console next to your Regional resources, because it *is* Regional infrastructure that happens to be physically somewhere else. There are two form factors: **Outposts racks** (an industry-standard 42U rack with servers, switches, a patch panel, and a power shelf) and **Outposts servers** (1U or 2U units for sites without rack space). Large deployments add **ACE racks** to aggregate network connectivity when you reach four or more compute racks.
 
@@ -47,7 +47,7 @@ The second networking piece is the **local gateway (LGW)**, which is what lets i
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 An Outpost in a data center, showing what crosses the service link and what does not:
 
@@ -120,7 +120,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Create an Outpost Subnet and Reach On-Premises Without the Region
+## Hands-on Lab: Create an Outpost Subnet and Reach On-Premises Without the Region
 
 **Goal:** Create a subnet on an Outpost, launch an instance into it, and configure a local gateway route so the instance reaches the corporate network directly.
 
@@ -229,7 +229,7 @@ Success looks like: an instance whose `Placement.AvailabilityZone` matches the O
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # All Outposts, their sites, and their CapacityReservation status
@@ -265,7 +265,7 @@ aws outposts list-assets --outpost-id op-1234567890abcdef0
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -280,7 +280,7 @@ aws outposts list-assets --outpost-id op-1234567890abcdef0
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -295,7 +295,7 @@ aws outposts list-assets --outpost-id op-1234567890abcdef0
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Outposts is priced as a **capacity subscription, not usage**. You pay for the rack or server configuration (a monthly instance fee plus a service fee, with typically a 3-year commitment for racks and shorter terms for servers) whether or not your workloads are running. That single sentence changes how you should think about it: a rack that sits half idle is a rack you are paying full price for, and there is no scale-to-zero.
 
@@ -313,7 +313,7 @@ Costs that surprise people: the **service link** itself (you pay for the Direct 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Shared responsibility shifts, it does not disappear.** AWS owns the hardware, firmware, hypervisor patching, and sanitisation; you own the physical environment, power, cooling, network access to the Outpost, and everything you run on it. Your auditor will ask who patches what — write it down before they do.
 - **The service link is a tunnel to your VPC.** It carries management and VPC traffic. Treat the transport network as untrusted, terminate on dedicated interfaces, and use Direct Connect with MACsec or an encrypted VPN rather than a shared internet path.
@@ -325,7 +325,7 @@ Costs that surprise people: the **service link** itself (you pay for the Direct 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design an Outposts deployment for a hospital imaging archive: 12 TB of study data, five concurrent workstations that need sub-5 ms reads, and a compliance rule that patient data must not leave the facility. Produce a one-page design with the subnet layout, the instance family you would request (justify it against the available families), the service link sizing with your RTT budget, and the failure mode when the service link drops for four hours.
 
@@ -335,7 +335,7 @@ Success looks like: a design where the local gateway carries all clinical traffi
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What Is AWS Outposts?](https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html)
 - [Site Requirements for Outposts Racks](https://docs.aws.amazon.com/outposts/latest/userguide/outposts-requirements.html)
@@ -348,7 +348,7 @@ Success looks like: a design where the local gateway carries all clinical traffi
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Outposts places AWS inside *your* building. The next lesson does the opposite: it places AWS inside *someone else's* network — specifically, inside a carrier's 5G core, where your instances sit a few milliseconds from a phone in a customer's hand. Wavelength is a different bet on the same question: how close can compute get before the network stops being the bottleneck?
 

@@ -3,7 +3,7 @@
 > **Phase 10 — Grandmaster Projects** · Lesson 02 of 06
 > ⬅️ Previous: [Global SaaS Multi-Tenant Platform](./01-global-saas-multi-tenant-platform.md) · ➡️ Next: [AI-Driven Cost Optimization](./03-ai-driven-cost-optimization.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Chaos engineering** is the discipline of experimenting on a system to build confidence in its ability to withstand turbulent conditions. It is not random destruction — it is the scientific method applied to infrastructure. You state a belief about normal behaviour, deliberately violate one assumption, and observe whether the belief holds. If it does, you gained evidence. If it does not, you found a latent failure *on your schedule*, with the alarm already wired and the responders already watching.
 
@@ -48,7 +48,7 @@ The behaviours you test are the ones you claim in your architecture docs. Multi-
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The experiment loop — note that the abort path is not an afterthought, it is wired into the template:
 
@@ -114,7 +114,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: AZ Failure and Latency Injection with FIS
+## Hands-on Lab: AZ Failure and Latency Injection with FIS
 
 **Goal:** Run two experiments against a staging account — stop every tagged instance in one Availability Zone, then inject network latency into 30% of ECS tasks — each with a CloudWatch alarm stop condition.
 
@@ -426,7 +426,7 @@ jobs:
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List every experiment template you own, newest first
@@ -468,7 +468,7 @@ aws fis delete-experiment-template --id EXT1234567890
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -484,7 +484,7 @@ aws fis delete-experiment-template --id EXT1234567890
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -499,7 +499,7 @@ aws fis delete-experiment-template --id EXT1234567890
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **AWS FIS itself is free** — you pay only for the resources the experiment consumes. That makes chaos engineering a matter of discipline rather than budget, but the indirect costs are real:
 
@@ -511,7 +511,7 @@ aws fis delete-experiment-template --id EXT1234567890
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The FIS role is the blast radius.** Never attach `PowerUserAccess` or `*`. Use the AWS-managed `AWSFaultInjectionSimulator*Access` policies as a base and cap them with an inline policy conditioned on `aws:ResourceTag/chaos-eligible`.
 - **Enforce account separation with SCPs.** Deny `fis:StartExperiment` in production OUs, or deny it unless `aws:RequestTag/environment` is `staging`. Guardrails that live in code beat guardrails that live in a wiki.
@@ -523,7 +523,7 @@ aws fis delete-experiment-template --id EXT1234567890
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design and run a **regional degradation game day** for the tenant platform from Lesson 01.
 
@@ -535,7 +535,7 @@ Success looks like: the template stops automatically (or completes) with no cust
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Fault Injection Service User Guide](https://docs.aws.amazon.com/fis/latest/userguide/what-is.html)
 - [AWS FIS actions reference](https://docs.aws.amazon.com/fis/latest/userguide/fis-actions-reference.html)
@@ -546,7 +546,7 @@ Success looks like: the template stops automatically (or completes) with no cust
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have evidence about how your system behaves when it breaks — and evidence is what makes optimization safe. The next lesson builds an engine that watches the other side of the ledger: what your architecture costs, and how to shrink that number without a human opening a spreadsheet.
 

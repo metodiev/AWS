@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 03 of 13
 > ⬅️ Previous: [CloudFormation](./02-cloudformation.md) · ➡️ Next: [Terraform on AWS](./04-terraform-on-aws.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 The AWS CDK lets you define CloudFormation templates in a real programming language. Your app is a tree of **constructs**; running `cdk synth` walks that tree and emits plain CloudFormation, which CloudFormation then deploys. Nothing new happens in AWS — CDK is a compiler with strong opinions, and the artifact it produces is a template you can still read, review, and hand to a change set.
 
@@ -43,7 +43,7 @@ The CDK's biggest advantage is that infrastructure is now testable code. `assert
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 From TypeScript code to running infrastructure:
 
@@ -102,7 +102,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: A CDK App with Tests and Nag Checks
+## Hands-on Lab: A CDK App with Tests and Nag Checks
 
 **Goal:** Build, test, and deploy a Fargate service behind an ALB using CDK, then add automated guardrails.
 
@@ -344,7 +344,7 @@ cdk destroy Phase3WebStack
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List stacks in the app without synthesizing fully
@@ -386,7 +386,7 @@ cdk deploy --require-approval never --role-arn arn:aws:iam::123456789012:role/cd
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -402,7 +402,7 @@ cdk deploy --require-approval never --role-arn arn:aws:iam::123456789012:role/cd
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -417,7 +417,7 @@ cdk deploy --require-approval never --role-arn arn:aws:iam::123456789012:role/cd
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The CDK is free; you pay for what it deploys. The lab stack is a realistic minimum: one NAT Gateway (~$32/month), two Fargate tasks at 0.5 vCPU / 1 GiB (~$18–25/month each at steady state with ARM64 pricing), one ALB (~$16/month plus LCU charges), Container Insights, and CloudWatch Logs retention. That is roughly **$90–110/month per environment**, and most of it continues to accrue in environments you forgot about.
 
@@ -425,7 +425,7 @@ Control costs by making the environment a parameter of the app: one NAT gateway 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Let grants write policies.** `bucket.grantReadWrite(taskDefinition.taskRole)` produces a scoped policy; a hand-written `"Resource": "*"` in `iam.PolicyStatement` is the most common CDK security defect.
 - **Separate task role from execution role.** The execution role pulls the image and writes logs; the task role is what your code uses. Granting application permissions to the execution role hands them to anything that can start a task.
@@ -436,7 +436,7 @@ Control costs by making the environment a parameter of the app: one NAT gateway 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Replace the L2 ALB setup in the lab with the L3 pattern `ApplicationLoadBalancedFargateService` from `aws-cdk-lib/aws-ecs-patterns`, then run `cdk-nag` again.
 
@@ -444,7 +444,7 @@ Success looks like: the pattern deploys with less code, `npx jest` still passes 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
 - [CDK API Reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)
@@ -454,7 +454,7 @@ Success looks like: the pattern deploys with less code, `npx jest` still passes 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 CDK is excellent inside AWS and awkward outside it. The next lesson covers the tool that manages AWS, Azure, GCP, and your DNS provider in one model — Terraform — including remote state in S3 with DynamoDB locking.
 

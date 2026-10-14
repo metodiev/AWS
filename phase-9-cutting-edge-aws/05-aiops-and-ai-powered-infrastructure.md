@@ -3,7 +3,7 @@
 > **Phase 9 — Cutting-Edge AWS** · Lesson 05 of 06
 > ⬅️ Previous: [Graviton and Sustainability](./04-graviton-and-sustainability.md) · ➡️ Next: [Project: Cutting-Edge Lab](./06-project-cutting-edge-lab.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AIOps** is the application of machine learning and AI to operational data — metrics, logs, traces, events, tickets, and changes — with three distinct goals that vendors routinely blur together:
 
@@ -65,7 +65,7 @@ Two rules keep this useful rather than dangerous: always return **citations** so
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The operational loop, with the honest division of labor between model and human:
 
@@ -151,7 +151,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Build an AIOps Loop with a Real Approval Gate
+## Hands-on Lab: Build an AIOps Loop with a Real Approval Gate
 
 **Goal:** Detect an anomaly without a static threshold, ground the response in your own runbooks with Bedrock, and execute remediation only after a human approves.
 
@@ -355,7 +355,7 @@ Success looks like: an anomaly band that tracks daily seasonality instead of a f
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Detection
@@ -400,7 +400,7 @@ aws stepfunctions start-execution --state-machine-arn <arn> --input file://event
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -417,7 +417,7 @@ aws stepfunctions start-execution --state-machine-arn <arn> --input file://event
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -433,7 +433,7 @@ aws stepfunctions start-execution --state-machine-arn <arn> --input file://event
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The AIOps bill has three components, and the middle one is the surprise:
 
@@ -447,7 +447,7 @@ The most expensive AIOps mistake is not the tooling — it is the trust cost. A 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Operational data is sensitive.** Metrics and logs reveal architecture, customer identifiers, and sometimes credentials. Scope IAM so the anomaly detectors, RAG index, and assistant see only what they need.
 - **Treat the assistant as an untrusted reader.** Retrieved documents can contain injected instructions. Use Bedrock Guardrails, restrict the model's tools to none, and never let retrieved text trigger actions.
@@ -460,7 +460,7 @@ The most expensive AIOps mistake is not the tooling — it is the trust cost. A 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take one production-shaped alarm in your environment and rebuild it as an anomaly detector. Then write a runbook for it in Markdown, ingest that runbook into a Bedrock knowledge base, and build a Step Functions workflow that asks the knowledge base for the documented procedure and waits for approval before running an SSM Automation document.
 
@@ -468,7 +468,7 @@ Success looks like: a detector with fewer false positives than the threshold it 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon CloudWatch anomaly detection](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Anomaly_Detection.html)
 - [CloudWatch Logs anomaly detection](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection.html)
@@ -481,7 +481,7 @@ Success looks like: a detector with fewer false positives than the threshold it 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have every ingredient for the phase capstone: a quantum experiment, an ARM64 migration, an AIOps loop, and a satellite downlink path. The final lesson assembles them into one architecture — and, more importantly, into a cost/benefit table that says which parts of it you should not build yet.
 

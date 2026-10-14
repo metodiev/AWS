@@ -3,7 +3,7 @@
 > **Phase 10 — Grandmaster Projects** · Lesson 04 of 06
 > ⬅️ Previous: [AI-Driven Cost Optimization](./03-ai-driven-cost-optimization.md) · ➡️ Next: [Teaching and Thought Leadership](./05-teaching-and-thought-leadership.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Open source is how the cloud ecosystem actually evolves. When you need a provider argument that does not exist, a CDK construct for a pattern you use weekly, or a bug fix in the SDK that your business depends on, the fastest path is often upstream: implement it once, correctly, and everyone — including you at your next employer — benefits. The second-order benefit is subtler but larger: contributing to a widely used project is the most credible way to demonstrate that you understand a system below the API surface.
 
@@ -55,7 +55,7 @@ The landscape splits into four groups, and they demand different skills:
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A typical contribution branch flow, including the rebase that keeps your branch current and the squash that maintainers usually apply:
 
@@ -116,7 +116,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Ship a Real Contribution End to End
+## Hands-on Lab: Ship a Real Contribution End to End
 
 **Goal:** Take one small, real change through the complete workflow — find an issue, branch, test, fix, changelog, and PR — using the same commands maintainers expect to see.
 
@@ -311,7 +311,7 @@ Success looks like: a branch with a scoped diff, one failing-then-passing test, 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Search across all of GitHub for newcomer-friendly AWS work
@@ -341,7 +341,7 @@ gh issue view 39180 --repo hashicorp/terraform-provider-aws --comments
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -357,7 +357,7 @@ gh issue view 39180 --repo hashicorp/terraform-provider-aws --comments
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -373,7 +373,7 @@ gh issue view 39180 --repo hashicorp/terraform-provider-aws --comments
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Open source contribution is unusual in this roadmap: the **out-of-pocket cost is nearly zero and the expensive input is your time**.
 
@@ -385,7 +385,7 @@ Open source contribution is unusual in this roadmap: the **out-of-pocket cost is
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Never commit credentials, account IDs, or internal hostnames.** Acceptance test configs leak real data surprisingly often. Use `acctest.RandomWithPrefix`-style generated names and scrub your PR description before opening it.
 - **Scrub your commits, not just your diff.** A deleted secret survives in history; rewrite the branch before pushing, and rotate the credential anyway. Add `.env`, `*.tfstate`, and credential files to your global ignore list.
@@ -397,7 +397,7 @@ Open source contribution is unusual in this roadmap: the **out-of-pocket cost is
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Choose one project from the four families above and make a **complete, mergeable contribution** to it — preferably documentation or a small bug fix with a regression test.
 
@@ -409,7 +409,7 @@ Success looks like: a public PR link with a green CI run, a signed CLA or DCO tr
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Terraform AWS provider — contributing guide](https://github.com/hashicorp/terraform-provider-aws/blob/main/.github/CONTRIBUTING.md)
 - [AWS CDK — contributing guide](https://github.com/aws/aws-cdk/blob/main/CONTRIBUTING.md)
@@ -423,7 +423,7 @@ Success looks like: a public PR link with a green CI run, a signed CLA or DCO tr
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Merged pull requests give you credibility, but they are asymmetric: your code is public while your reasoning usually is not. The next lesson turns that reasoning into teaching — written content, labs, talks, and the community programs that amplify all of it.
 

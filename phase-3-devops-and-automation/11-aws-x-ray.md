@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 11 of 13
 > ⬅️ Previous: [AWS Fargate](./10-aws-fargate.md) · ➡️ Next: [OpenTelemetry and ADOT](./12-opentelemetry-and-adot.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **trace** is the complete record of one request's journey. X-Ray builds it from **segments** — one per service that handled the request — and each segment contains **subsegments** for the work inside it: an HTTP call to another service, a DynamoDB query, a function you wrapped yourself. Segments and subsegments are JSON documents sent to the X-Ray API, and the **service map** is simply those documents aggregated by caller and callee. That is why the service map is only as good as your instrumentation: an uninstrumented hop shows up as a gap, not as a node.
 
@@ -46,7 +46,7 @@ Finally, **annotations** and **metadata** are not the same thing. Annotations ar
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The anatomy of one trace and where its pieces come from:
 
@@ -96,7 +96,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Instrument a Service and Read Its Service Map
+## Hands-on Lab: Instrument a Service and Read Its Service Map
 
 **Goal:** Add the X-Ray SDK and daemon to an ECS service, record custom subsegments with annotations, create a sampling rule, and diagnose a slow hop from the service map.
 
@@ -353,7 +353,7 @@ aws elbv2 describe-load-balancer-attributes \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Turn on X-Ray tracing for an API Gateway stage
@@ -402,7 +402,7 @@ aws xray get-encryption-config
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -420,7 +420,7 @@ aws xray get-encryption-config
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -437,7 +437,7 @@ aws xray get-encryption-config
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 X-Ray pricing is straightforward and easy to control: traces recorded cost about **$5.00 per million**, and traces retrieved or scanned cost about **$0.50 per million**. There is a free tier of 100,000 traces recorded and 1,000,000 traces retrieved per month, which covers a small system entirely. The bill scales with sampling, so the default rule — one request per second plus 5% — is what keeps an unremarkable service in the free tier while a 100%-sampled high-traffic API quickly reaches real money: 50 million requests a month at 100% sampling is roughly **$250** in recording alone, plus Insight and retrieval charges.
 
@@ -445,7 +445,7 @@ Keep the cost predictable by making sampling a deliberate decision per service. 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Traces contain business data.** URLs, SQL statements, table names, ARNs, and sometimes payloads end up in segment documents. Never add credentials, tokens, or personal data as annotations or metadata, and review what your SDK instruments automatically.
 - **Encrypt traces with a customer-managed KMS key** for regulated workloads using `update-encryption-config`, so access to trace data is governed by a key policy you control and can revoke.
@@ -457,7 +457,7 @@ Keep the cost predictable by making sampling a deliberate decision per service. 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a custom subsegment called `inventory-check` around a call to another internal service, annotate it with `warehouseId` and `itemCount`, and add an error when the inventory service responds with a 5xx. Then create a group named `inventory-slow` with the filter expression `service("orders-api") AND subsegment("inventory-check") AND duration > 1`.
 
@@ -465,7 +465,7 @@ Success looks like: `aws xray get-trace-summaries --filter-expression 'annotatio
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS X-Ray Developer Guide](https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html)
 - [Configuring Sampling Rules](https://docs.aws.amazon.com/xray/latest/devguide/xray-console-sampling.html)
@@ -476,7 +476,7 @@ Success looks like: `aws xray get-trace-summaries --filter-expression 'annotatio
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 X-Ray is excellent inside AWS and conversational outside it. The next lesson moves to the vendor-neutral standard that X-Ray now accepts as an upstream: OpenTelemetry, and AWS Distro for OpenTelemetry, which gives you one pipeline for traces, metrics, and logs.
 

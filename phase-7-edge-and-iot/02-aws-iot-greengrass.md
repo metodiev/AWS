@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 02 of 09
 > ⬅️ Previous: [AWS IoT Core](./01-aws-iot-core.md) · ➡️ Next: [FreeRTOS](./03-freertos.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -19,7 +19,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS IoT Greengrass v2** is a runtime that turns a normal Linux machine — a gateway, an industrial PC, a Jetson — into an AWS-managed edge node. You install the **nucleus**, which is a Java-based process supervisor holding an MQTT connection (and a local broker) to AWS IoT Core, and then you install **components** on top of it. The nucleus is the only part you install by hand; everything after that arrives as a deployment you push from the cloud.
 
@@ -49,7 +49,7 @@ For machine learning, Greengrass is the delivery vehicle for **pre-compiled mode
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 What actually runs on a core device at a factory, and how it reaches AWS:
 
@@ -125,7 +125,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: A Component That Survives an Outage
+## Hands-on Lab: A Component That Survives an Outage
 
 **Goal:** Deploy a custom component to a core device that samples simulated telemetry every five seconds, buffers it with the stream manager, and forwards it to Kinesis — including while the network is disconnected.
 
@@ -262,7 +262,7 @@ Success is a component that never restarts during the outage and a Kinesis strea
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Register an updated recipe as a new immutable version
@@ -298,7 +298,7 @@ sudo /greengrass/v2/bin/greengrass-cli get-debug-password
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -313,7 +313,7 @@ sudo /greengrass/v2/bin/greengrass-cli get-debug-password
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -327,7 +327,7 @@ sudo /greengrass/v2/bin/greengrass-cli get-debug-password
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **AWS IoT Greengrass v2 software itself is free.** There is no per-device license fee and no core-device charge — unlike Greengrass v1, which was billed per device. Everything you pay for is the AWS service used behind the deployment: IoT Core connectivity and messaging for the nucleus and each device, IoT Jobs for the deployment itself, S3 storage and requests for artifacts, and the destinations that stream manager writes to.
 
@@ -337,7 +337,7 @@ The real cost driver is usually indirect: a device without local buffering loses
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The core device certificate is a machine identity with real authority.** It can subscribe to deployment topics and receive AWS credentials through TES. Treat a compromised gateway as a compromised identity: revoke the certificate with `aws iot update-certificate --new-status INACTIVE` and redeploy.
 - **Scope the token exchange role narrowly.** The role assumed by TES is what every component can borrow. If it allows `s3:*` on `*`, one bad component is a data exfiltration path. Scope it to the exact streams, buckets, and topics components need.
@@ -349,7 +349,7 @@ The real cost driver is usually indirect: a device without local buffering loses
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a second component, `com.example.ThresholdAlarm`, that subscribes to the local broker for the sampler's topic and publishes to a cloud alarm topic whenever a simulated temperature exceeds a threshold that you supply as a configuration value. Deploy it to the same thing group with a *runtime* configuration override on one device only, so the same component version behaves differently on that device.
 
@@ -359,7 +359,7 @@ Success looks like: two components running side by side, differing configuration
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What Is AWS IoT Greengrass?](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)
 - [Component Recipe Reference](https://docs.aws.amazon.com/greengrass/v2/developerguide/component-recipe-reference.html)
@@ -372,7 +372,7 @@ Success looks like: two components running side by side, differing configuration
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Greengrass covers gateways that have a filesystem, a JVM, and a few gigabytes of RAM. The next lesson goes three orders of magnitude smaller — a microcontroller with tens of kilobytes of RAM — where there is no operating system to install on top of, the network stack is your responsibility, and an update is a few hundred kilobytes flashed over the air onto a device you cannot physically touch.
 

@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 10 of 11
 > ⬅️ Previous: [Compliance: HIPAA, PCI, FedRAMP](./09-compliance-hipaa-pci-fedramp.md) · ➡️ Next: [Project: Security Baseline](./11-project-security-baseline.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Organizations** is the container that makes multi-account architecture practical. An account is the strongest available boundary in AWS — separate IAM namespaces, separate quotas, separate bills, separate credential blast radius — and Organizations lets you create accounts programmatically, group them, apply policies at the group level, and consolidate billing. If you are doing anything at scale, the question is never "one account or many", it is "how many, and what is the grouping key".
 
@@ -46,7 +46,7 @@ The third pillar is **centralized visibility**, and the pattern is always the sa
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A reference landing zone with delegated administration and centralized logging:
 
@@ -105,7 +105,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: A Landing Zone with SCP Guardrails and Centralized Logging
+## Hands-on Lab: A Landing Zone with SCP Guardrails and Centralized Logging
 
 **Goal:** Build an OU structure, attach SCPs that prevent the classic mistakes, create a log archive account, and enable an organization trail into it.
 
@@ -414,7 +414,7 @@ aws configservice describe-configuration-aggregators
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Organization inventory
@@ -468,7 +468,7 @@ aws configservice describe-configuration-aggregators
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -484,7 +484,7 @@ aws configservice describe-configuration-aggregators
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -499,7 +499,7 @@ aws configservice describe-configuration-aggregators
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 AWS Organizations and SCPs are **free**. Control Tower has no additional charge for the landing zone itself, though several components it enables do: **AWS Config** records every supported resource in every account (roughly **$0.003 per configuration item** plus per-rule evaluation charges), **CloudTrail** charges for organization trails beyond the first copy of management events (**around $2.00 per 100,000 events** for additional trails, with no charge for the organization trail's first copy), and **Security Hub, GuardDuty, and Macie** bill per account and Region as covered in earlier lessons.
 
@@ -507,7 +507,7 @@ This is where multi-account costs turn into a multiplication exercise. Forty acc
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The management account is the crown jewel.** It can modify SCPs, close accounts, and remove delegated administrators. Enforce MFA, remove all access keys, restrict human access to a break-glass role, and alarm on every login.
 - **SCPs are a ceiling, not a permission.** A common false assumption is that an SCP grants access; it never does. Pair guardrails with IAM and resource policies, or you will find "allowed by SCP but denied by IAM" outages confusing.
@@ -520,7 +520,7 @@ This is where multi-account costs turn into a multiplication exercise. Forty acc
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design the account structure for a company with three product teams, one regulated payment workload, and a development sandbox. Produce (a) the OU tree with a one-line justification for each OU, (b) the guardrail matrix showing which SCP attaches where, and (c) a tagging taxonomy with three mandatory tag keys and their allowed values. Then implement it in a sandbox organization: create the OUs, attach one root SCP and one OU-level SCP, and prove with a deliberate attempt from a staging account that the guardrail held. Finally, write the two-sentence rollback plan for a guardrail that breaks a production workflow.
 
@@ -528,7 +528,7 @@ Success looks like: a diagram or table showing the OU structure, an SCP that dem
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
 - [Service control policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
@@ -541,7 +541,7 @@ Success looks like: a diagram or table showing the OU structure, an SCP that dem
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have every building block this phase teaches: cross-account identity, federation, encryption and custody options, threat detection, data classification, compliance evidence, and organizational guardrails. The capstone assembles them into one deployable, diagrammable security baseline — and includes the break-glass path you need when the guardrails work exactly as designed.
 

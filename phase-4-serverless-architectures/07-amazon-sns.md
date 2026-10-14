@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 07 of 09
 > ⬅️ Previous: [Amazon SQS](./06-amazon-sqs.md) · ➡️ Next: [Amazon Kinesis](./08-amazon-kinesis.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon SNS** is a publish-subscribe service. A publisher sends one message to a **topic**, and SNS delivers a copy to every **subscription** on that topic. There is no polling and no receiver to address by hand: the publisher does not know or care how many subscribers exist. Where SQS is a *buffer with one consumer per message*, SNS is a *broadcast to many consumers per message*.
 
@@ -45,7 +45,7 @@ The most important pattern in this lesson is **SNS fan-out to SQS**. SNS alone c
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The fan-out pattern: one publish, many independent backlogs:
 
@@ -92,7 +92,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Fan Out Ride Events to Two Filtered Queues
+## Hands-on Lab: Fan Out Ride Events to Two Filtered Queues
 
 **Goal:** Publish one ride event that reaches a notifications queue and an analytics queue, each with its own filter, and capture undeliverable messages in a DLQ.
 
@@ -277,7 +277,7 @@ Success is: the topic listing shows two SQS subscriptions with filter policies, 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List topics
@@ -354,7 +354,7 @@ aws sns get-sms-attributes --attributes MonthlySpendLimit
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -371,7 +371,7 @@ aws sns get-sms-attributes --attributes MonthlySpendLimit
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -387,7 +387,7 @@ aws sns get-sms-attributes --attributes MonthlySpendLimit
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Standard SNS publishes cost **$0.50 per million requests** after the first 1 million free each month. **Deliveries to SQS, Lambda, and Firehose are free** — you pay the destination service instead. HTTP/S deliveries cost **$0.60 per million**, and email is billed in blocks of 100,000 (roughly $2.00 per 100,000 notifications). Mobile push and SMS are priced separately, with SMS varying widely by destination country.
 
@@ -407,7 +407,7 @@ What drives the bill: publish volume, subscriber count, and protocol. Delivery t
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Topic policies are mandatory for cross-account publishing.** Use `add-permission` or an explicit policy with a specific `aws:PrincipalAccount`, and add an `aws:PrincipalOrgID` condition so only your organization can publish.
 - **Encrypt topics at rest** with a customer managed KMS key for anything containing personal data, and remember that KMS API calls are then billed on publish and subscribe.
@@ -420,7 +420,7 @@ What drives the bill: publish volume, subscriber count, and protocol. Delivery t
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a third subscriber to `ride-events`: an HTTPS endpoint that also has a `filterPolicyScope` of `MessageBody`, matching only `{"eventType":["RideCompleted"],"rating":[{"numeric":["<=",3]}]}`. Attach a DLQ and a custom delivery policy with 5 retries and an exponential backoff. Then publish five messages — three matching and two not — and prove that exactly three HTTP POSTs were attempted by checking the `NumberOfNotificationsDelivered` metric.
 
@@ -428,7 +428,7 @@ Success looks like: `NumberOfNotificationsDelivered` equals `3` for the subscrip
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 - [Fan-out to SQS queues](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html)
@@ -439,7 +439,7 @@ Success looks like: `NumberOfNotificationsDelivered` equals `3` for the subscrip
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 SNS is built for broadcast, not for volume: it does not retain history and cannot replay. The next lesson covers Kinesis, which keeps an ordered, replayable log of millions of records per hour that multiple consumers can read independently.
 

@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 04 of 08
 > ⬅️ Previous: [Healthcare FHIR APIs](./03-healthcare-fhir-apis.md) · ➡️ Next: [Gaming — GameLift and Scaling](./05-gaming-gamelift-and-scaling.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 HIPAA is not a certification and AWS is not "HIPAA certified". The **HIPAA Privacy, Security, and Breach Notification Rules** apply to covered entities (providers, plans, clearinghouses) and to their business associates. When you put PHI in AWS, AWS acts as your business associate, and the relationship is governed by the **Business Associate Addendum (BAA)** in your AWS account. Practical consequences follow immediately: a service is only usable for PHI if it appears on the **HIPAA eligible services list** *and* is covered by your BAA, and no amount of configuration makes a non-eligible service acceptable.
 
@@ -43,7 +43,7 @@ Two more Security Rule concepts drive the architecture. **Minimum necessary** me
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The control envelope for PHI storage. Every layer here produces evidence an auditor can read:
 
@@ -114,7 +114,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: A PHI Bucket That Cannot Be Erased and a Fully Audited Path
+## Hands-on Lab: A PHI Bucket That Cannot Be Erased and a Fully Audited Path
 
 **Goal:** Create an S3 bucket with customer managed encryption, TLS-only and encryption-enforced policies, compliance-mode Object Lock, CloudTrail data events, Config rules, and an immutable backup vault.
 
@@ -467,7 +467,7 @@ aws macie2 create-classification-job \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Every customer managed key with its rotation state
@@ -508,7 +508,7 @@ aws backup describe-backup-vault --backup-vault-name phi-vault
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -524,7 +524,7 @@ aws backup describe-backup-vault --backup-vault-name phi-vault
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -539,7 +539,7 @@ aws backup describe-backup-vault --backup-vault-name phi-vault
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The controls here are inexpensive per unit and expensive in aggregate, so scope them deliberately. Approximate US-East-1 rates at the time of writing: **KMS customer managed keys are about $1 per key per month** plus **$0.03 per 10,000 requests**, **CloudTrail data events are about $0.10 per 100,000 events**, **AWS Config is about $0.003 per configuration item recorded per Region** plus roughly $0.001 per rule evaluation, and **AWS Backup storage is about $0.05 per GB-month** on warm storage.
 
@@ -556,7 +556,7 @@ The cheapest possible HIPAA architecture is one where PHI exists in exactly one 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Minimum necessary is an identity design.** Grant per-dataset roles, not per-team roles, and deny broad `s3:GetObject` on the PHI bucket to everyone except the ingest and read paths that need it.
 - **Break-glass access must be auditable and loud.** An emergency admin role that assumes into the PHI account should require MFA, notify a channel on assumption, and have a session duration measured in minutes.
@@ -570,7 +570,7 @@ The cheapest possible HIPAA architecture is one where PHI exists in exactly one 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build the detective control set for a PHI boundary in a single EventBridge rule plus one Lambda: alert on any of `StopLogging`, `DeleteTrail`, `PutBucketPublicAccessBlock`, `PutBucketPolicy`, `DisableKeyRotation`, `ScheduleKeyDeletion`, `StopConfigurationRecorder`, and an S3 `DeleteObject` against a compliance-mode bucket. Include the resource ARN, the principal, the source IP, and the event time in the notification, and exclude your own change-management role.
 
@@ -578,7 +578,7 @@ Success looks like: a simulated `aws cloudtrail stop-logging` on a scratch trail
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [HIPAA Eligible Services Reference](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)
 - [AWS HIPAA compliance page](https://aws.amazon.com/compliance/hipaa-compliance/)
@@ -591,7 +591,7 @@ Success looks like: a simulated `aws cloudtrail stop-logging` on a scratch trail
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now hold PHI in a defensible way: the right services, the right keys, provable retention, and an audit trail that survives tampering. The rest of this phase keeps the same discipline while changing the workload entirely — starting with games, where the constraint shifts from "prove you did not delete it" to "prove a player in Frankfurt gets a session in under 40 ms".
 

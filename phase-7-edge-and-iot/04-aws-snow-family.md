@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 04 of 09
 > ⬅️ Previous: [FreeRTOS](./03-freertos.md) · ➡️ Next: [AWS Outposts](./05-aws-outposts.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **The Snow family** exists to answer one question: what do you do when the data is too big and the network is too small? The economics are unforgiving and worth doing arithmetic on before you order anything. A dedicated 1 Gbps upload link, running perfectly with zero overhead, moves roughly 10 TB per day. A 100 Mbps office link moves about 1 TB per day at best. If you have 500 TB to migrate and a 1 Gbps link, that is about seven weeks of continuous saturation — assuming nobody else needs the network. Ship a device, and the same 500 TB arrives in about a week and a half including transit.
 
@@ -48,7 +48,7 @@ When you return a device, AWS ingests whatever is in the device's buckets into y
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The offline migration lifecycle, which is a real workflow with real paperwork:
 
@@ -103,7 +103,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Plan and Execute an Offline Transfer
+## Hands-on Lab: Plan and Execute an Offline Transfer
 
 **Goal:** Size a transfer, create an import job, and transfer data to a device through the S3 adapter the same way you would to a real bucket.
 
@@ -209,7 +209,7 @@ Success is `Complete` job state plus matching object counts and checksums on the
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # See every device and job in the account, with state and type
@@ -240,7 +240,7 @@ aws snowball update-job --job-id JID12345678-1234-1234-1234-123456789012 --cance
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -255,7 +255,7 @@ aws snowball update-job --job-id JID12345678-1234-1234-1234-123456789012 --cance
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -270,7 +270,7 @@ aws snowball update-job --job-id JID12345678-1234-1234-1234-123456789012 --cance
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Offline transfer pricing has three components: a **per-job fee** that varies by device type and region, the **shipping** cost, and — the one people underestimate — **the time cost of the process**. For long-term edge deployments, `create-long-term-pricing` replaces per-job charges with a monthly reservation for 1 or 3 years, which is the right model for a device that stays on a factory floor.
 
@@ -288,7 +288,7 @@ Data transferred *into* S3 is never charged for ingress, and that is true for of
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encryption keys never travel with the device.** Data is encrypted with 256-bit keys managed in AWS KMS; the device holds the ciphertext and the key material is released only to authorised accounts at ingest. Verify that the job uses the KMS key you expected by inspecting `KmsKeyARN`.
 - **The manifest is a credential.** It contains the unlock code and local credentials. Store it in AWS Secrets Manager with a narrow resource policy, and delete it once the job completes.
@@ -300,7 +300,7 @@ Data transferred *into* S3 is never charged for ingress, and that is true for of
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Pick a real dataset you control — a photo library, a log archive, a backup set — and produce a written transfer plan with three numbers: total size in TB, sustained upload rate in Mbps, and the resulting wall-clock time both online and with a shipped device. Then choose a method and defend it in five sentences, including the case where the choice is wrong (what would have to change for your recommendation to flip).
 
@@ -310,7 +310,7 @@ Success looks like: a plan with real measured numbers, an explicit break-even ba
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Snowball Edge Developer Guide](https://docs.aws.amazon.com/snowball/latest/developer-guide/whatisedge.html)
 - [Snowball Edge Device Hardware Information](https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html)
@@ -323,7 +323,7 @@ Success looks like: a plan with real measured numbers, an explicit break-even ba
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 An offline device moves your data once, then goes back to AWS. The next lesson covers the opposite deal: AWS hardware that moves *into your building and stays there*, running real EC2 instances, EBS volumes, and S3 buckets under your own roof while remaining managed from the Region. That is AWS Outposts, and it is the only way to get single-digit millisecond access to AWS APIs from inside your own data center.
 

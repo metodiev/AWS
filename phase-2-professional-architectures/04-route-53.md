@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 04 of 08
 > ⬅️ Previous: [Multi-Region VPC Design](./03-multi-region-vpc-design.md) · ➡️ Next: [CloudFront](./05-cloudfront.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Amazon Route 53 is two products in one: a **domain registrar** and a **highly available authoritative DNS service** with 100% availability SLA. It answers DNS queries from a globally distributed set of name servers, and it doubles as a health-checking and traffic-routing engine. That second role is why it appears in almost every HA and DR design — DNS is the one control plane every client on earth respects.
 
@@ -57,7 +57,7 @@ The other half of Route 53 is **routing policy** — how a query is answered whe
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Choosing a routing policy:
 
@@ -125,7 +125,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Weighted Canary, Then a Health-Checked Failover
+## Hands-on Lab: Weighted Canary, Then a Health-Checked Failover
 
 **Goal:** Register a zone, serve 90/10 traffic between two endpoints, then add failover with health checks and measure how long clients take to move.
 
@@ -348,7 +348,7 @@ DNSSEC is only effective when the parent zone publishes the `DS` record. If you 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # All hosted zones with their private/public flag
@@ -419,7 +419,7 @@ aws route53domains enable-domain-transfer-lock --domain-name example.com
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -437,7 +437,7 @@ aws route53domains enable-domain-transfer-lock --domain-name example.com
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -454,7 +454,7 @@ aws route53domains enable-domain-transfer-lock --domain-name example.com
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Route 53 is inexpensive relative to what it protects, but the meters are unusual:
 
@@ -467,7 +467,7 @@ Route 53 is inexpensive relative to what it protects, but the meters are unusual
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Protect the registrar account above all.** Domain hijacking bypasses every other security control you own. Enable **transfer lock**, registrar-level MFA, and ideally a dedicated AWS account for DNS with no other workloads.
 - **Restrict who can change records.** `route53:ChangeResourceRecordSets` is a high-privilege permission: a single API call can redirect production traffic to an attacker's endpoint. Use IAM conditions on the hosted zone ARN, require MFA, and alert on changes to apex and `www` records.
@@ -480,7 +480,7 @@ Route 53 is inexpensive relative to what it protects, but the meters are unusual
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design and implement DNS for a two-region application with these requirements: European users must be served from `eu-west-1` for compliance reasons; all other users get the lowest-latency region; a canary release must receive exactly 5% of traffic in `eu-west-1`; and the whole platform must fail over to `us-east-1` if `eu-west-1` becomes unhealthy.
 
@@ -490,7 +490,7 @@ Success looks like: a query from an EU resolver goes to the EU endpoint at 95/5 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Route 53 Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
 - [Choosing a routing policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html)
@@ -501,7 +501,7 @@ Success looks like: a query from an EU resolver goes to the EU endpoint at 95/5 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 DNS gets users to your front door, but it does not make the trip faster or cheaper once they are there. The next lesson puts a caching layer in front of that door: CloudFront, cache behaviors, invalidation, signed URLs, and Origin Access Control.
 

@@ -3,7 +3,7 @@
 > **Phase 10 — Grandmaster Projects** · Lesson 06 of 06
 > ⬅️ Previous: [Teaching and Thought Leadership](./05-teaching-and-thought-leadership.md) · ➡️ Next: [🏁 End of the roadmap — Roadmap home](../README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -19,7 +19,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 This capstone has one purpose: to prove you can **design and run AWS at scale**, not that you can complete a tutorial. Everything you have learned across ten phases appears here exactly once, and each piece has a reason to exist in the same system:
 
@@ -69,7 +69,7 @@ This capstone has one purpose: to prove you can **design and run AWS at scale**,
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Full-system view. Two workload accounts (staging and production), a shared services account, a security tooling account, and a log archive account, with the data lake and cost engine as shared capabilities.
 
@@ -167,7 +167,7 @@ gantt
 
 ---
 
-## 🧪 Hands-on Lab: Delivery Runbook
+## Hands-on Lab: Delivery Runbook
 
 **Goal:** Execute the capstone in four phases, with an acceptance criterion for each, ending in a public, demonstrable system.
 
@@ -414,7 +414,7 @@ aws route53 change-resource-record-sets --hosted-zone-id ZEXAMPLE \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Full inventory of accounts and their OU placement - the landing zone's ground truth
@@ -456,7 +456,7 @@ aws ce get-cost-and-usage --time-period Start=2026-03-01,End=2026-04-01 \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -473,7 +473,7 @@ aws ce get-cost-and-usage --time-period Start=2026-03-01,End=2026-04-01 \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -489,7 +489,7 @@ aws ce get-cost-and-usage --time-period Start=2026-03-01,End=2026-04-01 \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The stated target — under 3,000 USD/month at 200 tenants — is part of the assessment, so treat the cost model as a deliverable rather than a footnote.
 
@@ -520,7 +520,7 @@ Use Savings Plans for the steady-state Fargate share once utilization is stable 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **No long-lived credentials anywhere.** No IAM users in workload accounts, OIDC for pipelines, IAM Identity Center for humans, and `iam:CreateAccessKey` denied by SCP. Verify with `aws iam list-users` returning an empty list.
 - **Guardrails proven, not assumed.** For each SCP, record a scripted attempt that must fail (for example, creating an unencrypted table, or deploying outside `eu-west-1`) and store the output as evidence.
@@ -534,7 +534,7 @@ Use Savings Plans for the steady-state Fargate share once utilization is stable 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Deliver the capstone, then defend it.
 
@@ -557,7 +557,7 @@ Success looks like: a public repository a stranger can deploy, a design review y
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
 - [AWS Organizations — SCPs and OU structure](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
@@ -572,7 +572,7 @@ Success looks like: a public repository a stranger can deploy, a design review y
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 There is no next lesson. The capstone is the roadmap's last artifact, and your job now is to keep it alive: review the architecture quarterly, re-run the game day when the system changes, and keep publishing. Head back to the [roadmap home](../README.md) to see the whole path again, or continue with the phase wrap-up below.
 

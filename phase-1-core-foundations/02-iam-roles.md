@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 02 of 18
 > ⬅️ Previous: [IAM Users](./01-iam-users.md) · ➡️ Next: [IAM Policies](./03-iam-policies.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An **IAM role** is an identity with **temporary credentials** that is *assumed* by something that needs it, rather than logged into. The something can be:
 
@@ -58,7 +58,7 @@ A trust policy naming `ec2.amazonaws.com` does not grant EC2 anything. It only p
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The two-gate model, which explains almost every role problem:
 
@@ -92,7 +92,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Create a Role for EC2
+## Hands-on Lab: Create a Role for EC2
 
 **Goal:** Give an EC2 instance read-only access to S3 with no credentials stored on the instance, and prove both the trust policy and the permissions policy are doing their job.
 
@@ -200,7 +200,7 @@ aws iam get-role --role-name EC2S3ReadOnlyRole \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Create a role from a trust policy
@@ -245,7 +245,7 @@ done
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -282,7 +282,7 @@ Three controls in one statement: a specific account, a shared secret that proves
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -297,7 +297,7 @@ Three controls in one statement: a specific account, a shared secret that proves
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 IAM roles are **free**. STS is free for `AssumeRole` calls, and there is no charge for temporary credentials.
 
@@ -309,7 +309,7 @@ For audits, roles are also cheaper to manage than users: there are no rotation s
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Roles are the migration path away from keys.** If you have applications using long-lived access keys, moving them to a role is the single highest-value security change available, and it also removes a rotation burden.
 - **Trust policy is the attack surface you must review.** A trust policy with `"Principal": "*"` and no condition lets *any* AWS principal in the world assume your role. This is a real and recurrent misconfiguration.
@@ -323,7 +323,7 @@ For audits, roles are also cheaper to manage than users: there are no rotation s
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create an IAM Role `AppRole` with `AmazonDynamoDBFullAccess`, attach it to an EC2 instance, then from that instance run:
 
@@ -340,7 +340,7 @@ Success looks like: the command returns without any credentials configured on th
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [IAM Roles Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)
 - [Using IAM Roles with EC2](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
@@ -351,7 +351,7 @@ Success looks like: the command returns without any credentials configured on th
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now know how to hand permissions to an identity, and why the trust policy and the permissions policy are separate gates that must both open. The next lesson explains the document that actually defines what those permissions are, and the evaluation logic that decides whether a request is allowed.
 

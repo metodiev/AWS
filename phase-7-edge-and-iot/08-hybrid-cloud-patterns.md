@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 08 of 09
 > ⬅️ Previous: [AWS Local Zones](./07-aws-local-zones.md) · ➡️ Next: [Project: Industrial IoT](./09-project-industrial-iot.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Hybrid is not one architecture; it is a set of independent decisions that must agree with each other. There are five: **how traffic moves** (VPN or Direct Connect), **how data is stored** (Storage Gateway, DataSync, or local with replication), **how names resolve** (Route 53 Resolver endpoints, forwarding rules, and consistent DNS zones), **how identities authenticate** (IAM Roles Anywhere, SSM, or the older bad habit of static access keys), and **where the truth lives** for any given object. Get four right and the fifth will consume your on-call rotations.
 
@@ -49,7 +49,7 @@ The pattern that ties it together: on-premises systems should look like slightly
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A complete hybrid topology with both transport paths, storage integration, and DNS:
 
@@ -145,7 +145,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Wire a Hybrid Site End to End
+## Hands-on Lab: Wire a Hybrid Site End to End
 
 **Goal:** Connect an on-premises network to a VPC with a VPN, make DNS resolve in both directions, register a server with Systems Manager, and move a directory into S3 with DataSync.
 
@@ -320,7 +320,7 @@ Success looks like: two VPN tunnels `UP`, a `bgpStatus` of `up` on the DX virtua
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Connectivity inventory
@@ -361,7 +361,7 @@ aws ssm describe-instance-information --query 'InstanceInformationList[].{id:Ins
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -376,7 +376,7 @@ aws ssm describe-instance-information --query 'InstanceInformationList[].{id:Ins
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -391,7 +391,7 @@ aws ssm describe-instance-information --query 'InstanceInformationList[].{id:Ins
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Hybrid costs have four components, and each has a different optimization lever:
 
@@ -408,7 +408,7 @@ Where hybrid genuinely costs more than "just move it to AWS": every on-premises 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encrypt every path.** IPSec for VPN; for Direct Connect, either run VPN over the private virtual interface or use MACsec on the connection. Do not assume a private circuit is automatically an encrypted one.
 - **Keep AWS API traffic off the public internet.** Use interface VPC endpoints and reach them over DX or VPN so credentials and payload headers never traverse the internet.
@@ -421,7 +421,7 @@ Where hybrid genuinely costs more than "just move it to AWS": every on-premises 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design a hybrid architecture for a retailer with 40 stores, a small data center, and a growing AWS footprint. Requirements: nightly point-of-sale uploads, real-time inventory lookups against a Regional service, Direct Connect at the data center, unpredictable internet in stores, and no static credentials anywhere.
 
@@ -431,7 +431,7 @@ Success looks like: a design where only the data center uses Direct Connect, sto
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Site-to-Site VPN User Guide](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html)
 - [AWS Direct Connect User Guide](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html)
@@ -445,7 +445,7 @@ Success looks like: a design where only the data center uses Direct Connect, sto
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Everything in Phase 7 now has a place: devices, runtimes, microcontrollers, physical transfers, on-premises infrastructure, metro and carrier placements, and the hybrid plumbing that connects them. The capstone takes the whole phase and builds one system — an industrial IoT telemetry platform — where every piece you learned has to work at the same time, including when the network fails and when a device goes rogue.
 

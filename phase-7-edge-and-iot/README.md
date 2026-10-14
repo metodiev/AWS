@@ -4,7 +4,7 @@ Every phase so far assumed your workloads live inside an AWS Region. This phase 
 
 The phase has two halves. The first half (Lessons 01–03) is device-side: AWS IoT Core as the managed message broker and registry, AWS IoT Greengrass v2 as the on-premises runtime that keeps processing alive when the network dies, and FreeRTOS as the operating system embedded in microcontrollers where a 512 KB flash budget is normal. The second half (Lessons 04–08) is infrastructure-side: moving petabytes with the Snow family, running real EC2 and S3 inside your own data center with Outposts, pushing compute into carrier 5G networks with Wavelength, and putting AWS a few milliseconds from a metro population with Local Zones. The capstone stitches both halves together into an industrial telemetry platform.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Register, authenticate, and manage device fleets with AWS IoT Core using X.509 mutual TLS — never shared credentials
 - Run edge processing, local ML inference, and buffered store-and-forward with AWS IoT Greengrass v2
@@ -15,7 +15,7 @@ The phase has two halves. The first half (Lessons 01–03) is device-side: AWS I
 - Design a hybrid architecture with working DNS, routing, identity, and storage integration
 - Build a complete industrial IoT pipeline as the phase capstone
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -40,7 +40,7 @@ flowchart TD
 
 The map is the mental model for the phase: **things and runtimes** are the left branch, **placements and transport** are the right branch, and the capstone requires a working design from each side.
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -54,7 +54,7 @@ The map is the mental model for the phase: **things and runtimes** are the left 
 | 08 | [Hybrid Cloud Patterns](./08-hybrid-cloud-patterns.md) | Storage Gateway, DataSync, VPN vs Direct Connect, hybrid DNS with Route 53 Resolver, IAM for hybrid | Advanced |
 | 09 | [Project: Industrial IoT](./09-project-industrial-iot.md) | Capstone — sensors to Greengrass to IoT Core to Timestream and S3 to QuickSight, Device Defender, OTA fleet updates | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Industrial IoT Telemetry Platform** — instrument a factory with sensors, run AWS IoT Greengrass v2 on the plant gateway so telemetry survives a WAN outage, stream to AWS IoT Core, route through the rules engine into Amazon Timestream and Amazon Kinesis, land raw data in an S3 data lake queryable by Athena, and visualize it in QuickSight. Then harden it: a Device Defender security profile with ML anomaly detection, and an OTA firmware rollout to the whole fleet using staged IoT jobs.
 
@@ -70,7 +70,7 @@ Deliverables:
 
 Full instructions are in [Lesson 09](./09-project-industrial-iot.md).
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] I can provision a device with a unique certificate and a least-privilege IoT policy, and prove which topics it can and cannot publish to
 - [ ] I can explain the difference between a device shadow, a Greengrass local shadow, and a rules engine destination
@@ -81,7 +81,7 @@ Full instructions are in [Lesson 09](./09-project-industrial-iot.md).
 - [ ] I can describe the DNS path that lets an on-premises server resolve a private Route 53 zone and vice versa
 - [ ] The capstone pipeline renders as a diagram, and every hop in it is something I built
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS IoT Core Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
 - [AWS IoT Greengrass V2 Developer Guide](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)
@@ -96,7 +96,7 @@ Full instructions are in [Lesson 09](./09-project-industrial-iot.md).
 - [Hybrid Cloud DNS — Route 53 Resolver](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html)
 - [AWS Prescriptive Guidance — Hybrid Cloud Architectures](https://docs.aws.amazon.com/prescriptive-guidance/latest/hybrid-cloud-architectures/welcome.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 With device fleets connected and AWS placed wherever the workload demands it, you have all the primitives the roadmap needs. Phase 8 stops introducing new infrastructure and starts applying everything to whole industries — payments, patient records, game backends, live media, and government-grade isolation.
 

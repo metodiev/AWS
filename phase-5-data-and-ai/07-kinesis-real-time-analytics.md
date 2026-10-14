@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 07 of 09
 > ⬅️ Previous: [Amazon EMR and Spark](./06-amazon-emr-and-spark.md) · ➡️ Next: [SageMaker Training and Deployment](./08-sagemaker-training-and-deployment.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Streaming analytics means answering questions about a window of time — "revenue in the last five minutes" — while events are still arriving. Two things make that hard. Events arrive **out of order**, so "the last five minutes" cannot mean "the last five minutes of wall-clock time you happened to receive them". And a stream **never ends**, so there is no moment at which the answer is final.
 
@@ -90,7 +90,7 @@ If exactly-once holds end to end, downstream consumers must either tolerate dupl
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Transport, delivery, and compute — the three layers together:
 
@@ -129,7 +129,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Stream to Windowed Aggregate to S3
+## Hands-on Lab: Stream to Windowed Aggregate to S3
 
 **Goal:** Create a stream, produce sample events, run a windowed aggregation in Managed Flink, and land raw events in S3 through Firehose with Parquet conversion.
 
@@ -360,7 +360,7 @@ Expected: Parquet objects (not JSON) under the raw prefix, `orders-aggregated` r
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Scale a provisioned stream up or down
@@ -398,7 +398,7 @@ aws kinesisanalyticsv2 update-application \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -413,7 +413,7 @@ aws kinesisanalyticsv2 update-application \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -428,7 +428,7 @@ aws kinesisanalyticsv2 update-application \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 | Component | Approximate price | Notes |
 |-----------|-------------------|-------|
@@ -443,7 +443,7 @@ Three rules of thumb. First, **provisioned streams are cheapest at steady load**
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encrypt streams with KMS** (`start-stream-encryption --encryption-type KMS`) and restrict `kms:Decrypt` to consumer roles.
 - **Use IAM policies scoped to stream ARNs**, with `kinesis:PutRecord` granted only to producers and `kinesis:GetRecords`/`SubscribeToShard` only to consumers. `kinesis:*` on `*` lets any principal read every tenant's data.
@@ -454,7 +454,7 @@ Three rules of thumb. First, **provisioned streams are cheapest at steady load**
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a per-customer sessionization job:
 
@@ -466,7 +466,7 @@ Success looks like: the session output streams into `orders-aggregated` within a
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
 - [Kinesis Data Streams Quotas and Limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
@@ -478,7 +478,7 @@ Success looks like: the session output streams into `orders-aggregated` within a
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now move data continuously and answer questions about it in near real time. The next lesson changes the question from "what happened?" to "what will happen?" — training and deploying models with Amazon SageMaker.
 

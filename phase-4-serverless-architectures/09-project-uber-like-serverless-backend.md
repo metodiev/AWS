@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 09 of 09
 > ⬅️ Previous: [Amazon Kinesis](./08-amazon-kinesis.md) · ➡️ Next: [Phase 5 — Data and AI](../phase-5-data-and-ai/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **RideNow** is the system you are building: a ride-hailing backend. The product surface is small — a rider requests a ride, a driver accepts, the trip runs, the trip completes, the rider is charged — but the internal fan-out is wide, which is exactly why it makes a good capstone.
 
@@ -44,7 +44,7 @@ The fourth move is **idempotency everywhere**, because every asynchronous path i
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The complete system. Every arrow is a real integration covered in this phase:
 
@@ -180,7 +180,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Build RideNow
+## Hands-on Lab: Build RideNow
 
 **Goal:** Deploy the live path end to end, then add the asynchronous consumers one at a time.
 
@@ -532,7 +532,7 @@ Success is: `201` returned in under 400 ms, the ride record advancing to `DRIVER
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inspect the whole system state in one pass
@@ -580,7 +580,7 @@ aws xray get-trace-summaries \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -597,7 +597,7 @@ aws xray get-trace-summaries \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -614,7 +614,7 @@ aws xray get-trace-summaries \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Assume **100,000 rides per day**, which is about 3 million rides per month. Estimate 10 API calls and 10 domain events per ride.
 
@@ -643,7 +643,7 @@ Also remember the fixed cost of a forgotten stream: 2 provisioned shards cost **
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Authenticate every request with Cognito and authorize per user.** A JWT proves who is calling; your Lambda must still check that the rider in the token owns the ride ID in the path. Returning another user's ride is a broken-access-control bug, not a convenience.
 - **Never trust client-supplied `riderId` or `fare`.** Take identity from the verified token claims and compute the fare server-side. Every field a client can set is a field an attacker will set.
@@ -658,7 +658,7 @@ Also remember the fixed cost of a forgotten stream: 2 provisioned shards cost **
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the deployed system and make it survive a deliberate failure. Stop the matcher's event source mapping, submit 500 rides, then restart it and watch the backlog drain. While the backlog is draining, break the `notify` consumer so its messages land in the DLQ, and then repair it and redrive the messages back with `start-message-move-task`. Finally, replay the last six hours of `rides-domain` events into the archive consumer with `events start-replay` and confirm the S3 archive now contains the replayed events exactly once per original event.
 
@@ -666,7 +666,7 @@ Success looks like: no ride stuck in `MATCHING` after the backlog drained, a DLQ
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Serverless Applications Lens — AWS Well-Architected](https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html)
 - [Amazon DynamoDB single-table design](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-general-nosql-design.html)
@@ -679,7 +679,7 @@ Success looks like: no ride stuck in `MATCHING` after the backlog drained, a DLQ
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have built a complete serverless backend: a fast synchronous edge, durable queues, schema-stable domain events, orchestrated long-running workflows, and a replayable stream of high-volume telemetry. Phase 5 takes the data these services produce and turns it into a data lake with lakehouse analytics, so the same ride events that drive the product also drive reporting, pricing models, and machine learning.
 

@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 08 of 13
 > ⬅️ Previous: [GitHub Actions for AWS](./07-github-actions-for-aws.md) · ➡️ Next: [Amazon EKS](./09-amazon-eks.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Amazon ECS has three objects you must keep straight. A **cluster** is a logical grouping — with Fargate it is almost free to create one per environment and it holds nothing but services and tasks. A **task definition** is the immutable blueprint: which images, how much CPU and memory, which ports, which log configuration, which secrets, and which IAM roles. A **service** keeps a chosen number of copies of that task definition running, replaces unhealthy tasks, and attaches them to a load balancer. Every deploy creates a new task definition *revision*; nothing is ever edited in place.
 
@@ -44,7 +44,7 @@ Deployments come in two flavors. A **rolling update** replaces tasks in place ac
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 An ECS service behind an ALB with Cloud Map for internal calls:
 
@@ -98,7 +98,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Deploy a Fargate Service with Cloud Map and Blue/Green
+## Hands-on Lab: Deploy a Fargate Service with Cloud Map and Blue/Green
 
 **Goal:** Register a task definition, run it as a service behind an ALB, add private service discovery, and configure a CodeDeploy blue/green deployment.
 
@@ -312,7 +312,7 @@ dig +short api.phase3.internal
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Run a one-off task with a command override (migrations, backfills)
@@ -360,7 +360,7 @@ aws application-autoscaling register-scalable-target \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -378,7 +378,7 @@ aws application-autoscaling register-scalable-target \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -394,7 +394,7 @@ aws application-autoscaling register-scalable-target \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 You pay for what tasks consume, not for the cluster. A 1 vCPU / 2 GB Fargate task at ARM64 pricing runs about **$0.0405/hour**, so three tasks cost roughly **$88/month** on demand. The same shape on Fargate Spot is about **$0.012/hour** — the capacity provider strategy in the lab weights Spot 3:1, which typically lands a three-task service near $40/month while keeping one on-demand task as a floor. EC2 launch type on a Graviton instance with a Savings Plan can be cheaper still at high utilization, but only if you pack tasks efficiently; an under-utilized EC2 cluster is more expensive than Fargate.
 
@@ -402,7 +402,7 @@ The hidden line items matter as much as the tasks. An ALB costs about **$16/mont
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **One security group per service, referencing other groups as sources** — allow 8080 from `sg-0alb` rather than a CIDR range. Tasks in `awsvpc` mode are individually addressable, so group references stay accurate as IPs change.
 - **Never bake secrets into images or task definitions.** Use the `secrets` block with Secrets Manager or SSM `SecureString` parameters and a scoped execution role policy.
@@ -414,7 +414,7 @@ The hidden line items matter as much as the tasks. An ALB costs about **$16/mont
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a second service called `phase3lab-worker` that consumes from an SQS queue, has no load balancer, and scales on queue depth using Application Auto Scaling with a target-tracking policy on `SQSApproximateNumberOfMessagesVisible` at 50 messages per task.
 
@@ -422,7 +422,7 @@ Success looks like: `aws application-autoscaling describe-scalable-targets --ser
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon ECS Developer Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 - [Task Definition Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html)
@@ -433,7 +433,7 @@ Success looks like: `aws application-autoscaling describe-scalable-targets --ser
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 ECS gives you a managed scheduler with an AWS-shaped API. If your team already thinks in Kubernetes — or needs the ecosystem around it — the next lesson covers Amazon EKS, including the identity bridge that makes pods first-class AWS principals.
 

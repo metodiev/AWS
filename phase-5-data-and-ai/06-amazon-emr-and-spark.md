@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 06 of 09
 > ⬅️ Previous: [Amazon Redshift](./05-amazon-redshift.md) · ➡️ Next: [Kinesis Real-Time Analytics](./07-kinesis-real-time-analytics.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon EMR** runs distributed processing frameworks — Spark, Hive, Presto/Trino, HBase, Flink — on EC2 capacity that EMR provisions and configures for you. It handles Hadoop, YARN, the framework versions, and the glue code that makes S3 behave like a filesystem.
 
@@ -86,7 +86,7 @@ Adaptive Query Execution in Spark 3.x solves in minutes what used to require man
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Node roles and where data actually lives:
 
@@ -124,7 +124,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Transient Cluster with Spot Task Nodes, Then Serverless
+## Hands-on Lab: Transient Cluster with Spot Task Nodes, Then Serverless
 
 **Goal:** Create a cluster with On-Demand core nodes and Spot task nodes, submit a Spark step that writes partitioned Parquet, then run the same job on EMR Serverless.
 
@@ -316,7 +316,7 @@ Both runs should produce the same partitioned Parquet output. If the Serverless 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inventory clusters still running (a common source of surprise bills)
@@ -358,7 +358,7 @@ aws s3 cp s3://acme-analytics-prod-eu-west-1/emr-logs/j-XXXX/steps/s-XXXX/ ./ste
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -376,7 +376,7 @@ aws s3 cp s3://acme-analytics-prod-eu-west-1/emr-logs/j-XXXX/steps/s-XXXX/ ./ste
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -391,7 +391,7 @@ aws s3 cp s3://acme-analytics-prod-eu-west-1/emr-logs/j-XXXX/steps/s-XXXX/ ./ste
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 EMR pricing is EC2 cost plus an EMR premium per instance-hour, and the premium is lower for Spot. Approximate figures for an `m5.xlarge` in `eu-west-1`: about $0.19 per On-Demand instance-hour, with EMR adding roughly $0.06 per hour for that instance class.
 
@@ -413,7 +413,7 @@ Watch `TotalResourceUtilization` (or `totalResourceUtilization` on Serverless jo
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Separate the two roles.** The EMR service role allows EMR to act on your behalf; the EC2 instance profile is what the nodes use to read S3 and Glue. Scope the instance profile to the lake prefixes the jobs actually need.
 - **Never use long-lived keys in bootstrap actions.** Use the instance profile so metadata-based credentials rotate automatically.
@@ -433,7 +433,7 @@ Watch `TotalResourceUtilization` (or `totalResourceUtilization` on Serverless jo
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a job that is resilient to Spot interruption and prove it:
 
@@ -446,7 +446,7 @@ Success looks like: `list-steps` reports `COMPLETED`, the Spark UI history shows
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EMR Management Guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html)
 - [EMR Cluster and Node Types](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-master-core-task-nodes.html)
@@ -459,7 +459,7 @@ Success looks like: `list-steps` reports `COMPLETED`, the Spark UI history shows
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 EMR handles batch science at scale. The next lesson keeps Spark's windowing and stateful processing ideas but applies them to data that never stops arriving, using Kinesis and the Managed Service for Apache Flink.
 

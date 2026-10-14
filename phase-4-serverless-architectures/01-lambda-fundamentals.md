@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 01 of 09
 > ⬅️ Previous: [Phase overview](./README.md) · ➡️ Next: [Lambda Performance Tuning](./02-lambda-performance-tuning.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Lambda** runs your code in response to events without you managing a server. You upload a deployment package — a ZIP file or a container image up to 10 GB — and AWS runs it in a **managed execution environment**. You are billed for the time the code runs, rounded to 1 millisecond, multiplied by the memory you allocated. Nothing runs, and nothing costs, while no events arrive.
 
@@ -50,7 +50,7 @@ Permissions come in two flavors. The **execution role** is an IAM role Lambda as
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How the three invocation types relate to the triggers you will use throughout this phase:
 
@@ -89,7 +89,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Build, Version, and Alias a Function
+## Hands-on Lab: Build, Version, and Alias a Function
 
 **Goal:** Deploy a Python Lambda by CLI, invoke it both ways, then publish a version and split traffic with an alias.
 
@@ -228,7 +228,7 @@ Run the invoke a few times: roughly one in ten responses should come from versio
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Show configuration for a function, a version, or an alias
@@ -284,7 +284,7 @@ aws lambda list-event-source-mappings --function-name rides-api
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -298,7 +298,7 @@ aws lambda list-event-source-mappings --function-name rides-api
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -312,7 +312,7 @@ aws lambda list-event-source-mappings --function-name rides-api
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Lambda pricing has three parts. **Requests** cost $0.20 per million. **Duration** costs $0.0000166667 per GB-second on x86 and about 20 percent less on ARM64 (Graviton). **Ephemeral storage** beyond the free 512 MB costs $0.0000000309 per GB-second.
 
@@ -324,7 +324,7 @@ What actually drives the bill: total GB-seconds. Because you pay for allocated m
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Least privilege execution roles.** Start from `AWSLambdaBasicExecutionRole` and add only the specific actions the function needs, scoped to specific resource ARNs.
 - **Do not put secrets in environment variables.** They are visible to anyone with `lambda:GetFunctionConfiguration`. Store them in Secrets Manager and cache the value in a module-level variable.
@@ -335,7 +335,7 @@ What actually drives the bill: total GB-seconds. Because you pay for allocated m
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Deploy a second function named `ride-notifier` that reads a `recipient` field from its event and returns a `202`-style JSON body. Publish version 1, change the response message, publish version 2, and create an alias named `prod` that sends 25 percent of traffic to version 1. Then set reserved concurrency to 5 and prove the limit exists by running `aws lambda get-function-concurrency`.
 
@@ -343,7 +343,7 @@ Success looks like: `get-alias prod` shows `FunctionVersion: 2` with `Additional
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 - [Lambda execution environment lifecycle](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html)
@@ -353,7 +353,7 @@ Success looks like: `get-alias prod` shows `FunctionVersion: 2` with `Additional
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now deploy and version a function, but you have not yet answered the question every production Lambda team hits: *why did the first request take 1.8 seconds?* The next lesson attacks cold starts, the memory-to-CPU relationship, provisioned concurrency, SnapStart, and ARM64.
 

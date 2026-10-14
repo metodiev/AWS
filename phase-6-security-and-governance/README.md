@@ -2,7 +2,7 @@
 
 This phase turns you from someone who *knows* IAM into someone who can design the security spine of a whole organization. Phase 1 taught you identities and policies inside a single account; here you extend those primitives across accounts, federate them to an external identity provider, and wrap them in encryption, threat detection, compliance evidence, and organization-wide guardrails. It comes at this point in the roadmap because every later phase — multi-account serverless platforms, data lakes, industry workloads — assumes you already know how to keep an account boundary meaningful.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Grant access across AWS accounts without ever sharing long-lived credentials
 - Federate human identities from an external IdP and manage entitlements with IAM Identity Center
@@ -12,7 +12,7 @@ This phase turns you from someone who *knows* IAM into someone who can design th
 - Govern dozens of accounts with AWS Organizations, SCPs, and Control Tower
 - Build a complete multi-account security baseline as the phase capstone
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -38,7 +38,7 @@ flowchart TD
 
 The diagram is the mental model for the whole phase: **Organizations** is the container, **guardrails** are the three modes of control, and the remaining lessons are the identity, encryption, and visibility layers that sit inside it.
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -54,7 +54,7 @@ The diagram is the mental model for the whole phase: **Organizations** is the co
 | 10 | [AWS Organizations and Multi-Account Strategy](./10-aws-organizations-multi-account-strategy.md) | OUs, SCPs at scale, Control Tower, centralized logging, tagging | Advanced |
 | 11 | [Project: Security Baseline](./11-project-security-baseline.md) | Capstone — landing zone, log archive, guardrails, break-glass access | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Multi-Account Security Baseline** — build a landing zone you would actually run in production: Control Tower organization with a log archive and audit account, organization-wide CloudTrail into a locked-down S3 bucket, SCP guardrails that block root-user and region abuse, Security Hub and GuardDuty aggregated under a delegated administrator, a tiered KMS key strategy, and a documented break-glass procedure for the root user.
 
@@ -69,7 +69,7 @@ Deliverables:
 
 Full instructions are in [Lesson 11](./11-project-security-baseline.md).
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] I can explain how a cross-account `AssumeRole` call is authorized by two policies at once
 - [ ] I know when `ExternalId` is mandatory and what confused deputy means
@@ -80,7 +80,7 @@ Full instructions are in [Lesson 11](./11-project-security-baseline.md).
 - [ ] SCPs exist that prevent — not just detect — the mistakes you fear most
 - [ ] The capstone organization renders as a diagram and everything in it is deployed
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [Security Pillar — AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)
 - [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
@@ -90,7 +90,7 @@ Full instructions are in [Lesson 11](./11-project-security-baseline.md).
 - [AWS Artifact](https://docs.aws.amazon.com/artifact/latest/ug/what-is-aws-artifact.html)
 - [AWS Prescriptive Guidance — Organizing Your AWS Environment Using Multiple Accounts](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 Once the organization, its guardrails, and its key hierarchy hold together, you can safely push compute and data to the edge. Phase 7 takes the same least-privilege mindset and applies it to devices, gateways, and hybrid infrastructure that live outside the Region.
 

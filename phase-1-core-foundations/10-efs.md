@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 10 of 18
 > ⬅️ Previous: [Amazon EBS](./09-ebs.md) · ➡️ Next: [S3 Lifecycle Policies](./11-s3-lifecycle-policies.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon EFS** is a managed, elastic NFS file system. The mental model is simple: it is a network drive that many Linux instances can mount simultaneously, backed by storage that grows and shrinks automatically with no provisioning.
 
@@ -60,7 +60,7 @@ Lifecycle management on EFS moves files between classes automatically based on l
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How a fleet of instances reaches one file system:
 
@@ -107,7 +107,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: A Shared File System Across Two Instances
+## Hands-on Lab: A Shared File System Across Two Instances
 
 **Goal:** Create an encrypted EFS file system with mount targets in two AZs, mount it from two instances, and prove that a file written on one is visible on the other.
 
@@ -216,7 +216,7 @@ The second policy is important: without it, files moved to IA stay there even if
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Describe file systems and their size
@@ -251,7 +251,7 @@ nfsstat -m
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -266,7 +266,7 @@ nfsstat -m
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -281,7 +281,7 @@ nfsstat -m
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 EFS is the most expensive of the three storage primitives you have learned, and it is worth understanding exactly why before using it.
 
@@ -300,7 +300,7 @@ Third: **reconsider whether you need EFS at all**. If the "shared filesystem" is
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encryption at rest is a creation-time choice.** You cannot encrypt an existing unencrypted EFS file system — you must create a new one and copy the data. Enable it on day one.
 - **Encryption in transit requires action.** EFS supports TLS, but only if you mount with `-o tls` via `amazon-efs-utils`. Plain NFS mounts are cleartext on the network.
@@ -335,7 +335,7 @@ An IAM policy restricting a task to one access point:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design a shared file system for a containerized web application that has three concerns:
 
@@ -349,7 +349,7 @@ Success looks like: you can state the monthly cost estimate per 100 GB for each 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EFS User Guide](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html)
 - [EFS Performance](https://docs.aws.amazon.com/efs/latest/ug/performance.html)
@@ -359,7 +359,7 @@ Success looks like: you can state the monthly cost estimate per 100 GB for each 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have all three storage primitives: object, block, and file. The next lesson returns to S3 to automate the cost problem that every storage system eventually has — data that nobody deletes.
 

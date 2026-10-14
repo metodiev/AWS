@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 03 of 09
 > ⬅️ Previous: [AWS IoT Greengrass](./02-aws-iot-greengrass.md) · ➡️ Next: [Amazon Snow Family](./04-aws-snow-family.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **FreeRTOS** is a real-time kernel, not a full operating system. It gives you a preemptive scheduler, tasks, queues, semaphores, mutexes, software timers, event groups, stream buffers, and message buffers — and then it stops. There is no memory protection, no filesystem, no network stack, no user accounts. Everything above that line is your responsibility, and every layer you add costs kilobytes of RAM you may not have. It ships under the MIT license and runs on dozens of microcontroller architectures, which is why it became the default choice for battery-powered sensors and industrial controllers.
 
@@ -53,7 +53,7 @@ Finally, **over-the-air updates** are the thing that makes a deployed fleet mana
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 What lives inside the microcontroller, and what crosses the wire:
 
@@ -128,7 +128,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Build, Sign, and Deliver a Firmware Update
+## Hands-on Lab: Build, Sign, and Deliver a Firmware Update
 
 **Goal:** Build the FreeRTOS coreMQTT mutual-auth demo, publish a new version, sign it, and deliver it as an OTA job to a registered thing.
 
@@ -277,7 +277,7 @@ Success is a job execution in `SUCCEEDED` state with no manual intervention on t
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Register the very first firmware image as open (covered by code signing instead)
@@ -310,7 +310,7 @@ aws iot-data get-thing-shadow --thing-name sensor-0001 --output text --query 'st
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -325,7 +325,7 @@ aws iot-data get-thing-shadow --thing-name sensor-0001 --output text --query 'st
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -340,7 +340,7 @@ aws iot-data get-thing-shadow --thing-name sensor-0001 --output text --query 'st
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 There is no charge for FreeRTOS or the embedded C SDK — they are open source and free to ship in commercial products. The costs are the per-device AWS services those libraries call, and the much larger non-AWS costs of the firmware lifecycle.
 
@@ -350,7 +350,7 @@ The costs people forget are the physical ones: an MCU with enough flash and RAM 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Assume the device will be physically attacked.** Anything in flash can be read with a debug probe. Use a secure element or TrustZone-backed keystore for private keys, and enable read-out protection — then verify it is actually on in production units.
 - **Randomness quality breaks cryptography.** A device with a poor entropy source produces predictable keys. Sources like anotherwise-good TRNG with insufficient seeding are a classic vulnerability; validate the entropy source before shipping.
@@ -363,7 +363,7 @@ The costs people forget are the physical ones: an MCU with enough flash and RAM 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the demo you built and add a second task that samples a sensor represented by an analog input (or a simulated counter), publishes it on a five-second period, and participates in the shadow protocol: report the sampling interval in `reported`, honour a `desired` change from the cloud, and publish a delta acknowledgment.
 
@@ -373,7 +373,7 @@ Success looks like: a device that changes its sampling rate from the console wit
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [FreeRTOS — AWS IoT Libraries](https://www.freertos.org/iot-freertos/index.html)
 - [FreeRTOS Kernel Documentation](https://www.freertos.org/Documentation/RTOS_book.html)
@@ -386,7 +386,7 @@ Success looks like: a device that changes its sampling rate from the console wit
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have devices talking, gateways running code locally, and microcontrollers that can update themselves. The next lesson changes scale completely: instead of kilobytes over MQTT, it moves petabytes by truck. The Snow family is what you use when the network is the bottleneck and no amount of protocol tuning fixes a 100 TB upload over a 100 Mbps line.
 

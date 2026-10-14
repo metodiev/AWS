@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 01 of 11
 > ➡️ Next: [Identity Federation and IAM Identity Center](./02-identity-federation-and-iam-identity-center.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An AWS account ID is a hard security boundary. IAM users, roles, and policies are scoped to exactly one account, and nothing you attach inside account A can grant access to a resource in account B by itself. The only supported way to cross that line with temporary credentials is **AWS Security Token Service (STS)**: a principal in account A calls `sts:AssumeRole` against a role in account B, and if account B's *trust policy* permits it, STS returns short-lived credentials for that role.
 
@@ -41,7 +41,7 @@ The last concept is the **confused deputy**. A third-party SaaS vendor asks you 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A two-account role assumption, showing that both the source identity policy and the target trust policy are evaluated:
 
@@ -87,7 +87,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Give a User Cross-Account Read Access with an ExternalId
+## Hands-on Lab: Give a User Cross-Account Read Access with an ExternalId
 
 **Goal:** Let a user in account A read objects from a bucket in account B through a role that requires an `ExternalId`.
 
@@ -232,7 +232,7 @@ Finally, confirm the assumption is visible in CloudTrail as a separate `AssumeRo
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # See which identity your current credentials resolve to (account, ARN, user/role id)
@@ -282,7 +282,7 @@ aws s3api get-bucket-policy-status --bucket partner-shared-bucket
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -296,7 +296,7 @@ aws s3api get-bucket-policy-status --bucket partner-shared-bucket
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -309,7 +309,7 @@ aws s3api get-bucket-policy-status --bucket partner-shared-bucket
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 STS itself is free — there is no charge for `AssumeRole` calls, and unlike long-lived IAM user access keys there is nothing to rotate on a schedule. What costs money is everything the assumed role can then do, and cross-account access quietly expands the blast radius of a compromised integration. Govern it with **service quotas**: `AssumeRole` is a rate-limited API (`Rate exceeded` errors appear long before any bill does), so add exponential backoff in automation threads that fan out assumptions.
 
@@ -317,7 +317,7 @@ The real financial argument for roles over users is audit and containment cost: 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Both sides of the trust relationship must be audited.** A permissive trust policy in account B is an open door regardless of how disciplined account A is. Run IAM Access Analyzer in *both* accounts — it flags resources that grant access to principals outside the account or organization.
 - **Condition on the principal, not just the account.** Prefer `"Condition": {"ArnLike": {"aws:PrincipalArn": "arn:aws:iam::111122223333:role/PartnerIntegration"}}` over trusting the whole source account root for third-party access.
@@ -329,7 +329,7 @@ The real financial argument for roles over users is audit and containment cost: 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create a third account (or reuse one) and build a two-hop setup: a user in account A assumes `DeployRole` in account B (with an MFA condition and an ExternalId), and `DeployRole` then assumes `PipelineRole` in account C without any permission to touch account C's S3 buckets directly. Prove with `aws sts get-caller-identity` and a deliberately failing `aws s3 ls` that the second hop does not inherit the first role's bucket permissions, and that a session created by chaining cannot exceed one hour.
 
@@ -337,7 +337,7 @@ Success looks like: the chained session returns `arn:aws:iam::333344445555:assum
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Identity and Access Management — Switching to a role (AssumeRole)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-api.html)
 - [The confused deputy problem](https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html)
@@ -348,7 +348,7 @@ Success looks like: the chained session returns `arn:aws:iam::333344445555:assum
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Cross-account roles solve machine-to-machine access, but you do not want to create a role for every one of your engineers — or an IAM user for every contractor. The next lesson replaces hand-built identities with federation, so that your existing identity provider becomes the single source of truth and IAM Identity Center hands out short-lived, permission-set-scoped sessions.
 

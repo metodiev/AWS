@@ -3,7 +3,7 @@
 > **Phase 9 — Cutting-Edge AWS** · Lesson 03 of 06
 > ⬅️ Previous: [Robotics on AWS](./02-aws-robomaker.md) · ➡️ Next: [Graviton and Sustainability](./04-graviton-and-sustainability.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A satellite is only useful when you can talk to it. That requires an antenna pointed at the right patch of sky at the right minute of the orbit — and antennas are expensive, licensed, geographically constrained assets. **AWS Ground Station** sells access to a global antenna network as a service. AWS owns the dishes, the spectrum licensing negotiations, the site operations, and the fiber backhaul; you reserve time on the network, describe where the data should land, and pay for the minutes you use.
 
@@ -89,7 +89,7 @@ Dataflows are node-and-edge graphs. A typical edge is `antenna-downlink` → `s3
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 From orbit to S3, including where encryption and IAM boundaries sit:
 
@@ -176,7 +176,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Build a Mission Profile and Reserve a Contact
+## Hands-on Lab: Build a Mission Profile and Reserve a Contact
 
 **Goal:** Create the S3 destination, endpoint group, and mission profile for a satellite, then reserve a contact and verify the data landing pattern using the digital twin feature — with no spectrum licensing required.
 
@@ -334,7 +334,7 @@ Success looks like: a mission profile you can reuse, a contact reaching `COMPLET
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Discovery
@@ -377,7 +377,7 @@ aws events put-rule --name gs-contact-completed --event-pattern file://pattern.j
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -393,7 +393,7 @@ aws events put-rule --name gs-contact-completed --event-pattern file://pattern.j
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -409,7 +409,7 @@ aws events put-rule --name gs-contact-completed --event-pattern file://pattern.j
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Ground Station pricing has two components, and only one of them is obviously visible:
 
@@ -424,7 +424,7 @@ AWS publishes the "up to 80% savings versus building your own ground station" cl
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **End-to-end encryption is your responsibility.** AWS explicitly recommends implementing encryption and provides APIs to integrate it; the service does not magically secure your payload. Encrypt command links and telemetry, and treat the ground segment as one part of the chain.
 - **Streams can be encrypted with KMS.** `create-mission-profile` accepts `--streams-kms-key` and `--streams-kms-role`; use a customer-managed key so you can revoke access to a downlink stream independently of the bucket policy.
@@ -437,7 +437,7 @@ AWS publishes the "up to 80% savings versus building your own ground station" cl
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design a complete mission plan for a 6U Earth-observation cubesat in a 500 km sun-synchronous orbit. Decide which ground stations you would use for a daily downlink, which band for payload versus telemetry, and how many contacts per day you need to move 1.5 GB of imagery. Then implement it with `create-config`, `create-mission-profile`, and `reserve-contact` against the digital twin, and write an EventBridge rule that starts a decoder only when `contactStatus` is `PASS`.
 
@@ -445,7 +445,7 @@ Success looks like: a mission profile ARN, three reserved contacts that return `
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Ground Station Locations](https://docs.aws.amazon.com/ground-station/latest/ug/aws-ground-station-antenna-locations.html)
 - [AWS Ground Station Site Capabilities](https://docs.aws.amazon.com/ground-station/latest/ug/locations.capabilities.html)
@@ -458,7 +458,7 @@ Success looks like: a mission profile ARN, three reserved contacts that return `
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Space hardware is the extreme case of a constrained, expensive resource. The next lesson asks the opposite question: how much of your *ordinary* compute could be running cheaper and with lower emissions on ARM64 right now?
 

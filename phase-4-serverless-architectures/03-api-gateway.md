@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 03 of 09
 > ⬅️ Previous: [Lambda Performance Tuning](./02-lambda-performance-tuning.md) · ➡️ Next: [Step Functions](./04-step-functions.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **API Gateway** is the front door for your serverless backend. It terminates TLS, authenticates callers, validates payloads, throttles traffic, and forwards requests to a backend — most often a Lambda function, but also an HTTP endpoint, a private VPC service, or a direct AWS service action. You pay per request, which makes it a natural fit for spiky workloads.
 
@@ -57,7 +57,7 @@ Authorization has three practical options. **API keys** are not a security mecha
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Choose the flavor first, then the integration:
 
@@ -97,7 +97,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: HTTP API with a JWT Authorizer
+## Hands-on Lab: HTTP API with a JWT Authorizer
 
 **Goal:** Deploy an HTTP API in front of a Lambda, protect it with a Cognito JWT authorizer, and add per-stage throttling.
 
@@ -225,7 +225,7 @@ The first call returns `401`; the second returns the Lambda response body.
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # --- REST APIs (apigateway) ---
@@ -367,7 +367,7 @@ Resources:
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -383,7 +383,7 @@ Resources:
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -399,7 +399,7 @@ Resources:
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 HTTP APIs cost **$1.00 per million requests** for the first 300 million per month. REST APIs cost **$3.50 per million** for the first 333 million — 3.5× more for the same traffic. At 50 million requests per month that is $50 versus $175: a $125 monthly difference for choosing the wrong flavor.
 
@@ -411,7 +411,7 @@ What drives the bill: request volume, REST-versus-HTTP flavor choice, and cachin
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **API keys are for metering, not security.** They leak from mobile apps and browser JavaScript. Always pair them with a real authorizer.
 - **Cache authorizer results carefully.** A 300-second TTL means a revoked token stays valid for up to 300 seconds. For revocation-sensitive flows, set the TTL to 0.
@@ -424,7 +424,7 @@ What drives the bill: request volume, REST-versus-HTTP flavor choice, and cachin
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create a REST API with a single `/quotes` resource that has an API key plus a Lambda authorizer, then create a usage plan that allows 5 requests per second with a burst of 10 and a monthly quota of 1,000. Prove the quota by invoking the endpoint more than 1,000 times in a loop and confirming that API Gateway returns `429 Too Many Requests` while your Lambda's invocation count stops climbing.
 
@@ -432,7 +432,7 @@ Success looks like: `aws apigateway get-usage --usage-plan-id $PLAN_ID --key-id 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Choose between REST APIs and HTTP APIs](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html)
 - [Working with HTTP APIs](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api.html)
@@ -444,7 +444,7 @@ Success looks like: `aws apigateway get-usage --usage-plan-id $PLAN_ID --key-id 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 API Gateway gives you a scalable front door for single-shot requests. The moment a business process has more than two steps — reserve a driver, charge a card, notify the rider — chaining Lambdas becomes unmaintainable. The next lesson replaces that chain with an explicit state machine.
 

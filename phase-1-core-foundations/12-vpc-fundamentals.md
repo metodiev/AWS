@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 12 of 18
 > ⬅️ Previous: [S3 Lifecycle Policies](./11-s3-lifecycle-policies.md) · ➡️ Next: [Subnets and Route Tables](./13-subnets-and-route-tables.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **VPC** is a logically isolated network. You define its address space with a **CIDR block** — for example `10.0.0.0/16` — and everything you create lives inside that range. This is one of the few places in AWS where an early decision is genuinely expensive to undo: you cannot change a VPC's CIDR block later without recreating the network, and you cannot overlap CIDRs with anything you want to peer with.
 
@@ -50,7 +50,7 @@ VPC endpoints deserve emphasis. Traffic to S3 or DynamoDB through a NAT gateway 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A canonical VPC layout. Notice that the NAT gateway sits in the public subnet and the private route table points to it:
 
@@ -94,7 +94,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Build a Two-Tier VPC From Scratch
+## Hands-on Lab: Build a Two-Tier VPC From Scratch
 
 **Goal:** Create a VPC with public and private subnets in two AZs, an internet gateway, a NAT gateway, and an S3 gateway endpoint — then prove that the private instance can reach S3 without internet access.
 
@@ -225,7 +225,7 @@ Launch one instance in `$PUB1` and one in `$PRIV1`, then confirm: the public ins
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # See whether a subnet is public: does its route table have a 0.0.0.0/0 route to an IGW?
@@ -253,7 +253,7 @@ aws ec2 describe-nat-gateways --query 'NatGateways[].[NatGatewayId,State,SubnetI
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -268,7 +268,7 @@ aws ec2 describe-nat-gateways --query 'NatGateways[].[NatGatewayId,State,SubnetI
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -283,7 +283,7 @@ aws ec2 describe-nat-gateways --query 'NatGateways[].[NatGatewayId,State,SubnetI
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 A VPC, subnets, route tables, internet gateways, and gateway endpoints are all **free**. Almost every networking cost comes from three places:
 
@@ -303,7 +303,7 @@ The highest-return optimizations, in order:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Subnets are not a security boundary.** A subnet's public/private property is about routing, not access. What actually controls access is security groups and NACLs — treat the public/private distinction as a blast-radius reduction, not a firewall.
 - **Keep a private subnet genuinely private.** No route to an internet gateway, no public IPs, and reach it via a bastion, Systems Manager Session Manager, or a VPN. Session Manager is preferable because it requires no open port at all.
@@ -315,7 +315,7 @@ The highest-return optimizations, in order:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Design and build a VPC for an application with these requirements, then state the monthly infrastructure cost of the network layer alone:
 
@@ -330,7 +330,7 @@ Success looks like: `describe-route-tables` shows the database subnets have no `
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
 - [VPC CIDR Blocks](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html)
@@ -341,7 +341,7 @@ Success looks like: `describe-route-tables` shows the database subnets have no `
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have a VPC with subnets and routes. The next lesson goes deeper into the two things that decide whether a subnet is actually public, and how to design subnet boundaries so that a single AZ failure does not take your application down.
 

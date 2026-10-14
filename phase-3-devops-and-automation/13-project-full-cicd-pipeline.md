@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 13 of 13
 > ⬅️ Previous: [OpenTelemetry and ADOT](./12-opentelemetry-and-adot.md) · ➡️ Next: [Phase 4 — Serverless Architectures](../phase-4-serverless-architectures/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 This capstone exists to join the previous twelve lessons into one system. Everything before it was a component: a template here, a pipeline stage there, an agent and a collector elsewhere. Production is the combination, and the combination is where the interesting failures live — the build that passes tests but pushes an image the deploy role cannot read, the deploy that succeeds but leaves the service answering 500s, the rollback that works but never gets triggered.
 
@@ -44,7 +44,7 @@ Finally, **rollback must be a first-class path, not an improvisation**. For ECS 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The complete delivery pipeline, from commit to verified production traffic:
 
@@ -137,7 +137,7 @@ flowchart TD
 
 ---
 
-## 🧪 Capstone: Build the Pipeline End to End
+## Capstone: Build the Pipeline End to End
 
 **Goal:** Deliver a two-service microservices application to three environments through one automated, gated, observable pipeline that can roll itself back.
 
@@ -639,7 +639,7 @@ aws cloudwatch describe-alarms --alarm-name-prefix phase3lab \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Drive the whole pipeline from the command line for a dry run
@@ -680,7 +680,7 @@ done
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -698,7 +698,7 @@ done
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -715,7 +715,7 @@ done
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 A realistic two-service microservices platform on this pipeline costs, per environment per month: two Fargate services at 2 tasks each (~$145), one ALB (~$16 plus LCU), one NAT Gateway (~$32 plus data), ECR storage (~$2), CloudWatch Logs and metrics (~$20–40 depending on verbosity), X-Ray traces at 10% sampling (~$5–15), and ADOT sidecars (~$22). That is roughly **$250–300 per environment** — so keeping dev and staging small (1 task each, single NAT gateway, 7-day log retention) is what keeps the total near $600 instead of $1,200.
 
@@ -725,7 +725,7 @@ The levers that matter most here are environmental discipline rather than tuning
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Separate accounts per environment.** Development, staging, and production in different accounts means a compromised build credential cannot reach production data, and cross-account deployment requires explicit, auditable role assumptions.
 - **No long-lived credentials anywhere.** CI uses OIDC or a CodePipeline-managed role; applications use task roles. Verify by listing roles and searching for static access keys in the pipeline configuration.
@@ -739,7 +739,7 @@ The levers that matter most here are environmental discipline rather than tuning
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add the second service, `payments`, to the same repository and pipeline, then implement a **canary release** for it: deploy to 5% of traffic for five minutes, automatically promote if the alarm is green, and roll back if it is not.
 
@@ -747,7 +747,7 @@ Success looks like: `aws deploy get-deployment` reports a canary configuration f
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS CodePipeline User Guide](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html)
 - [CodeDeploy Blue/Green for ECS](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-type-bluegreen.html)
@@ -759,7 +759,7 @@ Success looks like: `aws deploy get-deployment` reports a canary configuration f
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have built the delivery system that every later phase assumes: infrastructure as code, gated pipelines, container workloads, and tracing that follows a request across services. Phase 4 moves up a level of abstraction and removes servers from the picture entirely — Lambda, API Gateway, Step Functions, and event-driven architecture.
 

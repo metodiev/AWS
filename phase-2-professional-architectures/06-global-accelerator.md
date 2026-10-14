@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 06 of 08
 > ⬅️ Previous: [CloudFront](./05-cloudfront.md) · ➡️ Next: [Cost Optimization](./07-cost-optimization.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 AWS Global Accelerator is a global, anycast network service. It gives you **two static IPv4 addresses** (four addresses if you enable dual-stack) that are announced from AWS edge locations worldwide. A user in Frankfurt and a user in Sydney connect to the *same* IP addresses, and the network's BGP routing delivers each of them to the nearest AWS edge. From there, traffic travels over the AWS global backbone to the endpoint in the region you chose. It does not cache, terminate TLS, or inspect content — it moves packets, fast and deterministically.
 
@@ -54,7 +54,7 @@ Two advanced features round out the service. **BYOIP (Bring Your Own IP)** lets 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How a packet reaches an endpoint in the nearest healthy region:
 
@@ -98,7 +98,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: A Two-Region Accelerator with a Traffic Dial
+## Hands-on Lab: A Two-Region Accelerator with a Traffic Dial
 
 **Goal:** Create an accelerator with one listener and two endpoint groups, then drain one region to zero and confirm clients follow the static IPs to the healthy region.
 
@@ -210,7 +210,7 @@ aws globalaccelerator update-accelerator-attributes \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Add another endpoint to an existing group (for example a new AZ's NLB)
@@ -291,7 +291,7 @@ Alias your own domain to the accelerator so clients can use a friendly name over
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -307,7 +307,7 @@ Alias your own domain to the accelerator so clients can use a friendly name over
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -322,7 +322,7 @@ Alias your own domain to the accelerator so clients can use a friendly name over
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Global Accelerator pricing has two components, and they behave very differently:
 
@@ -335,7 +335,7 @@ Global Accelerator pricing has two components, and they behave very differently:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Static IPs make allow-listing possible** — but they also mean your two addresses are known and constant. Pair the accelerator with a WAF at the endpoint, TLS everywhere, and rate limiting, because attackers can hammer a fixed address indefinitely.
 - **Use NLB endpoints with client IP preservation** so existing IP-based controls (rate limiting, geo-fencing, deny lists) keep working through the accelerator.
@@ -348,7 +348,7 @@ Global Accelerator pricing has two components, and they behave very differently:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 You are asked to serve a real-time voice application (UDP) from two regions with a hard requirement: customer firewalls may only allow two specific IP addresses, and if one region fails, calls must reconnect within 30 seconds without a DNS change.
 
@@ -363,7 +363,7 @@ Success looks like: a tester with only the two static IPs allow-listed completes
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Global Accelerator Developer Guide](https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html)
 - [Endpoint groups, health checks, and traffic dials](https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups.html)
@@ -374,7 +374,7 @@ Success looks like: a tester with only the two static IPs allow-listed completes
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have a resilient, globally reachable architecture — and a bill that grows with every redundancy decision you made. The next lesson is about paying for it deliberately: purchasing models, rightsizing evidence, storage classes, and a quantified optimization plan.
 

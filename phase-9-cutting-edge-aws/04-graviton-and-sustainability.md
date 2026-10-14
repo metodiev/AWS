@@ -3,7 +3,7 @@
 > **Phase 9 — Cutting-Edge AWS** · Lesson 04 of 06
 > ⬅️ Previous: [AWS Ground Station](./03-aws-ground-station.md) · ➡️ Next: [AIOps and AI-Powered Infrastructure](./05-aiops-and-ai-powered-infrastructure.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 ### What Graviton is
 
@@ -62,7 +62,7 @@ The **Sustainability Pillar** of the AWS Well-Architected Framework (added in 20
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A per-component migration decision, which is how Graviton migrations actually succeed:
 
@@ -152,7 +152,7 @@ gantt
 
 ---
 
-## 🧪 Hands-on Lab: Measure a Graviton Migration
+## Hands-on Lab: Measure a Graviton Migration
 
 **Goal:** Move one Lambda function, one container service, and one database instance to Graviton, and produce evidence that the change helped.
 
@@ -317,7 +317,7 @@ Success looks like: the same application digest running as `ARM64` in ECS, a Lam
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Which architectures does this Lambda support?
@@ -356,7 +356,7 @@ aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -373,7 +373,7 @@ aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -389,7 +389,7 @@ aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Graviton's financial case rests on two numbers per workload: the **hourly rate** of the ARM64 instance versus the comparable x86 instance, and **how much work** each does. The second matters more. Comparing `m8g.xlarge` to `m7i.xlarge` on price alone tells you nothing if your p99 latency doubles.
 
@@ -408,7 +408,7 @@ On the sustainability side, the Customer Carbon Footprint Tool and the Sustainab
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Architecture does not change your threat model.** Graviton runs the same Linux kernel, the same IAM, and the same VPC controls. Do not treat an ARM64 migration as a security improvement, and do not skip the normal review because "it is only a rebuild".
 - **Rebuild from source, never from a copied build output.** Copying binaries between architectures is a supply-chain risk: it looks like it works until a subtly wrong artifact ships. Reproducible builds from a pinned, multi-arch base image are the control.
@@ -421,7 +421,7 @@ On the sustainability side, the Customer Carbon Footprint Tool and the Sustainab
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Pick one non-trivial service in the repo you work with and migrate it to Graviton. Measure four numbers before and after: p50 and p99 latency, CPU utilization at steady state, hourly cost, and emissions trend for the Region. Then answer, in one paragraph, whether the migration was worth it and what would have to be true for it to be worth it at 10x the traffic.
 
@@ -429,7 +429,7 @@ Success looks like: a table with the four metrics before and after, a commit or 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Graviton](https://aws.amazon.com/ec2/graviton/)
 - [Graviton getting started and migration guide](https://github.com/aws/aws-graviton-getting-started)
@@ -442,7 +442,7 @@ Success looks like: a table with the four metrics before and after, a commit or 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Efficiency is a lever you pull yourself. The next lesson covers the levers AWS pulls for you — and the uncomfortable question of which AIOps claims survive contact with a real incident.
 

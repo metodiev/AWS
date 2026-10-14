@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 04 of 09
 > ⬅️ Previous: [API Gateway](./03-api-gateway.md) · ➡️ Next: [EventBridge](./05-eventbridge.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Step Functions** is a state machine as a service. You describe a workflow as JSON in **Amazon States Language (ASL)** — a list of states with transitions between them — and AWS keeps the execution state durably between steps. This differs fundamentally from chaining Lambdas: with chaining, each function must pass forward everything the next function needs, must implement its own retries, and the overall progress lives only in logs and hope. With Step Functions, the orchestrator holds the state, retries the failing step, and shows you exactly where a run stopped.
 
@@ -45,7 +45,7 @@ Error handling is declarative. A `Retry` block says "on these errors, retry with
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Chained Lambdas versus an orchestrator that owns the state:
 
@@ -92,7 +92,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Orchestrate a Ride with Retry, Catch, and Map
+## Hands-on Lab: Orchestrate a Ride with Retry, Catch, and Map
 
 **Goal:** Deploy a Standard state machine that charges a rider, notifies drivers in parallel, and recovers from a failed charge.
 
@@ -288,7 +288,7 @@ Success is an execution that reaches `Succeed`, plus a history showing `TaskSche
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List state machines and their types
@@ -366,7 +366,7 @@ Resources:
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -383,7 +383,7 @@ Resources:
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -399,7 +399,7 @@ Resources:
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **Standard** workflows cost **$0.025 per 1,000 state transitions**, with 4,000 transitions free each month. **Express** workflows cost **$1.00 per million requests** plus **$0.00001667 per GB-second** of execution duration.
 
@@ -416,7 +416,7 @@ What drives the bill: number of state transitions per execution (Standard) or ex
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **CloudWatch Logs AI2 policy.** Step Functions writes execution logs through the `AWSLambdaRole`-style trust relationship; if you change the state machine's logging configuration, update the log-delivery resource policy or logging silently stops.
 - **Turn off `includeExecutionData` by default.** With the flag enabled, full inputs and outputs are written to CloudWatch Logs, where they may contain personal data, tokens, or card details.
@@ -429,7 +429,7 @@ What drives the bill: number of state transitions per execution (Standard) or ex
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend `ride-lifecycle` with an `AssignDriver` step that uses the callback pattern, a `Choice` state that branches on whether the driver accepted within 60 seconds, and a Distributed Map that reads a driver list from an S3 object using `ItemReader` with `"Resource": "arn:aws:states:::s3:getObject"`. Add a `Fail` state for the no-driver case, and stop the execution cleanly.
 
@@ -437,7 +437,7 @@ Success looks like: starting an execution with a driver list in S3 produces a `S
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)
 - [Amazon States Language specification](https://states-language.net/spec.html)
@@ -449,7 +449,7 @@ Success looks like: starting an execution with a driver list in S3 produces a `S
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Step Functions is *directed* orchestration: you decide the order of every step. The next lesson covers *choreography* — EventBridge lets services react to facts that already happened, without either service knowing about the other.
 

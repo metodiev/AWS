@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 15 of 18
 > ⬅️ Previous: [Security Groups](./14-security-groups.md) · ➡️ Next: [CloudWatch](./16-cloudwatch.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **network ACL** is an optional, stateless firewall applied to a subnet. It differs from a security group in three ways that are worth memorizing, because every NACL problem is a consequence of one of them:
 
@@ -48,7 +48,7 @@ The ephemeral port range differs by platform and by service. Linux typically use
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The evaluation order and where NACLs sit relative to security groups:
 
@@ -86,7 +86,7 @@ The fix is a second outbound rule permitting the ephemeral range, which is what 
 
 ---
 
-## 🧪 Hands-on Lab: Add a NACL Backstop and Break It Deliberately
+## Hands-on Lab: Add a NACL Backstop and Break It Deliberately
 
 **Goal:** Create a custom NACL for the application subnet that permits only HTTP/HTTPS, application ports, and ephemeral return traffic — then remove the ephemeral rule to see exactly how the failure presents itself.
 
@@ -201,7 +201,7 @@ curl -s -o /dev/null -w "%{http_code}\n" --max-time 20 https://<alb-dns-name>/
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Show all rules for a NACL with their evaluation order
@@ -243,7 +243,7 @@ aws ec2 describe-network-acls --filters "Name=vpc-id,Values=$VPC" \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -258,7 +258,7 @@ aws ec2 describe-network-acls --filters "Name=vpc-id,Values=$VPC" \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -273,7 +273,7 @@ aws ec2 describe-network-acls --filters "Name=vpc-id,Values=$VPC" \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Network ACLs are **free**. There is no charge for rules, associations, or evaluations.
 
@@ -285,7 +285,7 @@ If you are optimizing cost, NACLs do not appear in the conversation. Use the eff
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **NACLs are defense in depth, not a primary control.** They apply to a whole subnet, which is too coarse to express "the app tier may reach the database but the web tier may not." Security groups express that precisely.
 - **The real value is the deny rule.** A NACL is the only place in VPC networking where you can write an explicit deny. If you are under a live attack from a specific CIDR range, a NACL deny at rule 50 stops it at the subnet boundary for every resource at once, without touching security groups.
@@ -297,7 +297,7 @@ If you are optimizing cost, NACLs do not appear in the conversation. Use the eff
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 You are asked to limit a subnet so it can reach **only** an S3 gateway endpoint and the database tier, and nothing else on the internet.
 
@@ -310,7 +310,7 @@ Success looks like: you have a written configuration for both approaches and a d
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html)
 - [Security Groups vs Network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html)
@@ -320,7 +320,7 @@ Success looks like: you have a written configuration for both approaches and a d
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Networking is complete. The next two lessons cover how you find out what is happening across all of it — metrics, logs, alarms, and the audit trail that tells you who changed what.
 

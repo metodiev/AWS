@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 06 of 09
 > ⬅️ Previous: [EventBridge](./05-eventbridge.md) · ➡️ Next: [Amazon SNS](./07-amazon-sns.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon SQS** is a fully managed message queue. A producer calls `SendMessage`; the message is stored redundantly across multiple Availability Zones; a consumer calls `ReceiveMessage`, processes the message, and calls `DeleteMessage`. If the consumer never deletes it — because it crashed, timed out, or ran out of memory — the message becomes visible again and another consumer receives it. That single behavior is what makes SQS reliable: **delivery is guaranteed, processing is retried**.
 
@@ -44,7 +44,7 @@ A **dead-letter queue (DLQ)** is just another queue that receives messages that 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The full path of a message, including the failure branch:
 
@@ -84,7 +84,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: A Reliable Queue with a DLQ and Partial Batch Failures
+## Hands-on Lab: A Reliable Queue with a DLQ and Partial Batch Failures
 
 **Goal:** Build a queue that retries failures, moves poison messages to a DLQ, and processes batches without reprocessing successful records.
 
@@ -260,7 +260,7 @@ Success is a `rides-jobs-dlq` with a non-zero `ApproximateNumberOfMessages`, a s
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Receive a batch with long polling and a longer visibility timeout than the default
@@ -315,7 +315,7 @@ aws sqs purge-queue --queue-url $QUEUE_URL
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -332,7 +332,7 @@ aws sqs purge-queue --queue-url $QUEUE_URL
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -349,7 +349,7 @@ aws sqs purge-queue --queue-url $QUEUE_URL
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **Standard** queues cost **$0.40 per million requests** after the first 1 million free each month. **FIFO** queues cost **$0.50 per million requests**. A request is a single API action — each 64 KB chunk of a payload counts separately.
 
@@ -365,7 +365,7 @@ What drives the bill: total API requests, especially empty receives, plus the La
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encrypt in transit and at rest.** SQS encrypts with an AWS-owned key by default; pass `--kms-master-key-id` (plus `--kms-data-key-reuse-period-seconds`) on `create-queue` when messages carry regulated data, and always use HTTPS queue URLs.
 - **Do not put secrets or personal data in message bodies.** Messages sit in the DLQ for up to 14 days and are visible to anyone with `sqs:ReceiveMessage`.
@@ -378,7 +378,7 @@ What drives the bill: total API requests, especially empty receives, plus the La
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a producer-consumer pair where a Lambda writes 20 ride events to a FIFO queue using the ride ID as the message group ID, and a second Lambda consumes them with `BatchSize: 10` and `ReportBatchItemFailures`. Deliberately make one ride ID always fail, then prove three things: the failing ride's messages land in the DLQ after `maxReceiveCount` receives, the successful rides were never reprocessed, and after `start-message-move-task` the messages return to the source queue and are processed successfully once you remove the bug.
 
@@ -386,7 +386,7 @@ Success looks like: a DLQ message count matching only the broken ride, a CloudWa
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 - [Visibility timeout](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html)
@@ -398,7 +398,7 @@ Success looks like: a DLQ message count matching only the broken ride, a CloudWa
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 SQS has one consumer per message. The next lesson covers the opposite pattern: one event delivered to many subscribers at once, with filtering so each subscriber receives only what it asked for.
 

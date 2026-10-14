@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 06 of 09
 > ⬅️ Previous: [AWS Outposts](./05-aws-outposts.md) · ➡️ Next: [AWS Local Zones](./07-aws-local-zones.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Wavelength** places AWS compute and storage *inside a communications service provider's network* — inside the 5G core, before traffic ever reaches the public internet. The unit of placement is a **Wavelength Zone**: a zone that belongs to a carrier location, is associated with a parent Region, and is managed by that Region's control plane. When a device on the carrier network talks to an application running in a Wavelength Zone, the packets travel from the device to the carrier's edge and into your subnet without a trip across the public internet and without a trip to the Region. That is where the single-digit-millisecond latency comes from.
 
@@ -44,7 +44,7 @@ The recommendation from AWS is a **hub-and-spoke** model: put the latency-critic
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Where the packets go, and — more importantly — where they do not:
 
@@ -114,7 +114,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Extend a VPC into a Wavelength Zone
+## Hands-on Lab: Extend a VPC into a Wavelength Zone
 
 **Goal:** Opt in to a Wavelength Zone, create a Wavelength subnet inside an existing VPC, attach a carrier gateway, and route traffic so an edge instance can reach both the carrier network and its Regional backend.
 
@@ -222,7 +222,7 @@ Success looks like a measured latency gap between the Wavelength Zone endpoint a
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Which Wavelength Zones exist, and are you opted in?
@@ -255,7 +255,7 @@ aws service-quotas list-service-quotas --service-code ec2
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -270,7 +270,7 @@ aws service-quotas list-service-quotas --service-code ec2
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -285,7 +285,7 @@ aws service-quotas list-service-quotas --service-code ec2
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Enabling Wavelength Zones costs nothing; you pay for what you run there, at prices **higher than the equivalent resources in the parent Region**. Compute and EBS carry a Wavelength premium, and data transfer is the part that catches people out: traffic from a Wavelength Zone to the internet, to the Region, and between Wavelength Zones is billed, and the rates differ from standard Regional transfer.
 
@@ -302,7 +302,7 @@ Because edge capacity is smaller and pricier, the cost lever is **placement disc
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The carrier gateway admits inbound traffic from the carrier network.** Carrier devices on that 5G network can reach your Wavelength subnet, so security groups and application-level authentication are the actual control. Do not treat "it came from the carrier" as authentication.
 - **You have no control over carrier gateway protocol filtering.** TCP outbound and responses are allowed, UDP from the internet is denied, ICMP is allowed. Design protocols around this instead of fighting it.
@@ -314,7 +314,7 @@ Because edge capacity is smaller and pricier, the cost lever is **placement disc
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Pick a real-time application you know well — a multiplayer game, an AR try-on tool, or a live video moderation pipeline — and write a latency budget that sums the hops from device to response: radio access, carrier core, carrier gateway, edge compute, backend call to the Region, and response path. Assign a millisecond cost to each hop, then decide which components must live in the Wavelength Zone and which can stay in the Region without breaking the budget.
 
@@ -324,7 +324,7 @@ Success looks like: a table of hops with realistic millisecond estimates, an exp
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What Is AWS Wavelength?](https://docs.aws.amazon.com/wavelength/latest/developerguide/what-is-wavelength.html)
 - [Architect Apps for Wavelength](https://docs.aws.amazon.com/wavelength/latest/developerguide/architecture.html)
@@ -336,7 +336,7 @@ Success looks like: a table of hops with realistic millisecond estimates, an exp
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Wavelength puts compute inside a carrier's network for devices on that carrier's 5G. But most of your users are not on 5G, and most low-latency workloads are about being near a *city* rather than near a *radio*. The next lesson covers AWS Local Zones — the same "move compute closer" idea, without a carrier in the middle — and gives you a decision table across all three edge placements you have learned so far.
 

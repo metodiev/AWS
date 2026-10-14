@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 02 of 08
 > ⬅️ Previous: [Fintech Ledger Databases](./01-fintech-ledger-databases.md) · ➡️ Next: [Healthcare FHIR APIs](./03-healthcare-fhir-apis.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Fraud detection is a **decision problem under a latency budget**. You are not building a report; you are making a call on a live transaction, usually in under 100 ms, and the transaction is blocked or allowed based on that call. Everything else in the design — stream processing, feature store, model hosting — exists to fit inside that budget. Say the budget out loud before you draw anything: "p99 end-to-end decision in 120 ms, of which 40 ms is feature lookup and 30 ms is model inference."
 
@@ -43,7 +43,7 @@ The **feedback loop** is what separates a demo from a production pipeline. Every
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The end-to-end scoring path. Note that the hot path never queries the offline store — training reads it, scoring does not.
 
@@ -118,7 +118,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Streaming Features, Ensemble Scoring, and Alerts
+## Hands-on Lab: Streaming Features, Ensemble Scoring, and Alerts
 
 **Goal:** Score a transaction in real time using online features from Feature Store, an atomic DynamoDB velocity check, and a model endpoint, then route the decision to EventBridge and SNS.
 
@@ -422,7 +422,7 @@ Labels flow from the case state machine into the offline store as new rows in th
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inspect stream health before blaming the scoring code
@@ -458,7 +458,7 @@ aws events list-rules --name-prefix fraud-decision
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -474,7 +474,7 @@ aws events list-rules --name-prefix fraud-decision
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -489,7 +489,7 @@ aws events list-rules --name-prefix fraud-decision
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The scoring path is cheap per event and expensive per mistake. At the time of writing in `eu-west-1`, approximate rates are **$0.015 per shard-hour** for Kinesis Data Streams plus **$0.014 per million PUT payload units**, **$0.000001 per 1 KB** DynamoDB write request unit in on-demand mode, and SageMaker Feature Store online storage billed per GB-month (~$0.45) with **$0.0001 per read unit** and **$0.0005 per 1 KB write**.
 
@@ -504,7 +504,7 @@ What drives the bill:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **PII in feature names is a liability.** Hash or tokenize `customer_id` and `device_id` before they reach the feature store, and keep the mapping in a separate, tightly scoped service.
 - **Encrypt the feature stores with a customer managed key.** Online store, offline store S3 bucket, DynamoDB table, and the capture prefix all need their own grants so you can revoke one without touching the rest.
@@ -517,7 +517,7 @@ What drives the bill:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Replace the fixed ensemble weights and thresholds with a configuration the pipeline reads from AWS AppConfig, with a validation step that rejects a configuration where the `review` band is empty or the weights do not sum to 1.0. Then run a replay of 10,000 historical transactions against two configurations and report the change in block rate and in the number of `review` cases created.
 
@@ -525,7 +525,7 @@ Success looks like: an invalid configuration is rejected before it reaches the s
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
 - [Amazon SageMaker Feature Store](https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html)
@@ -537,7 +537,7 @@ Success looks like: an invalid configuration is rejected before it reaches the s
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have a pipeline that decides in milliseconds and learns from its own outcomes. The next lesson moves to the industry where the data model is dictated by a standard rather than by your team: healthcare, where the patients' records arrive as HL7 FHIR resources and where the authorization model must be verifiable to a regulator.
 

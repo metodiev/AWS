@@ -4,7 +4,7 @@ Phases 1–7 taught you the building blocks, the architecture patterns, the auto
 
 The services stop being interchangeable here. Compliance, residency, and latency become the primary design constraints, and everything else — instance types, database engines, queue depths — falls out of them. Every lesson in this phase follows the same shape: the regulatory or industry constraint first, then the architecture that satisfies it, then the cost of that architecture.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Design append-only, cryptographically verifiable ledgers on Aurora PostgreSQL and DynamoDB after the retirement of Amazon QLDB
 - Build a real-time fraud scoring pipeline that blends deterministic rules with a machine learning model and feeds outcomes back into training
@@ -15,7 +15,7 @@ The services stop being interchangeable here. Compliance, residency, and latency
 - Understand AWS GovCloud (US), isolated regions, ITAR, and FedRAMP High, and why a commercial architecture cannot simply be copied across the boundary
 - Produce a complete, defended reference architecture for a regulated vertical as the phase capstone
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -67,7 +67,7 @@ flowchart LR
     vault --> imm[("Immutable retention")]
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -80,7 +80,7 @@ flowchart LR
 | 07 | [Government — Air-Gapped Regions](./07-government-air-gapped-regions.md) | GovCloud (US), isolated and classified regions, ITAR, FedRAMP High, partition isolation, service gaps, account provisioning | Advanced |
 | 08 | [Capstone — Industry Reference Architecture](./08-project-industry-reference-architecture.md) | Full regulated reference architecture: Well-Architected review, controls matrix, residency, cost model, diagrams | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Meridian Health — a HIPAA-regulated payer and provider data platform.**
 
@@ -95,7 +95,7 @@ The capstone takes a single regulated vertical and documents it the way a real e
 - A data residency and cross-border transfer decision, including which services are in scope
 - A cost model for a stated workload volume, broken down by driver
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] Explain why an append-only ledger with hash chaining detects tampering that plain audit tables do not
 - [ ] Create an Aurora PostgreSQL schema with a hash chain, an append-only trigger, and a chain verification function
@@ -113,7 +113,7 @@ The capstone takes a single regulated vertical and documents it the way a real e
 - [ ] State three concrete differences between an AWS GovCloud (US) region and a commercial region
 - [ ] Ship the Meridian Health capstone with all six deliverables
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS Compliance Programs](https://aws.amazon.com/compliance/programs/)
 - [HIPAA Eligible Services Reference](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)
@@ -124,6 +124,6 @@ The capstone takes a single regulated vertical and documents it the way a real e
 - [Amazon IVS User Guide](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/what-is.html)
 - [AWS Prescriptive Guidance — Industry blueprints](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/aws-industry-solutions.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 [Phase 9 — Cutting-Edge AWS](../phase-9-cutting-edge-aws/README.md)

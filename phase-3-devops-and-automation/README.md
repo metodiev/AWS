@@ -2,7 +2,7 @@
 
 Phase 3 turns the architecture skills from the first two phases into a delivery system. You already know how to design a resilient workload; this phase is about shipping it repeatedly, safely, and with evidence. It starts with the discipline that everything else depends on — infrastructure as code — then moves through the three main tooling families (CloudFormation, CDK, Terraform), the pipeline engines that run them (CodePipeline, Jenkins, GitHub Actions), the container platforms that host the result (ECS, EKS, Fargate), and the observability that tells you whether a release actually worked (X-Ray, OpenTelemetry). It ends with a capstone that assembles all of it into one end-to-end pipeline for a microservices application.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Describe infrastructure as code declaratively and use CloudFormation, CDK, or Terraform confidently
 - Build CI/CD pipelines with automated gates for testing, scanning, approval, and verification
@@ -11,7 +11,7 @@ Phase 3 turns the architecture skills from the first two phases into a delivery 
 - Instrument distributed systems with X-Ray and OpenTelemetry and read the resulting traces
 - Ship one container image through multiple environments with approvals and automatic rollback
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -33,7 +33,7 @@ flowchart TD
     l5 --> l13
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -51,7 +51,7 @@ flowchart TD
 | 12 | [OpenTelemetry and ADOT](./12-opentelemetry-and-adot.md) | OTel signals, ADOT Collector, ECS and EKS deployment, tail sampling, exporters | Advanced |
 | 13 | [Project: Full CI/CD Pipeline for Microservices](./13-project-full-cicd-pipeline.md) | End-to-end pipeline: build, test, containerize, scan, deploy, verify, roll back | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Full CI/CD Pipeline for Microservices.** Build a delivery system that takes a commit to production for a two-service application, with every gate automated and every release reversible.
 
@@ -65,7 +65,7 @@ flowchart TD
 - ADOT sidecar plus X-Ray tracing and a CloudWatch dashboard wired to the alarms
 - A rollback runbook that a teammate can follow without reading the pipeline definition
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] Provision one workload with CloudFormation using a change set, and detect drift afterwards
 - [ ] Deploy the same workload with CDK and pass `cdk-nag` with no errors
@@ -80,7 +80,7 @@ flowchart TD
 - [ ] Export traces to X-Ray and metrics to CloudWatch through the ADOT Collector
 - [ ] Rehearse a production rollback and document the outcome in the runbook
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
 - [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
@@ -92,6 +92,6 @@ flowchart TD
 - [AWS Distro for OpenTelemetry](https://aws-otel.github.io/docs/introduction)
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 [Phase 4 — Serverless Architectures](../phase-4-serverless-architectures/README.md)

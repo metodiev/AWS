@@ -3,7 +3,7 @@
 > **Phase 10 — Grandmaster Projects** · Lesson 03 of 06
 > ⬅️ Previous: [Chaos Engineering](./02-chaos-engineering.md) · ➡️ Next: [Contributing to Open Source](./04-contributing-to-open-source.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Cost optimization has four stages and most teams stop at the second. **Observe** means you can answer "what did we spend, on what, for whom, yesterday?" **Analyze** means you can rank waste: idle resources, oversized resources, unattached storage, forgotten environments, and commitment gaps. **Act** means a change actually happens — which is where human attention runs out. **Prove** means you can show, in dollars, what the change saved, 30 days later.
 
@@ -55,7 +55,7 @@ That table *is* the guardrail specification. Encode it as tags (`auto-remediate`
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The engine: a scheduled read path, an analysis and reasoning path, a constrained write path, and a reporting path.
 
@@ -150,7 +150,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Build the Detect-to-Remediate Loop
+## Hands-on Lab: Build the Detect-to-Remediate Loop
 
 **Goal:** Collect cost data, detect an idle resource, have Bedrock explain it, and remediate it automatically only when the guardrail tags allow it.
 
@@ -518,7 +518,7 @@ Success looks like: the finding is marked `applied`, the volume is deleted with 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Forecast the current month, so guardrails can act before the overrun happens
@@ -552,7 +552,7 @@ aws athena start-query-execution \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -567,7 +567,7 @@ aws athena start-query-execution \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -582,7 +582,7 @@ aws athena start-query-execution \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The engine must cost far less than it saves — a self-defeating optimizer is a common and embarrassing failure mode.
 
@@ -595,7 +595,7 @@ The engine must cost far less than it saves — a self-defeating optimizer is a 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Least privilege with resource-tag conditions.** The remediation role should allow only the specific delete/stop actions, conditioned on `aws:ResourceTag/auto-remediate=true` and denial of production tags. Never attach `PowerUserAccess`.
 - **The Lambda is a privileged principal — treat it as production code.** Require code review, signed artifacts, and a deployment pipeline; a malicious commit to the remediation function is an infrastructure-wide deletion primitive.
@@ -608,7 +608,7 @@ The engine must cost far less than it saves — a self-defeating optimizer is a 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend the engine to handle **idle dev instances**, end to end.
 
@@ -620,7 +620,7 @@ Success looks like: the collector reports the idle dev instances and their month
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Cost Explorer API reference](https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Operations_AWS_Cost_Explorer_Service.html)
 - [Data Exports (CUR 2.0) User Guide](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html)
@@ -633,7 +633,7 @@ Success looks like: the collector reports the idle dev instances and their month
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have built three systems that a senior architect would recognize: a multi-tenant platform, a resilience practice, and a self-optimizing cost engine. The next lesson shifts from building systems to shaping the tools everyone else builds on — contributing to the AWS open-source ecosystem.
 

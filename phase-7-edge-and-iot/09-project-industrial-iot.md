@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 09 of 09
 > ⬅️ Previous: [Hybrid Cloud Patterns](./08-hybrid-cloud-patterns.md) · ➡️ Next: [Phase 8 — Industry Architectures](../phase-8-industry-architectures/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this capstone you will have:
 
@@ -19,7 +19,7 @@ By the end of this capstone you will have:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 This project is the phase in one system. Sensors on a factory line speak OPC-UA or Modbus; a gateway runs Greengrass v2 for local processing, alarm evaluation, and buffering; telemetry flows to AWS IoT Core; the rules engine fans it out to a hot time-series store (Timestream) and to a stream (Kinesis) that lands durably in S3; Athena and QuickSight turn the lake into dashboards; Device Defender watches for devices behaving outside their profile; and IoT Jobs roll out firmware without a technician on the line.
 
@@ -46,7 +46,7 @@ The **two-store pattern** is deliberate rather than duplication. Timestream answ
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The complete platform, from the plant floor to the dashboard:
 
@@ -145,7 +145,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Build the Platform
+## Hands-on Lab: Build the Platform
 
 **Goal:** Stand up the full pipeline and prove it works under two failure conditions — a WAN outage and a rogue device.
 
@@ -408,7 +408,7 @@ Success looks like: dashboards updating from a real pipeline, an outage that cos
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Fleet inventory and edge state
@@ -437,7 +437,7 @@ aws iot cancel-job --job-id ota-1-5-0-controlled --force true
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -451,7 +451,7 @@ aws iot cancel-job --job-id ota-1-5-0-controlled --force true
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -466,7 +466,7 @@ aws iot cancel-job --job-id ota-1-5-0-controlled --force true
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 | Component | What drives cost | Sizing habit |
 |-----------|------------------|--------------|
@@ -480,7 +480,7 @@ The highest-leverage lever is **edge aggregation**. Five hundred sensors samplin
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Per-device identity, always.** Every sensor and gateway has its own certificate and a policy scoped by thing name. Shared credentials in a factory are a breach waiting to be discovered.
 - **Gateway credentials are high value.** The core device certificate can obtain AWS credentials through the token exchange service and receive deployments; scope that role to the exact streams, buckets, and rules the plant needs.
@@ -493,7 +493,7 @@ The highest-leverage lever is **edge aggregation**. Five hundred sensors samplin
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend the platform in two directions and document both.
 
@@ -505,7 +505,7 @@ Success looks like: documented reductions in message volume and cost, one diagra
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS IoT Core Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
 - [AWS IoT Greengrass V2 Developer Guide](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)
@@ -519,7 +519,7 @@ Success looks like: documented reductions in message volume and cost, one diagra
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have finished Phase 7. You can connect a device fleet with per-device identity, run processing where the network cannot reach, size a physical or online transfer correctly, place AWS capacity in your own data center, a metro, or a carrier network, and make hybrid DNS, storage, and identity hold together. That is the full toolkit for computing outside the Region — and it is what Phase 8 assumes you already have, whether the workload is a payment terminal, a hospital imaging device, a game backend, or a live video pipeline.
 

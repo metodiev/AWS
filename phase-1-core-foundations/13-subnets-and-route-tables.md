@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 13 of 18
 > ⬅️ Previous: [VPC Fundamentals](./12-vpc-fundamentals.md) · ➡️ Next: [Security Groups](./14-security-groups.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **subnet** is a slice of a VPC's CIDR block, bound permanently to one Availability Zone. That binding is the single most important property: every resource you launch into the subnet lives in that AZ, and if that AZ has a problem, everything in the subnet has a problem.
 
@@ -50,7 +50,7 @@ A **main route table** is the one that applies to any subnet without an explicit
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How route tables map to subnets in a two-AZ layout:
 
@@ -99,7 +99,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Build a Three-Tier Subnet Layout and Prove Its Properties
+## Hands-on Lab: Build a Three-Tier Subnet Layout and Prove Its Properties
 
 **Goal:** Create a layout with public, application-private, and database-private tiers across two AZs, with per-AZ NAT gateways and a database tier that has no internet route at all.
 
@@ -230,7 +230,7 @@ Traffic from the `1b` app instance showing up in `NAT2`'s counters is the proof 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List all route tables with their associations and routes
@@ -266,7 +266,7 @@ aws ec2 describe-route-tables --route-table-ids rtb-0123456789abcdef0 \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -281,7 +281,7 @@ aws ec2 describe-route-tables --route-table-ids rtb-0123456789abcdef0 \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -296,7 +296,7 @@ aws ec2 describe-route-tables --route-table-ids rtb-0123456789abcdef0 \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Route tables, subnets, and the local route are all **free**. The cost decisions in this lesson are entirely about what the routes point at.
 
@@ -310,7 +310,7 @@ Finally, remember the free path: **gateway endpoints for S3 and DynamoDB** cost 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Routing is not security.** A private subnet is not protected because it lacks a route to the internet; it is protected because nothing routes to it *and* security groups control what gets in. Always assume someone will eventually add a route — the security group should still hold.
 - **The local route means every subnet can reach every other by default.** Two subnets in the same VPC are reachable from each other with no route configuration. Every tier-to-tier restriction must therefore come from security groups or NACLs, never from routing.
@@ -322,7 +322,7 @@ Finally, remember the free path: **gateway endpoints for S3 and DynamoDB** cost 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 You have a VPC with the three-tier layout from the lab. A new requirement arrives: a **fourth tier** for a third-party integration that must be able to reach the internet but must **not** be reachable from the application tier, and must not be able to reach the database tier.
 
@@ -337,7 +337,7 @@ Success looks like: a connectivity test from the integration instance to the dat
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [VPC Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html)
 - [Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
@@ -347,7 +347,7 @@ Success looks like: a connectivity test from the integration instance to the dat
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Routing decides where a packet *can* go. The next two lessons cover what decides whether it is *allowed* — starting with the control you will use every single day: security groups.
 

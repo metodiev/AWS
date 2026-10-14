@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 09 of 13
 > ⬅️ Previous: [Containers and ECS](./08-containers-and-ecs.md) · ➡️ Next: [AWS Fargate](./10-aws-fargate.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 EKS is Kubernetes with the control plane run by AWS. You get an API server, etcd, and the scheduler spread across three availability zones, patched and highly available, for a flat hourly fee. What you own is the **data plane**: the worker nodes, their AMIs, their scaling, and the VPC they live in. This split is the whole mental model — anything in `kube-system` that runs on nodes is your responsibility, and the API server is not.
 
@@ -45,7 +45,7 @@ Add-ons are the Kubernetes equivalents of managed services: `vpc-cni` for pod ne
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A cluster with managed nodes, a Fargate profile, and pod-level AWS identity:
 
@@ -99,7 +99,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: A Cluster with IRSA and Karpenter
+## Hands-on Lab: A Cluster with IRSA and Karpenter
 
 **Goal:** Create an EKS cluster with a managed node group, install core add-ons, give a pod scoped S3 access with IRSA, and add Karpenter for node scaling.
 
@@ -407,7 +407,7 @@ eksctl delete cluster --name phase3lab --region us-east-1
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Create a cluster without eksctl (control plane only)
@@ -466,7 +466,7 @@ kubectl describe node -l karpenter.sh/nodepool=general | grep -A5 Allocatable
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -484,7 +484,7 @@ kubectl describe node -l karpenter.sh/nodepool=general | grep -A5 Allocatable
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -501,7 +501,7 @@ kubectl describe node -l karpenter.sh/nodepool=general | grep -A5 Allocatable
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The control plane costs **$0.10 per hour, about $73 per month**, for every cluster regardless of size — which is why running one cluster per developer or per branch is an expensive habit. Worker nodes are the larger variable: three `m6g.large` on demand is roughly **$150/month**, while the same capacity on Karpenter-provisioned Spot is often **$45–60/month**.
 
@@ -511,7 +511,7 @@ Watch the surrounding services too: a NAT Gateway (~$32/month) is required for n
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Pod identity over node identity, always.** IRSA or Pod Identity means a compromised pod has exactly one workload's permissions, not the node's. Audit for pods that do not have `AWS_ROLE_ARN` set and treat them as findings.
 - **Turn off public API endpoint access in production** (`endpointPublicAccess=false`) and reach the API through a VPN, a bastion host, or SSM. If you must keep it public, restrict `publicAccessCidrs`.
@@ -523,7 +523,7 @@ Watch the surrounding services too: a NAT Gateway (~$32/month) is required for n
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add a second Karpenter NodePool named `batch` that only uses Spot `c7g` instances, taints nodes with `workload=batch:NoSchedule`, and has an `expireAfter` of 168 hours. Then deploy a `CronJob` that tolerates that taint and confirm it lands on a Spot node which Karpenter creates and later terminates.
 
@@ -531,7 +531,7 @@ Success looks like: `kubectl get nodeclaims` shows a `batch` nodeclaim created d
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EKS User Guide](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
 - [IAM Roles for Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
@@ -543,7 +543,7 @@ Success looks like: `kubectl get nodeclaims` shows a `batch` nodeclaim created d
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 EKS gives you the full Kubernetes ecosystem with the operational cost of running it. The next lesson zooms in on the serverless half of containers — Fargate — and covers the sizing, storage, and networking details that decide whether it is cheaper than nodes.
 

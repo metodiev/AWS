@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 03 of 09
 > ⬅️ Previous: [AWS Glue](./02-aws-glue.md) · ➡️ Next: [AWS Lake Formation](./04-aws-lake-formation.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon Athena** is a serverless, distributed SQL engine over data in S3. You submit SQL, it plans the query, reads only the objects it needs, and returns results — no cluster, no startup, no capacity planning. Under the hood it is a Trino-based engine, so the SQL is ANSI-flavored with Trino extensions.
 
@@ -113,7 +113,7 @@ Projection is not free of constraints: the prefixes must match the template exac
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The query path, including where cost is determined:
 
@@ -146,7 +146,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Cut a Query from $5 to Under a Cent
+## Hands-on Lab: Cut a Query from $5 to Under a Cent
 
 **Goal:** Create a cost-capped workgroup, register raw CSV and curated Parquet tables, measure the scan cost of the same question against both, and materialize a compressed aggregate.
 
@@ -327,7 +327,7 @@ You should see `orders_daily` scan in the low megabytes, `refined/orders_export/
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Create and list workgroups
@@ -362,7 +362,7 @@ aws athena start-query-execution --work-group analytics-team \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -377,7 +377,7 @@ aws athena start-query-execution --work-group analytics-team \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -393,7 +393,7 @@ aws athena start-query-execution --work-group analytics-team \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The entire cost model is one line: **$5.00 per TB scanned, 10 MB minimum per query**. There is no charge for DDL, for `EXPLAIN`, or for the service itself.
 
@@ -415,7 +415,7 @@ Cost-control checklist: set `BytesScannedCutoffPerQuery` on every non-sandbox wo
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encrypt results with SSE-KMS** (`EncryptionOption: "SSE_KMS"` plus a `KmsKeyId`) when query output can contain sensitive data. `SSE_S3` is the default and is weaker.
 - **Enforce the workgroup configuration** so a user cannot redirect results to a bucket they control — that is an exfiltration path, not just a configuration drift.
@@ -429,7 +429,7 @@ Cost-control checklist: set `BytesScannedCutoffPerQuery` on every non-sandbox wo
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the `orders_daily` aggregate and make it survive a growing dataset:
 
@@ -442,7 +442,7 @@ Success looks like: the `MERGE INTO` produces no duplicate rows, time travel ret
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/what-is.html)
 - [Athena Engine Versions](https://docs.aws.amazon.com/athena/latest/ug/engine-versions.html)
@@ -454,7 +454,7 @@ Success looks like: the `MERGE INTO` produces no duplicate rows, time travel ret
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Athena lets anyone with the right IAM policy read the entire lake. The next lesson replaces that blunt model with Lake Formation, which is what lets you say "this analyst sees these columns and only the rows for their region".
 

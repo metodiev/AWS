@@ -2,7 +2,7 @@
 
 Phase 3 taught you how to *ship* software — pipelines, containers, infrastructure as code. Phase 4 teaches you how to make that software **disappear into the platform**. Serverless means you stop paying for idle servers and start paying per request, per millisecond, and per gigabyte-second. That shift is not just a billing model: it changes how you design failure handling, concurrency, and data flow. By the end of this phase you will be able to compose Lambda, API Gateway, Step Functions, EventBridge, SQS, SNS, and Kinesis into a production-grade event-driven backend — and know exactly which service to reach for at each step.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Understand the AWS Lambda execution model deeply enough to reason about cold starts, concurrency, and cost
 - Design HTTP APIs with API Gateway across REST, HTTP, and WebSocket flavors, with correct auth and throttling
@@ -11,7 +11,7 @@ Phase 3 taught you how to *ship* software — pipelines, containers, infrastruct
 - Stream and process high-volume data with Kinesis
 - Ship a complete Uber-like serverless backend as the phase capstone
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -40,7 +40,7 @@ flowchart TD
     end
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -54,7 +54,7 @@ flowchart TD
 | 08 | [Amazon Kinesis](./08-amazon-kinesis.md) | Streams vs Firehose vs Analytics, shards, partition keys, hot shards, consumers, re-sharding | Advanced |
 | 09 | [Capstone — Uber-like Serverless Backend](./09-project-uber-like-serverless-backend.md) | Full event-driven backend tying every service in this phase together | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **RideNow** — an Uber-like serverless backend.
 
@@ -68,7 +68,7 @@ The capstone wires the whole phase together: API Gateway fronts a Lambda that wr
 - Event schemas for each domain event published to EventBridge
 - A cost model for 100,000 rides per day
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] Deploy a Lambda function by CLI and by SAM, and invoke it synchronously and asynchronously
 - [ ] Publish a version, create an alias, and shift traffic between versions
@@ -81,7 +81,7 @@ The capstone wires the whole phase together: API Gateway fronts a Lambda that wr
 - [ ] Produce and consume records from a Kinesis stream with an enhanced fan-out consumer
 - [ ] Ship the RideNow capstone end to end
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 - [Amazon API Gateway Developer Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
@@ -92,6 +92,6 @@ The capstone wires the whole phase together: API Gateway fronts a Lambda that wr
 - [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
 - [Serverless Land — patterns and sample code](https://serverlessland.com/)
 
-## ➡️ Next Phase
+## Next Phase
 
 [Phase 5 — Data and AI](../phase-5-data-and-ai/README.md)

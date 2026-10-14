@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 11 of 11
 > ⬅️ Previous: [AWS Organizations and Multi-Account Strategy](./10-aws-organizations-multi-account-strategy.md) · ➡️ Next: [Phase 7 — Edge and IoT](../phase-7-edge-and-iot/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this capstone you will have:
 
@@ -18,7 +18,7 @@ By the end of this capstone you will have:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 This project is the assembly step. Every control you build here was introduced separately in this phase; the engineering value comes from making them reinforce each other rather than coexist. Three design principles hold the whole thing together.
 
@@ -59,7 +59,7 @@ The break-glass path deserves its own mention because it is the control most oft
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The complete baseline: OUs, accounts, delegated administration, centralized logging, and the key hierarchy.
 
@@ -148,7 +148,7 @@ flowchart TD
 
 ---
 
-## 🧪 Build Guide
+## Build Guide
 
 **Prerequisites:** A management account with no workloads, three email addresses you control, permission to create organizations policies, Control Tower, KMS, Security Hub, and GuardDuty, and a budget for the monitoring services across the accounts you create.
 
@@ -594,7 +594,7 @@ aws securityhub get-findings \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Landing zone and accounts
@@ -641,7 +641,7 @@ aws cloudtrail lookup-events --lookup-attributes AttributeKey=Username,Attribute
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -657,7 +657,7 @@ aws cloudtrail lookup-events --lookup-attributes AttributeKey=Username,Attribute
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -672,7 +672,7 @@ aws cloudtrail lookup-events --lookup-attributes AttributeKey=Username,Attribute
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Budget the baseline before you deploy it, because monitoring is what multi-account architecture costs. Expect the following monthly shape for a **10-account organization in two Regions** (rough indicative figures):
 
@@ -693,7 +693,7 @@ The counter-argument to all of this is the cost of the alternative: an unmonitor
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The management account is the highest-value target in your organization.** Use a hardware MFA device, no access keys, no workloads, and an alarm on every sign-in. If it is compromised, every guardrail can be removed.
 - **Guardrails must protect themselves.** The SCP in this lab denies `UpdatePolicy` and `DetachPolicy` for everyone, which means changing a guardrail requires using the management account deliberately — exactly the friction you want.
@@ -706,7 +706,7 @@ The counter-argument to all of this is the cost of the alternative: an unmonitor
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Hand your completed baseline to a colleague and ask them to break it. Specifically, ask them to attempt: (1) disabling CloudTrail in a workload account, (2) launching an instance in a Region you did not approve, (3) reading a production workload's KMS-encrypted data from the sandbox account, and (4) assuming a role in the audit account from outside the organization. For each attempt, capture the exact error, the CloudTrail event that recorded it, and the alert (if any) that fired. Then fix any attempt that succeeded — or that failed silently with no alert.
 
@@ -714,7 +714,7 @@ Success looks like: four documented break attempts, all four blocked by a named 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
 - [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
@@ -728,7 +728,7 @@ Success looks like: four documented break attempts, all four blocked by a named 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have a landing zone with identity federation, immutable centralized logging, preventive guardrails, aggregated threat detection, a key hierarchy with clear ownership, and a tested emergency path. That baseline is the platform every later phase assumes: Phase 7 extends it to devices and edge locations, and the account structure you built here is what keeps those devices from becoming an unmanaged side channel.
 

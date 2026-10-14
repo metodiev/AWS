@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 07 of 11
 > ⬅️ Previous: [AWS Security Hub](./06-aws-security-hub.md) · ➡️ Next: [Amazon Macie](./08-amazon-macie.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon GuardDuty** is a managed threat-detection service built entirely on telemetry AWS already has, with no agents to install and no infrastructure to run. It applies machine learning, anomaly baselines, and AWS's own threat intelligence to detect activity that looks like compromise: credential theft, cryptocurrency mining, data exfiltration, and reconnaissance. It is the "who is attacking me" layer that complements Security Hub's "what is misconfigured" layer.
 
@@ -43,7 +43,7 @@ The final concept is **automatic response**. GuardDuty publishes every finding t
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The telemetry inputs, the detector, and the response paths:
 
@@ -99,7 +99,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Organization-Wide Detection with Automated Quarantine
+## Hands-on Lab: Organization-Wide Detection with Automated Quarantine
 
 **Goal:** Enable GuardDuty for an organization, switch on every protection plan, and quarantine an instance automatically when a high-severity finding fires.
 
@@ -343,7 +343,7 @@ aws ec2 describe-instances --instance-ids i-0123456789abcdef0 \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Detector and configuration inventory
@@ -387,7 +387,7 @@ aws guardduty create-sample-findings --detector-id "$DETECTOR" --finding-types R
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -402,7 +402,7 @@ aws guardduty create-sample-findings --detector-id "$DETECTOR" --finding-types R
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -417,7 +417,7 @@ aws guardduty create-sample-findings --detector-id "$DETECTOR" --finding-types R
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 GuardDuty is priced per analyzed **volume of events**, not per finding. Expect roughly **$1–$4 per million CloudTrail management events**, **about $0.50–$1.50 per GB of VPC Flow Logs and DNS queries analyzed**, **$0.60–$1.00 per GB of S3 data events**, **around $1.50–$3.00 per GB of EKS audit logs**, plus separate charges for **Malware Protection scans** (per GB scanned) and **Runtime Monitoring** (per vCPU-hour for EC2 and per vCPU-hour or task for EKS). The analyzer being free-of-charge is a myth: the *finding* is free, the *analysis* is metered.
 
@@ -425,7 +425,7 @@ What drives the bill is traffic volume and event volume, so the biggest surprise
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **GuardDuty is detection, not prevention.** It will happily report an attack in progress; pair it with SCPs and network controls so the interesting findings are hard to generate in the first place.
 - **Findings are sensitive.** They contain account IDs, instance IDs, IP addresses, and sometimes credential IDs. Restrict `guardduty:GetFindings` to responders and the delegated admin.
@@ -438,7 +438,7 @@ What drives the bill is traffic volume and event volume, so the biggest surprise
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the two sample findings from the lab and write an incident report for each using the finding JSON as your only evidence: what happened, which resource, what the attacker's likely next step is, and what you would do in the first ten minutes. Then build two additional EventBridge rules — one that notifies a chat channel for `UnauthorizedAccess:IAMUser/*` findings without auto-remediating, and one that disables an IAM access key automatically when `AccessKeyId` appears in a `CryptoCurrency` finding.
 
@@ -446,7 +446,7 @@ Success looks like: two written incident reports with a plausible timeline, plus
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon GuardDuty User Guide](https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html)
 - [GuardDuty finding types](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_finding-types-active.html)
@@ -459,7 +459,7 @@ Success looks like: two written incident reports with a plausible timeline, plus
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 GuardDuty watches who is attacking. The next lesson watches something different and equally dangerous: your own sensitive data sitting in the wrong bucket, unencrypted, with no classification at all — Amazon Macie.
 

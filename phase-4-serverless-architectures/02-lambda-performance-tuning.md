@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 02 of 09
 > ⬅️ Previous: [Lambda Fundamentals](./01-lambda-fundamentals.md) · ➡️ Next: [API Gateway](./03-api-gateway.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **cold start** is the time between an event arriving and your handler beginning to run, on an execution environment that does not exist yet. It has three parts: **download** (fetching your code and layers), **runtime startup** (booting the language runtime), and **Init** (running the module-level code you wrote). Only the third is under your direct control — but it is usually the largest one, because it is where SDK clients, database pools, and config loads happen.
 
@@ -43,7 +43,7 @@ The single most counter-intuitive fact about Lambda tuning is that **memory is t
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Where the time goes during a cold start and which lever attacks each phase:
 
@@ -72,7 +72,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Measure, Then Fix, a Cold Start
+## Hands-on Lab: Measure, Then Fix, a Cold Start
 
 **Goal:** Prove that a cold start exists, then remove it with provisioned concurrency and compare the numbers.
 
@@ -238,7 +238,7 @@ Success is a log line with no `Init Duration` field, and a p99 duration that no 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inspect current memory and architecture for a function
@@ -296,7 +296,7 @@ aws stepfunctions describe-execution \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -312,7 +312,7 @@ aws stepfunctions describe-execution \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -328,7 +328,7 @@ aws stepfunctions describe-execution \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Duration is `allocated GB × seconds × rate`, so the memory dial moves cost in two directions at once. A function at 128 MB that takes 900 ms and the same function at 1024 MB taking 120 ms cost:
 
@@ -345,7 +345,7 @@ What drives the bill: total GB-seconds, plus idle provisioned capacity. Cutting 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **SnapStart snapshots contain your in-memory state.** Snapshots are encrypted at rest and scoped per version, but everything you leave in a module-level variable is inside the snapshot — never cache credentials in plaintext globals.
 - **Treat `/tmp` as sensitive too.** SnapStart excludes `/tmp` from the snapshot, but within a warm environment `/tmp` persists between invocations, so do not leave one request's data where the next request can read it.
@@ -356,7 +356,7 @@ What drives the bill: total GB-seconds, plus idle provisioned capacity. Cutting 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take one function from Lesson 01 and run a Power Tuning sweep with `powerValues` from 128 to 3008 MB and `num` set to 50, using `strategy: "cost"`. Read the `output` field to find the recommended memory. Then re-deploy at that memory value with ARM64, enable X-Ray, and re-run the 30-invocation loop from Step 1 of the lab. Record three numbers before and after: p99 duration, average `Init Duration`, and estimated monthly cost at one million invocations.
 
@@ -364,7 +364,7 @@ Success looks like: a short written comparison showing a lower p99 duration *and
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Lambda function scaling and concurrency](https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html)
 - [Configuring provisioned concurrency](https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html)
@@ -376,7 +376,7 @@ Success looks like: a short written comparison showing a lower p99 duration *and
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Your function is now fast and cheap, but nothing outside your team can call it safely yet. The next lesson puts API Gateway in front of it and covers the three API flavors, stages, throttling, authorizers, and usage plans.
 

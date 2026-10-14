@@ -3,7 +3,7 @@
 > **Phase 10 — Grandmaster Projects** · Lesson 05 of 06
 > ⬅️ Previous: [Contributing to Open Source](./04-contributing-to-open-source.md) · ➡️ Next: [Grandmaster Capstone](./06-grandmaster-capstone.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Teaching is the last stage of learning.** You can use a service, size an architecture, and pass an exam without ever testing whether your model of the system is correct. Writing it down and having someone else reproduce it does test that. Every gap in your understanding becomes visible the moment a reader says "this step did not work." That feedback loop is why the most effective way to consolidate the roadmap so far is to teach it.
 
@@ -59,7 +59,7 @@ Content that lands has four properties. It is **specific** (a real problem, a re
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The content flywheel: build once, teach in four formats, and let each stage fund the next.
 
@@ -120,7 +120,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Publish a Lab Repo and a Workshop Chapter
+## Hands-on Lab: Publish a Lab Repo and a Workshop Chapter
 
 **Goal:** Create a public, reproducible lab repository for one thing you built in this roadmap, then package one chapter of it as a Workshop Studio-style document and deploy a static site for your writing.
 
@@ -390,7 +390,7 @@ Success looks like: a public lab repo whose `verify.sh` passes in a fresh accoun
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Scaffold a topic branch for a new post and open a draft PR for review
@@ -421,7 +421,7 @@ gh api repos/localstack/localstack/license --jq '.license.spdx_id'
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -437,7 +437,7 @@ gh api repos/localstack/localstack/license --jq '.license.spdx_id'
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -453,7 +453,7 @@ gh api repos/localstack/localstack/license --jq '.license.spdx_id'
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Teaching has two bills: your cloud bill and your time bill. Both are controllable.
 
@@ -466,7 +466,7 @@ Teaching has two bills: your cloud bill and your time bill. Both are controllabl
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Never publish real account IDs, ARNs with account numbers, access keys, or console screenshots containing them.** Use `111122223333` and placeholder ARNs throughout, and run a secret scan before every push (enable GitHub secret scanning and push protection).
 - **Assume lab readers will run the lab in a production account.** Design for it: least-privilege IAM in the templates, explicit teardown, no `AdministratorAccess` policies handed out casually, and a first-chapter warning that the account must be disposable.
@@ -479,7 +479,7 @@ Teaching has two bills: your cloud bill and your time bill. Both are controllabl
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Produce one complete teaching artifact from work you already did in this roadmap.
 
@@ -491,7 +491,7 @@ Success looks like: a public repo where a stranger can clone, deploy, verify, an
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Certification — exam guides and recertification](https://aws.amazon.com/certification/)
 - [AWS Certified Solutions Architect – Professional (SAP-C02)](https://aws.amazon.com/certification/certified-solutions-architect-professional/)
@@ -508,7 +508,7 @@ Success looks like: a public repo where a stranger can clone, deploy, verify, an
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have built the systems, proved their resilience, optimized their cost, and learned to explain all of it to other engineers. The final lesson asks you to do all of it at once: a single integrated capstone that stands as the portfolio piece for the entire roadmap.
 

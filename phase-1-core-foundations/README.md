@@ -6,7 +6,7 @@ This phase builds the foundations everything else stands on. Before you design m
 
 Work through the lessons in order. Each one is self-contained, but the numbering follows a deliberate dependency chain: you cannot reason about security groups in [Lesson 14](./14-security-groups.md) without the VPC and subnet model from [Lessons 12](./12-vpc-fundamentals.md) and [13](./13-subnets-and-route-tables.md).
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Control access properly with **IAM** users, roles, policies, and organization-level guardrails
 - Launch and scale **compute** with EC2, AMIs, and Auto Scaling groups
@@ -15,7 +15,7 @@ Work through the lessons in order. Each one is self-contained, but the numbering
 - Achieve **visibility** with CloudWatch metrics and CloudTrail audit logs
 - Tie it all together in a **secure 3-tier web application**
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -55,7 +55,7 @@ flowchart TD
     observe --> project
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -78,7 +78,7 @@ flowchart TD
 | 17 | [CloudTrail](./17-cloudtrail.md) | Audit logging, trails, event history, integrity | Intermediate |
 | 18 | [Capstone: Secure 3-Tier Web App](./18-project-secure-3-tier-web-app.md) | Full project tying the phase together | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Secure 3-Tier Web Application.** Build a production-shaped architecture with a public frontend, a private application tier, and an RDS database that is reachable only from the app tier. Every layer is protected by its own security group, and the whole stack is observable through CloudWatch and auditable through CloudTrail.
 
@@ -93,7 +93,7 @@ Deliverables:
 
 See [Lesson 18](./18-project-secure-3-tier-web-app.md) for the full brief.
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] I can explain the difference between an IAM user, a role, and a policy
 - [ ] I can write a least-privilege policy from scratch without copying a wildcard
@@ -109,7 +109,7 @@ See [Lesson 18](./18-project-secure-3-tier-web-app.md) for the full brief.
 - [ ] I have queried CloudTrail to find out who made a specific API call
 - [ ] The 3-tier web app is deployed, observable, and torn down cleanly
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/well-architected/latest/framework/welcome.html)
 - [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
@@ -119,7 +119,7 @@ See [Lesson 18](./18-project-secure-3-tier-web-app.md) for the full brief.
 - [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
 - [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 Once you can build a secure, observable 3-tier application without a tutorial in front of you, you are ready to design for failure, scale, and geography.
 

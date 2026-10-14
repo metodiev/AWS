@@ -4,7 +4,7 @@ Phase 4 taught you how to move *requests* through AWS. Phase 5 is about moving *
 
 The through-line is Amazon S3. Every lesson either writes to a lake, reads from a lake, or governs a lake. Master the lake layout in Lesson 01 and the rest of the phase is about specializing the tools around it — ETL, SQL, permissions, warehousing, Spark, streaming, and machine learning.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Design and operate a partitioned, columnar data lake on Amazon S3
 - Catalog and transform data with AWS Glue without hand-rolled infrastructure
@@ -16,7 +16,7 @@ The through-line is Amazon S3. Every lesson either writes to a lake, reads from 
 - Train, tune, register, deploy, and monitor models with Amazon SageMaker
 - Assemble all of the above into one governed, end-to-end pipeline
 
-## 🗺️ Phase Map
+## Phase Map
 
 How the lessons fit together. Solid arrows are the "happy path" of the capstone; the rest are the specializations you choose between.
 
@@ -64,7 +64,7 @@ flowchart LR
     lf --> ath
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -78,7 +78,7 @@ flowchart LR
 | 08 | [SageMaker Training and Deployment](./08-sagemaker-training-and-deployment.md) | Studio, training jobs, HPO, inference options, Pipelines | Advanced |
 | 09 | [Capstone — Serverless Data Pipeline](./09-project-serverless-data-pipeline.md) | Streaming ingestion to dashboard, governed end to end | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Name:** Serverless Real-Time Sales Pipeline
 
@@ -94,7 +94,7 @@ flowchart LR
 - A QuickSight dataset and one dashboard with a trend visual
 - A runbook in `docs/` describing how to deploy, test, and tear it down
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] I can explain why `s3://bucket/curated/orders/order_date=2026-10-14/part-000.parquet` is a good object path
 - [ ] I have run a Glue crawler and read the resulting table in the Data Catalog
@@ -107,7 +107,7 @@ flowchart LR
 - [ ] I have trained a model, registered it, and invoked a real-time endpoint
 - [ ] I have destroyed every resource from the capstone (or paused/snapshotted it)
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [AWS Analytics Services Overview](https://docs.aws.amazon.com/whitepapers/latest/aws-analytics-services/aws-analytics-services.html)
 - [Modern Data Architecture on AWS](https://docs.aws.amazon.com/whitepapers/latest/build-modern-data-streaming-analytics-architectures/build-modern-data-streaming-analytics-architectures.html)
@@ -120,6 +120,6 @@ flowchart LR
 - [Amazon SageMaker Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
 - [AWS Well-Architected — Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/analytics-lens.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 [Phase 6 — Security and Governance](../phase-6-security-and-governance/README.md)

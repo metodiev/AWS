@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 02 of 08
 > ⬅️ Previous: [High Availability](./01-high-availability.md) · ➡️ Next: [Multi-Region VPC Design](./03-multi-region-vpc-design.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **High availability protects against component failure; disaster recovery protects against loss of a whole environment.** A Multi-AZ application in three AZs will not survive an operator dropping the production database, a runaway deployment that corrupts data, malicious deletion, or a regional event that takes out `eu-west-1` for hours. DR is what you do when the thing that broke is not a machine but your entire system.
 
@@ -54,7 +54,7 @@ Two failure modes are worth naming because they are not infrastructure failures 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The four strategies, side by side:
 
@@ -105,7 +105,7 @@ flowchart TD
 
 ---
 
-## 🗺️ Failover Timeline
+## Failover Timeline
 
 A realistic unplanned failover for a warm standby, from detection to full capacity. Note that *detection and decision* consume most of the RTO if you have not automated them:
 
@@ -135,7 +135,7 @@ Baseline requirement for that timeline to hold: the Route 53 record's TTL must b
 
 ---
 
-## 🧪 Hands-on Lab: Backup Plan, Immutable Vault, and a Timed DR Rehearsal
+## Hands-on Lab: Backup Plan, Immutable Vault, and a Timed DR Rehearsal
 
 **Goal:** Protect an EC2/EBS workload with a cross-region, locked backup plan, then restore it on demand and measure the RTO.
 
@@ -288,7 +288,7 @@ aws backup list-backup-jobs --by-state COMPLETED --max-results 10 \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # On-demand backup of a single resource (useful before a risky change)
@@ -372,7 +372,7 @@ aws drs describe-job-log-items --job-id drsjob-1234567890abcdef0
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -388,7 +388,7 @@ aws drs describe-job-log-items --job-id drsjob-1234567890abcdef0
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -403,7 +403,7 @@ aws drs describe-job-log-items --job-id drsjob-1234567890abcdef0
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Approximate steady-state cost of each strategy for a workload whose primary environment costs **$10,000/month**:
 
@@ -426,7 +426,7 @@ What drives the DR bill, in order of magnitude:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Immutable, cross-account backups defeat ransomware.** A compromised admin key in the production account cannot delete recovery points that live in another account's locked vault, so the attacker's leverage disappears.
 - **Encrypt backups with customer managed KMS keys** and mirror the key policy into the DR region. Default AWS-managed keys cannot be shared across accounts and rotate without your control.
@@ -439,7 +439,7 @@ What drives the DR bill, in order of magnitude:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Choose an application you have running (or the Phase 1 three-tier app) and design a DR strategy whose targets are **RTO ≤ 30 minutes and RPO ≤ 5 minutes**. Document:
 
@@ -453,7 +453,7 @@ Success looks like: a timed runbook that completed inside 30 minutes with a reco
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS whitepaper: Disaster Recovery of Workloads on AWS](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-workloads-on-aws.html)
 - [AWS Backup Developer Guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
@@ -465,7 +465,7 @@ Success looks like: a timed runbook that completed inside 30 minutes with a reco
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now know *what* to replicate and *how fast* it must arrive. The next lesson builds the network that carries it: Transit Gateway, Route 53 Resolver, PrivateLink, and the CIDR planning decisions that are extremely painful to undo once two regions are live.
 

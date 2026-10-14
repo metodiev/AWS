@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 14 of 18
 > ⬅️ Previous: [Subnets and Route Tables](./13-subnets-and-route-tables.md) · ➡️ Next: [Network ACLs](./15-network-acls.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **security group** is a stateful, allow-only firewall attached to an elastic network interface. Every instance, load balancer, RDS instance, Lambda function in a VPC, and ECS task has at least one. Rules are evaluated as a whole set, not in order, and there is no way to write a deny rule — anything not explicitly allowed is denied.
 
@@ -42,7 +42,7 @@ One subtlety that causes real confusion: **a security group rule referencing a s
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A three-tier referencing chain. Each tier permits only the tier above it:
 
@@ -75,7 +75,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Build a Least-Privilege Referencing Chain
+## Hands-on Lab: Build a Least-Privilege Referencing Chain
 
 **Goal:** Create security groups for a load balancer, an application tier, and a database, where the database is reachable only from the application tier and the application tier only from the load balancer.
 
@@ -195,7 +195,7 @@ A flow-log `REJECT` on the destination means a security group or NACL blocked it
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Show all rules for a group in a readable form
@@ -235,7 +235,7 @@ aws ec2 authorize-security-group-ingress --group-id "$NEW_SG" --ip-permissions f
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -250,7 +250,7 @@ aws ec2 authorize-security-group-ingress --group-id "$NEW_SG" --ip-permissions f
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -265,7 +265,7 @@ aws ec2 authorize-security-group-ingress --group-id "$NEW_SG" --ip-permissions f
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Security groups are **free**. There is no charge for creating groups or rules, and no limit on how many you attach to an interface (beyond the account quota of groups per VPC).
 
@@ -277,7 +277,7 @@ Nothing here reduces the bill directly. The point is that security groups are on
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The default is already deny.** You cannot make a security group more closed than having no rules. This means a group with no rules is a perfectly valid starting state, and it is a better starting state than a permissive one.
 - **No deny rules means you must remove, not override.** If an old rule allows `0.0.0.0/0` on port 22, adding a narrower rule does nothing useful — you must delete the permissive one. This is the most common audit finding in AWS accounts.
@@ -302,7 +302,7 @@ Anything in that output on a port other than 80/443 deserves a written justifica
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the three-tier security group chain from the lab and break it in a controlled way to build debugging intuition:
 
@@ -314,7 +314,7 @@ Success looks like: you can describe, without looking anything up, which of the 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
 - [Security Group Rules Reference](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html)
@@ -324,7 +324,7 @@ Success looks like: you can describe, without looking anything up, which of the 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Security groups are the primary network control, but they are not the only one. The next lesson covers the layer below them — the subnet-level firewall that is stateless, ordered, and capable of blocking traffic that security groups would allow.
 

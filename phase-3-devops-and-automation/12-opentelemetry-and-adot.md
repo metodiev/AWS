@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 12 of 13
 > ⬅️ Previous: [AWS X-Ray](./11-aws-x-ray.md) · ➡️ Next: [Project: Full CI/CD Pipeline](./13-project-full-cicd-pipeline.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 OpenTelemetry (OTel) is a standard for generating and shipping telemetry, not a backend. It defines three **signals** — traces, metrics, and logs — along with a vendor-neutral wire format (**OTLP**), a library of **SDKs** per language, and a **Collector** process that receives, processes, and exports telemetry. The value is decoupling: you instrument once with OTel APIs, and you can point the data at X-Ray today and another backend tomorrow without touching application code.
 
@@ -44,7 +44,7 @@ Context propagation is what makes traces join up across services. OTel standardi
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The end-to-end telemetry path with ADOT:
 
@@ -94,7 +94,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: One Collector, Two Backends, Zero Code Changes
+## Hands-on Lab: One Collector, Two Backends, Zero Code Changes
 
 **Goal:** Run the ADOT Collector as an ECS sidecar that exports traces to X-Ray and metrics to CloudWatch, then auto-instrument an application without editing its span logic.
 
@@ -381,7 +381,7 @@ aws logs tail /ecs/phase3lab-metrics --since 10m --format short | head -5
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inspect the add-on version and its configuration after install
@@ -429,7 +429,7 @@ curl -s localhost:8888/metrics | grep otelcol_exporter_send_failed
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -447,7 +447,7 @@ curl -s localhost:8888/metrics | grep otelcol_exporter_send_failed
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -465,7 +465,7 @@ curl -s localhost:8888/metrics | grep otelcol_exporter_send_failed
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 ADOT and OpenTelemetry are free; you pay for the compute that runs the Collector and the backends that store the data. A sidecar at 0.25 vCPU and 512 MB adds roughly **$11/month per task** on Fargate — three tasks is $33/month purely for collecting. A DaemonSet on EKS costs one small node's worth of capacity across the fleet, and a gateway deployment is typically one or two 1 vCPU tasks.
 
@@ -475,7 +475,7 @@ Three rules keep this predictable. First, sample at the source with `parentbased
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The Collector's role is a data egress path.** It can write traces and metrics for the whole account, so scope its IAM policy to the specific actions it needs and grant `logs:*` only on its own log groups.
 - **Never expose the Collector to the internet.** OTLP ports 4317 and 4318 have no authentication by default; bind to the loopback interface in sidecar mode and to a cluster-internal Service in gateway mode.
@@ -488,7 +488,7 @@ Three rules keep this predictable. First, sample at the source with `parentbased
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Deploy a second Collector as a gateway in front of the sidecar, configured with tail sampling that keeps every trace containing an error plus 5% of everything else. Have the sidecar export to the gateway instead of directly to X-Ray.
 
@@ -496,7 +496,7 @@ Success looks like: `curl -s localhost:8888/metrics` on the sidecar shows `otelc
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [OpenTelemetry Documentation](https://opentelemetry.io/docs/)
 - [AWS Distro for OpenTelemetry](https://aws-otel.github.io/docs/introduction)
@@ -508,7 +508,7 @@ Success looks like: `curl -s localhost:8888/metrics` on the sidecar shows `otelc
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have every ingredient for automated delivery: IaC, CI/CD, containers, and observability. The final lesson assembles them into one end-to-end pipeline for a microservices application, with scanning, approvals, deployment, smoke tests, and rollback.
 

@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 10 of 13
 > ⬅️ Previous: [Amazon EKS](./09-amazon-eks.md) · ➡️ Next: [AWS X-Ray](./11-aws-x-ray.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Fargate is a billing and provisioning model, not a separate scheduler. You still define ECS task definitions (or EKS pods through Fargate profiles); what changes is that no host exists. Every task gets its own micro-VM with a fixed amount of CPU and memory reserved for its lifetime, billed per second, and destroyed when the task stops. There is no instance to patch, no bin-packing decision to make, and no way to borrow idle capacity from a neighbour.
 
@@ -44,7 +44,7 @@ Fargate is a billing and provisioning model, not a separate scheduler. You still
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How a Fargate task's networking actually looks:
 
@@ -101,7 +101,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Right-Size a Fargate Task and Run It on Spot
+## Hands-on Lab: Right-Size a Fargate Task and Run It on Spot
 
 **Goal:** Deploy a task with explicit container-level sizing and 40 GiB ephemeral storage, measure real usage, then move it to a Spot-weighted capacity provider with graceful shutdown.
 
@@ -301,7 +301,7 @@ aws ecs describe-task-definition --task-definition phase3lab-report:1 \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Run a batch job on Spot without touching the service scheduler
@@ -344,7 +344,7 @@ aws pricing get-products --service-code AmazonECS \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -362,7 +362,7 @@ aws pricing get-products --service-code AmazonECS \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -379,7 +379,7 @@ aws pricing get-products --service-code AmazonECS \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Fargate bills per second on two dimensions: vCPU-hours and GB-hours. In `us-east-1` with ARM64 this is roughly **$0.04048 per vCPU-hour** and **$0.004445 per GB-hour**, so a single 1 vCPU / 2 GB task costs about **$0.049/hour — $36/month** running continuously, and 4 such tasks cost about **$145/month**. The same shape on Fargate Spot is roughly **$0.012/hour for vCPU and $0.0013 for GB**, taking that 4-task service to about **$40/month**. Ephemeral storage beyond the free 20 GiB is billed at roughly $0.000111 per GB-hour, which is trivial for an hour and noticeable for a 200 GiB task left running all month.
 
@@ -389,7 +389,7 @@ Compute Savings Plans apply to Fargate usage and typically shave 10–20% off a 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Give each task its own security group** and reference other groups as sources rather than CIDRs. In `awsvpc` mode a task is a first-class network identity, so this stays correct as IPs change.
 - **Keep tasks in private subnets with `assignPublicIp: DISABLED`.** Public IPs on tasks mean direct internet exposure without a load balancer in front.
@@ -401,7 +401,7 @@ Compute Savings Plans apply to Fargate usage and typically shave 10–20% off a 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the report task from the lab and cut it in half: determine the smallest valid Fargate pair that keeps peak CPU below 60% and peak memory below 70% under load, then run two tasks at that size instead of one large task.
 
@@ -409,7 +409,7 @@ Success looks like: `aws ecs describe-task-definition` shows the new pair, a loa
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Fargate on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)
 - [Task Definition: CPU and Memory](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)
@@ -420,7 +420,7 @@ Success looks like: `aws ecs describe-task-definition` shows the new pair, a loa
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now run containers on Fargate with confidence about size, storage, interruptions, and network shape. The next lesson addresses the question those running containers immediately raise: what happened inside a single request across five services? That is distributed tracing with AWS X-Ray.
 

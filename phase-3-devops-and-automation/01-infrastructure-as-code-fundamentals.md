@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 01 of 13
 > ⬅️ Previous: [Phase 1 — Core Foundations](../phase-1-core-foundations/README.md) · ➡️ Next: [CloudFormation](./02-cloudformation.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Infrastructure as Code (IaC)** means your cloud environment is described by files that live in version control, and every change to the environment flows through those files. The value is not "automation" — a shell script automating the console clicks is still not IaC. The value is that the *description* of the target environment is reviewable, diffable, testable, and reproducible.
 
@@ -42,7 +42,7 @@ The last concept is **state**. A declarative tool must know what it created last
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The core IaC loop — code is the source of truth, and the tool reconciles reality against it:
 
@@ -89,7 +89,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Prove Idempotency, Then Find Drift
+## Hands-on Lab: Prove Idempotency, Then Find Drift
 
 **Goal:** Feel the difference between an imperative CLI call and a declarative template, then observe drift being detected.
 
@@ -198,7 +198,7 @@ The drift report lists the bucket with status `MODIFIED` and a property differen
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Preview what a Terraform change would do without touching anything
@@ -236,7 +236,7 @@ aws cloudformation list-stacks \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -250,7 +250,7 @@ aws cloudformation list-stacks \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -264,7 +264,7 @@ aws cloudformation list-stacks \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 IaC tooling itself is cheap. CloudFormation, CDK, and Pulumi's open-source CLI cost nothing; Terraform open-source is free, while HCP Terraform charges per managed resource per hour once you outgrow the free tier. **Pulumi Cloud** and **CloudFormation** are free up to a point, and AWS charges only for the resources created.
 
@@ -272,7 +272,7 @@ The real bill is what IaC lets you create *fast*. A template with a hard-coded `
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **State files contain secrets in plaintext.** Terraform state stores RDS passwords and generated keys. Encrypt the S3 bucket with KMS, block all public access, enable versioning, and restrict read access to the deployment role only.
 - **Use a dedicated deployment role, not an admin user.** The pipeline assumes a role with a scoped trust policy; humans never hold long-lived keys (see [GitHub Actions for AWS](./07-github-actions-for-aws.md) for the OIDC pattern).
@@ -282,7 +282,7 @@ The real bill is what IaC lets you create *fast*. A template with a hard-coded `
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the bucket template from the lab and add a second resource: an SNS topic, plus an output that exports the topic ARN. Then deliberately introduce drift in two different ways — rename the topic's tags in the console and delete the bucket's versioning configuration — and run drift detection.
 
@@ -290,7 +290,7 @@ Success looks like: `describe-stack-resource-drifts` reports two resources with 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What is Infrastructure as Code?](https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/infrastructure-as-code.html)
 - [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
@@ -300,7 +300,7 @@ Success looks like: `describe-stack-resource-drifts` reports two resources with 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now know *why* IaC matters and how each tool keeps track of the world. The next lesson takes the native AWS tool and goes deep: templates, stacks, change sets, rollback semantics, and the intrinsic functions that make a template dynamic.
 

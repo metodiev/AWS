@@ -3,7 +3,7 @@
 > **Phase 9 — Cutting-Edge AWS** · Lesson 02 of 06
 > ⬅️ Previous: [Amazon Braket](./01-amazon-braket.md) · ➡️ Next: [AWS Ground Station](./03-aws-ground-station.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 ### What AWS RoboMaker was
 
@@ -55,7 +55,7 @@ Parallel scenario testing is the reason to go to the cloud: one container image,
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A cloud robotics stack, end to end — simulation in the cloud, robot fleet in the field:
 
@@ -112,7 +112,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Simulate a Robot in the Cloud Without RoboMaker
+## Hands-on Lab: Simulate a Robot in the Cloud Without RoboMaker
 
 **Goal:** Launch a GPU EC2 instance, run ROS 2 Jazzy with headless Gazebo, drive the simulated robot, record a `rosbag2`, ship it to S3, and then wire the same pattern into a Greengrass V2 component.
 
@@ -266,7 +266,7 @@ Success looks like: a `metadata.yaml` and one or more `.db3` files in S3, a Gree
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Fleet inventory and grouping
@@ -312,7 +312,7 @@ aws iot start-on-demand-audit-task --target-check-names DEVICE_CERTIFICATE_SHARE
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -329,7 +329,7 @@ aws iot start-on-demand-audit-task --target-check-names DEVICE_CERTIFICATE_SHARE
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -344,7 +344,7 @@ aws iot start-on-demand-audit-task --target-check-names DEVICE_CERTIFICATE_SHARE
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Robotics on AWS is dominated by two lines: GPU simulation hosts and data movement. Approximate on-demand `us-east-1` rates, which you should verify before budgeting:
 
@@ -358,7 +358,7 @@ The bill driver is almost always *idle simulation time*: an engineer leaves a `g
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Every robot is an identity.** Robots authenticate to AWS IoT Core with a unique X.509 certificate; the certificate's IoT policy should allow only the topics that robot legitimately uses. Never share certificates across devices, and monitor certificate age with Device Defender audits.
 - **Component IPC is a permission boundary.** Greengrass V2 components must declare `accessControl` for the IPC services they use. Do not grant `aws.greengrass.ipc.mqttproxy` with `*` topics — that lets a compromised component impersonate any other robot on the fleet.
@@ -371,7 +371,7 @@ The bill driver is almost always *idle simulation time*: an engineer leaves a `g
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Without using AWS RoboMaker, build a parameter sweep: a container image with ROS 2 and Gazebo, an AWS Batch compute environment using Spot `g4dn.xlarge` instances, and an array job that runs the same world with three different controller gains. Each job should upload its `rosbag2` and a `results.json` (final pose, time to goal, collisions) to S3.
 
@@ -379,7 +379,7 @@ Success looks like: one `aws batch submit-job` command that produces three paral
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS IoT Greengrass V2 Developer Guide](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)
 - [AWS IoT Device Management Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)
@@ -393,7 +393,7 @@ Success looks like: one `aws batch submit-job` command that produces three paral
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Cloud robotics keeps machines on the ground. The next lesson looks upward — at a service that turns a global antenna network into an API and lands satellite downlink data directly in Amazon S3.
 

@@ -3,7 +3,7 @@
 > **Phase 9 — Cutting-Edge AWS** · Lesson 06 of 06
 > ⬅️ Previous: [AIOps and AI-Powered Infrastructure](./05-aiops-and-ai-powered-infrastructure.md) · ➡️ Next: [Phase 10 — Grandmaster Projects](../phase-10-grandmaster-projects/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 ### The scenario
 
@@ -45,7 +45,7 @@ This lab includes an AIOps workstream. If you were designing it in 2024 you woul
 
 ### The four planes
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The full lab. Four planes, one shared foundation of identity, network, and observability:
 
@@ -174,7 +174,7 @@ gantt
 
 ---
 
-## 🧪 Hands-on Lab: Assemble the Lab
+## Hands-on Lab: Assemble the Lab
 
 **Goal:** Stand up all four planes in one account with a shared foundation, prove each plane works, and produce the cost/benefit review.
 
@@ -361,7 +361,7 @@ Success looks like: all four planes producing artifacts in S3, one hardware quan
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Quantum plane
@@ -404,7 +404,7 @@ aws ce get-cost-and-usage --time-period Start=2026-11-01,End=2026-12-01 --granul
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -421,7 +421,7 @@ aws ce get-cost-and-usage --time-period Start=2026-11-01,End=2026-12-01 --granul
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -437,7 +437,7 @@ aws ce get-cost-and-usage --time-period Start=2026-11-01,End=2026-12-01 --granul
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 The table below is the deliverable that matters most. Treat the numbers as **illustrative orders of magnitude** for a small lab in one Region, and replace every one of them with a figure from your own pricing exercise. The verdict column is the actual output of the review.
 
@@ -463,7 +463,7 @@ The table below is the deliverable that matters most. Treat the numbers as **ill
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Planes need separate roles, not one lab role.** A single broad role means a compromised decoder Lambda can also submit quantum tasks and modify remediation workflows. Use one role per plane with resource-scoped policies.
 - **Encrypt every result.** Quantum results, downlink data, and curated Parquet all use customer-managed KMS keys so access can be revoked independently of bucket policy.
@@ -476,7 +476,7 @@ The table below is the deliverable that matters most. Treat the numbers as **ill
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Run the review, not the build. Take the architecture diagram above, mark every component as **built**, **planned**, or **deferred**, and then defend the deferred list in writing. For each deferred item, state the trigger that would move it to planned — a cost threshold, a customer commitment, a research result, or a service's general availability.
 
@@ -490,7 +490,7 @@ Success looks like: a marked-up diagram, a deferred list with explicit triggers,
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Braket Developer Guide](https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html)
 - [AWS Ground Station User Guide](https://docs.aws.amazon.com/ground-station/latest/ug/aws-ground-station-antenna-locations.html)
@@ -503,7 +503,7 @@ Success looks like: a marked-up diagram, a deferred list with explicit triggers,
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have now covered the whole frontier: quantum, robots, satellites, silicon, and AI-run operations — with the compromises stated openly. Phase 10 changes the nature of the work. Instead of learning one more service, you will design systems at Amazon's scale, break them deliberately, and hand the knowledge on.
 

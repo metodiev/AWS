@@ -3,7 +3,7 @@
 > **Phase 2 — Professional Architectures** · Lesson 05 of 08
 > ⬅️ Previous: [Route 53](./04-route-53.md) · ➡️ Next: [Global Accelerator](./06-global-accelerator.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Amazon CloudFront is a global content delivery network with **600+ points of presence**. When a user requests a URL served by CloudFront, their request lands at the nearest edge location; if that edge has a fresh cached copy, the response never leaves the edge. If it does not, CloudFront fetches from the **origin** over AWS's backbone, caches the object, and serves it. CloudFront terminates TLS with your ACM certificate, so users never see the origin.
 
@@ -60,7 +60,7 @@ Because the origin's headers participate, a well-behaved origin is as important 
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A distribution with two origins, three behaviors, and an edge function in front:
 
@@ -114,7 +114,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: S3 Origin Behind OAC with Security Headers
+## Hands-on Lab: S3 Origin Behind OAC with Security Headers
 
 **Goal:** Serve a private S3 bucket through CloudFront using OAC, add strict security headers at the edge, and prove that the bucket is unreachable directly.
 
@@ -344,7 +344,7 @@ curl -sI https://www.example.com/index.html | grep -i x-cache
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Read the distribution config and its ETag (update requires --if-match with this ETag)
@@ -401,7 +401,7 @@ aws cloudfront list-distributions \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -418,7 +418,7 @@ aws cloudfront list-distributions \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -434,7 +434,7 @@ aws cloudfront list-distributions \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 CloudFront is usually a **cost saver** when it replaces directly served egress, but the meters matter:
 
@@ -448,7 +448,7 @@ CloudFront is usually a **cost saver** when it replaces directly served egress, 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **OAC plus a scoped bucket policy** is the modern default for S3 origins: no public bucket, SigV4 on every origin fetch, and `AWS:SourceArn` pinning the distribution.
 - **Enforce HTTPS** with `ViewerProtocolPolicy: redirect-to-https` (or `https-only` for APIs) and a modern `MinimumProtocolVersion` such as `TLSv1.2_2021`.
@@ -462,7 +462,7 @@ CloudFront is usually a **cost saver** when it replaces directly served egress, 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take a static site plus a JSON API and put both behind one distribution:
 
@@ -477,7 +477,7 @@ Success looks like: `curl -I` on a static file shows `x-cache: Hit from cloudfro
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon CloudFront Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
 - [Restricting access to an S3 origin with OAC](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
@@ -488,7 +488,7 @@ Success looks like: `curl -I` on a static file shows `x-cache: Hit from cloudfro
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 CloudFront accelerates and caches HTTP content. The next lesson covers the other global traffic service — Global Accelerator — which does not cache anything at all but moves raw TCP and UDP onto AWS's backbone using anycast static IPs.
 

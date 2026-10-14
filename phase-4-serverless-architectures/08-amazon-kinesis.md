@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 08 of 09
 > ⬅️ Previous: [Amazon SNS](./07-amazon-sns.md) · ➡️ Next: [Capstone — Uber-like Serverless Backend](./09-project-uber-like-serverless-backend.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Kinesis Data Streams** is a durable, ordered, replayable log. Producers append records with a **partition key**; Kinesis hashes the key to pick a **shard**, and every record for that key lands in the same shard in the order it arrived. Consumers read a shard sequentially and track their own position with a **shard iterator**. Unlike SQS, reading a record does not delete it — many independent consumers can read the same data, and each can replay from any point in the retention window.
 
@@ -54,7 +54,7 @@ The pattern that uses all three: producers write to **Data Streams**, a Lambda o
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 One stream, three consumers, no interference when each has what it needs:
 
@@ -101,7 +101,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Stream Location Pings and Deal with a Hot Shard
+## Hands-on Lab: Stream Location Pings and Deal with a Hot Shard
 
 **Goal:** Create a stream, publish location records with a good partition key, prove a skewed key causes throttling, then re-shard and consume with Lambda.
 
@@ -306,7 +306,7 @@ Success is: the stream reports twice the original open shard count, the Lambda m
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Create an on-demand stream — no shard math, scales automatically
@@ -365,7 +365,7 @@ aws kinesis delete-stream --stream-name rides-events-ondemand \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -383,7 +383,7 @@ aws kinesis delete-stream --stream-name rides-events-ondemand \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -400,7 +400,7 @@ aws kinesis delete-stream --stream-name rides-events-ondemand \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Provisioned mode has two charges:
 
@@ -417,7 +417,7 @@ What drives the bill: shard-hours (fixed, whether used or not), ingress volume i
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Encrypt at rest.** New streams use KMS with an AWS-owned key by default; call `start-stream-encryption` with a customer managed key so you control rotation, revocation, and audit.
 - **Use HTTPS endpoints only** and prefer an interface VPC endpoint for `kinesis-streams` so producer and consumer traffic never crosses the public internet.
@@ -430,7 +430,7 @@ What drives the bill: shard-hours (fixed, whether used or not), ingress volume i
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create a stream with three shards and a partition key that is deliberately skewed, then publish one million small records with `PutRecords` in batches of 500. Enable shard-level enhanced monitoring, identify the hot shard from the `IncomingBytes` per-shard metrics, and fix the design by switching to a composite key of `city#driverId`. Then extend retention to 7 days, register an enhanced fan-out consumer, and compare the consumer's read throughput before and after registration.
 
@@ -438,7 +438,7 @@ Success looks like: a written before-and-after table showing the per-shard `Inco
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
 - [Kinesis Data Streams quotas and limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
@@ -450,7 +450,7 @@ Success looks like: a written before-and-after table showing the per-shard `Inco
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have every building block of this phase. The capstone puts them together into one coherent system: an Uber-like backend where API Gateway fronts writes, SQS absorbs matching work, SNS notifies riders, EventBridge carries domain facts, Step Functions owns the ride lifecycle, and Kinesis streams location updates.
 

@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 03 of 11
 > ⬅️ Previous: [Identity Federation and IAM Identity Center](./02-identity-federation-and-iam-identity-center.md) · ➡️ Next: [AWS CloudHSM](./04-aws-cloudhsm.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Key Management Service (KMS)** manages the cryptographic keys that protect almost every encrypted byte in AWS — S3 objects, EBS volumes, RDS databases, Secrets Manager values, Lambda environment variables. A key in KMS is a logical resource backed by hardware security modules that AWS operates; KMS never exports the underlying key material in plaintext, and no API returns it. What you can do is ask KMS to encrypt, decrypt, or generate data keys.
 
@@ -45,7 +45,7 @@ Two advanced features matter for real architectures. **Multi-region keys** are r
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 Envelope encryption for an S3 object, showing that only the small data key travels to KMS:
 
@@ -95,7 +95,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: A Key Policy, a Grant, and an Encryption Context
+## Hands-on Lab: A Key Policy, a Grant, and an Encryption Context
 
 **Goal:** Create a customer managed key with a least-privilege key policy, use it with an encryption context, and hand out temporary access with a grant instead of editing the policy.
 
@@ -306,7 +306,7 @@ aws cloudtrail lookup-events \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Inventory keys and see which are customer managed versus AWS managed
@@ -354,7 +354,7 @@ aws kms disable-key --key-id "$KEY_ID"
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -370,7 +370,7 @@ aws kms disable-key --key-id "$KEY_ID"
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -384,7 +384,7 @@ aws kms disable-key --key-id "$KEY_ID"
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 KMS pricing has three components. **Keys** cost roughly **$1 per key per month**, prorated hourly, for each customer managed key — and each multi-region replica is a separate key with its own charge, so a primary plus three replicas is ~$4/month for that one logical key. **Requests** cost about **$0.03 per 10,000 requests**, with `GenerateDataKey`, `Encrypt`, `Decrypt`, and `ReEncrypt` all counting; grants and policy reads are free. **Custom key stores** (CloudHSM-backed) add a fixed hourly charge per cluster instead (see Lesson 04).
 
@@ -392,7 +392,7 @@ The dominant driver is not the key fee — it is *how often you call KMS*. Envel
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Key policies are the root of trust.** Treat `kms:PutKeyPolicy` as an administrative privilege equivalent to "grant decryption to anyone", and alert on it in CloudTrail.
 - **Separation of duties means different roles for key administration and key use.** In the lab policy the admin can manage the key but a service role encrypts and decrypts; do not collapse those into one role in regulated environments.
@@ -405,7 +405,7 @@ The dominant driver is not the key fee — it is *how often you call KMS*. Envel
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a two-tenant design on a single KMS key. Use an encryption context of `tenant=<name>` to encrypt two different files with the same key, then write an IAM identity policy for a role named `tenant-acme-reader` that grants `kms:Decrypt` on the key **only** when `kms:EncryptionContext:tenant` equals `acme`. Prove that the role can decrypt the Acme file and receives `AccessDeniedException` for the other tenant's file, then compare that with a design where each tenant gets its own customer managed key, and write three sentences on the cost and isolation trade-off.
 
@@ -413,7 +413,7 @@ Success looks like: `aws kms decrypt` succeeds for the Acme ciphertext and fails
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
 - [Key policies in AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
@@ -426,7 +426,7 @@ Success looks like: `aws kms decrypt` succeeds for the Acme ciphertext and fails
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 KMS is enough for the overwhelming majority of workloads, but it is a shared, multi-tenant service by design — AWS operates the HSMs. When a regulator, a payment network, or your own security team demands single-tenant hardware you control, you need CloudHSM, which is the next lesson.
 

@@ -4,7 +4,7 @@ Phase 9 is where the roadmap stops optimizing yesterday's architecture and start
 
 This phase comes after Phase 8 because it assumes you can already design a production workload. The cutting-edge topics here are not "hello world" services; they are specialized control planes you attach to a solid foundation.
 
-## 🎯 Phase Goals
+## Phase Goals
 
 - Understand what quantum computing actually is in 2026 (the NISQ era) and when Amazon Braket is worth paying for
 - Run robotics workloads in the cloud without a service that manages them end to end
@@ -13,7 +13,7 @@ This phase comes after Phase 8 because it assumes you can already design a produ
 - Separate real AIOps capability from marketing, and automate the part that is genuinely automatable
 - Assemble all of it into one defensible architecture with an honest cost/benefit table
 
-## 🗺️ Phase Map
+## Phase Map
 
 ```mermaid
 flowchart TD
@@ -30,7 +30,7 @@ flowchart TD
     cap --> p10["Phase 10 - Grandmaster Projects"]
 ```
 
-## 📚 Lessons in this Phase
+## Lessons in this Phase
 
 | # | Lesson | Focus | Difficulty |
 |---|--------|-------|------------|
@@ -41,7 +41,7 @@ flowchart TD
 | 05 | [AIOps and AI-Powered Infrastructure](./05-aiops-and-ai-powered-infrastructure.md) | Anomaly detection, predictive scaling, Bedrock assistants, automated remediation loops | Advanced |
 | 06 | [Project: Cutting-Edge Lab](./06-project-cutting-edge-lab.md) | Capstone: Braket + Graviton + AIOps + Ground Station in one architecture | Advanced |
 
-## 🛠️ Capstone Project
+## Capstone Project
 
 **Project: Cutting-Edge Lab** — design and partially build a single environment that combines a Braket experiment, a Graviton migration, an AIOps feedback loop, and a Ground Station downlink path into S3.
 
@@ -56,7 +56,7 @@ Deliverables:
 
 See [Lesson 06](./06-project-cutting-edge-lab.md) for the full brief.
 
-## ✅ Phase Checklist
+## Phase Checklist
 
 - [ ] I can explain the difference between a qubit, a classical bit, and a shot-based measurement
 - [ ] I have run a circuit on the Braket local simulator and on a managed simulator
@@ -66,7 +66,7 @@ See [Lesson 06](./06-project-cutting-edge-lab.md) for the full brief.
 - [ ] I have reported my estimated carbon emissions for at least one month
 - [ ] I can describe why AWS RoboMaker is not an option for new projects
 
-## 📚 Phase Resources
+## Phase Resources
 
 - [Amazon Braket Developer Guide](https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html)
 - [AWS Ground Station User Guide](https://docs.aws.amazon.com/ground-station/latest/ug/aws-ground-station-antenna-locations.html)
@@ -75,7 +75,7 @@ See [Lesson 06](./06-project-cutting-edge-lab.md) for the full brief.
 - [AWS DevOps Agent](https://docs.aws.amazon.com/devopsagent/)
 - [AWS IoT Greengrass V2 Developer Guide](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)
 
-## ➡️ Next Phase
+## Next Phase
 
 Once you can explain why a service is *not* worth using yet — and prove it with a cost model — you are ready to design at Amazon's scale, break your own systems deliberately, and teach what you learned.
 

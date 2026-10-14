@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 09 of 09
 > ⬅️ Previous: [SageMaker Training and Deployment](./08-sagemaker-training-and-deployment.md) · ➡️ Next: [Phase 6 — Security and Governance](../phase-6-security-and-governance/README.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this capstone you will have:
 
@@ -18,7 +18,7 @@ By the end of this capstone you will have:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 This capstone connects every lesson in the phase into one story: orders arrive from producers, land in S3, become a clean partitioned dataset, get queried with SQL, and appear in a dashboard — while an analyst role sees business metrics but never customer emails or other regions' rows. There are no EC2 instances, clusters, or containers anywhere in the path. Every component is managed, scales on its own, and bills only while it works.
 
@@ -64,7 +64,7 @@ Fix the event schema before writing producer code:
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The complete pipeline. Read it left to right: ingest, process, serve, govern.
 
@@ -122,7 +122,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Build the Pipeline
+## Hands-on Lab: Build the Pipeline
 
 **Goal:** Deploy the pipeline, produce live events, and verify data flows from the stream to a governed Athena aggregate.
 
@@ -428,7 +428,7 @@ Success looks like: one row per region in the aggregate, only `EMEA` for the ana
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Pipeline health in one pass
@@ -470,7 +470,7 @@ aws firehose list-delivery-streams --query DeliveryStreamNames
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -488,7 +488,7 @@ aws firehose list-delivery-streams --query DeliveryStreamNames
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -505,7 +505,7 @@ aws firehose list-delivery-streams --query DeliveryStreamNames
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Standing cost at learning scale — a few GB ingested per day and a few hundred queries:
 
@@ -526,7 +526,7 @@ Track two numbers weekly: Athena `ProcessedBytes` per workgroup and the object c
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Least-privilege roles per component.** Firehose reads one stream, writes one bucket prefix, and reads one Glue table. Glue reads raw and writes curated. The analyst role has no direct S3 access at all — Lake Formation vends credentials.
 - **Encrypt end to end.** KMS on the stream, SSE-KMS on the bucket, KMS on the Glue job's security configuration, and a bucket policy that denies non-TLS requests.
@@ -538,7 +538,7 @@ Track two numbers weekly: Athena `ProcessedBytes` per workgroup and the object c
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend the pipeline to answer a new question without adding a single server:
 
@@ -550,7 +550,7 @@ Success looks like: the hourly aggregate refreshes on a schedule, `RegionalAnaly
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Build a Modern Data Architecture on AWS](https://docs.aws.amazon.com/whitepapers/latest/build-modern-data-streaming-analytics-architectures/build-modern-data-streaming-analytics-architectures.html)
 - [Firehose Record Format Conversion](https://docs.aws.amazon.com/firehose/latest/dev/record-format-conversion.html)
@@ -561,7 +561,7 @@ Success looks like: the hourly aggregate refreshes on a schedule, `RegionalAnaly
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You have built a governed, serverless, end-to-end analytics pipeline and used every service in this phase. Phase 6 shifts from building to protecting: encryption with KMS and CloudHSM, threat detection with GuardDuty and Security Hub, compliance frameworks, and multi-account governance with AWS Organizations — all of which apply directly to the lake you just created.
 

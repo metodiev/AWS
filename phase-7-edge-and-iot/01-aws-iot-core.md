@@ -3,7 +3,7 @@
 > **Phase 7 — Edge and IoT** · Lesson 01 of 09
 > ⬅️ Previous: [Phase 6 — Security and Governance](../phase-6-security-and-governance/README.md) · ➡️ Next: [AWS IoT Greengrass](./02-aws-iot-greengrass.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -19,7 +19,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS IoT Core** is a managed MQTT message broker plus a device registry. That is the whole product, and everything else is built on those two ideas. Devices connect to a per-account endpoint over TLS, authenticate with a client certificate, publish to topics, and subscribe to topics. The broker never lets a device talk to another device directly — every message can be inspected, transformed, and forwarded by AWS before anything downstream sees it. That is the difference between "a bunch of devices talking to a server" and an IoT platform: you get authorization, routing, and audit for the entire fleet.
 
@@ -51,7 +51,7 @@ For fleet onboarding, **fleet provisioning** replaces the "copy a certificate on
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 End-to-end path from a sensor to an analytics destination, with the security objects called out:
 
@@ -111,7 +111,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: Provision a Device and Route Its Telemetry
+## Hands-on Lab: Provision a Device and Route Its Telemetry
 
 **Goal:** Register a simulated sensor with its own certificate, restrict it to one publish topic, then route that topic into Timestream and S3 with a single rule.
 
@@ -289,7 +289,7 @@ A `ruleDisabled` value of `false` plus queryable rows in Timestream means the wh
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List every device in a group — the inventory view you actually use in operations
@@ -323,7 +323,7 @@ aws iot set-v2-logging-options --role-arn arn:aws:iam::123456789012:role/IoTLogg
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -338,7 +338,7 @@ aws iot set-v2-logging-options --role-arn arn:aws:iam::123456789012:role/IoTLogg
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -352,7 +352,7 @@ aws iot set-v2-logging-options --role-arn arn:aws:iam::123456789012:role/IoTLogg
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 IoT Core bills for **connectivity** and **messaging** separately, and that split drives most architecture decisions. Connectivity is charged per million minutes of connection (roughly $0.08 per million minutes), which is trivial for devices that stay connected but adds up for a fleet that reconnects constantly — a device that reconnects every 30 seconds pays far more than one that holds a session open. Messaging is charged per million messages in 5 KB blocks, so a 40 KB payload counts as eight messages. Shrinking payloads or switching to Basic Ingest is often cheaper than any instance-level optimization.
 
@@ -362,7 +362,7 @@ What drives the bill, in order: number and size of messages, then shadow and reg
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Three separate controls, three separate jobs.** The certificate answers *who is this device*; the policy answers *what may it do*; the thing group answers *who do I target*. Review them independently.
 - **Least privilege means topic-level precision.** A policy resource of `topic/#` grants the fleet authority to publish on top of other devices' topics. Scope every resource by thing name using policy variables.
@@ -374,7 +374,7 @@ What drives the bill, in order: number and size of messages, then shadow and reg
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the lab device and make it a *classroom*: create two more things (`sensor-0002`, `sensor-0003`) that share the same policy document, and prove with the MQTT test client (or `aws iot-data publish` while impersonating each client ID) that each device can publish to its own telemetry topic and cannot publish to a sibling's topic.
 
@@ -384,7 +384,7 @@ Success looks like: `aws iot list-principal-policies` shows the same single poli
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What Is AWS IoT Core?](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
 - [AWS IoT Device Shadow Service](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html)
@@ -397,7 +397,7 @@ Success looks like: `aws iot list-principal-policies` shows the same single poli
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 IoT Core gives every device a managed endpoint and a way to be *seen*. It does not give you anywhere to run code when the uplink is down, and it does not let a plant manager classify images on a local gateway. The next lesson puts a real runtime on the edge — AWS IoT Greengrass v2 — so the factory keeps working, and keeps its data, when the WAN does not.
 

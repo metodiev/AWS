@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 06 of 11
 > ⬅️ Previous: [Nitro Enclaves](./05-nitro-enclaves.md) · ➡️ Next: [Amazon GuardDuty](./07-amazon-guardduty.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Security Hub** is a findings aggregator, not a scanner of its own — with one important exception. Its job is to give you a single, normalized view of security posture across every account and Region: it runs **automated security checks** against **standards**, and it ingests findings from other services (GuardDuty, Macie, Inspector, IAM Access Analyzer, Firewall Manager, Config, and third-party partners) into a common format called **ASFF**, the AWS Security Finding Format. Every finding has an ID, severity, resource, compliance status, and remediation guidance in the same shape, which is what makes automation possible.
 
@@ -43,7 +43,7 @@ At scale, three mechanics carry the weight. **Delegated administration** lets on
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The multi-account topology: a delegated administrator collecting from every account and Region into one view:
 
@@ -107,7 +107,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Organization-Wide Security Hub with Aggregation
+## Hands-on Lab: Organization-Wide Security Hub with Aggregation
 
 **Goal:** Turn on Security Hub across an organization with a delegated administrator, enable three standards, aggregate two Regions, and auto-remediate one control.
 
@@ -289,7 +289,7 @@ aws securityhub get-findings --max-results 1 \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Enable, describe, and disable Security Hub in the current account
@@ -335,7 +335,7 @@ aws securityhub list-finding-aggregators
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -350,7 +350,7 @@ aws securityhub list-finding-aggregators
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -365,7 +365,7 @@ aws securityhub list-finding-aggregators
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Security Hub charges per **security check** and per **finding ingestion event**, both roughly in the **$0.0010 per check** and **$0.00003 per 10 KB** range depending on Region, plus charges for the underlying Config records, GuardDuty, and Macie consumption. The practical driver is **how many controls you enable multiplied by how many accounts and Regions you enable them in**. Enabling all three standards across 40 accounts and three Regions is a large standing bill that never sleeps, and the cost scales with *resources*, not with incidents.
 
@@ -373,7 +373,7 @@ Three controls keep this predictable. First, enable only the standards you can a
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Security Hub is a target, not just a tool.** The delegated admin account can read findings across every account and reconfigure standards; protect it with a strict SCP, MFA, and no workload access.
 - **Findings contain sensitive metadata.** Resource IDs, ARNs, IP addresses, and sometimes resource policies end up in findings; treat the aggregator account as confidential and restrict `securityhub:GetFindings`.
@@ -385,7 +385,7 @@ Three controls keep this predictable. First, enable only the standards you can a
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Export your current failed controls into a spreadsheet-shaped report grouped by (a) control ID, (b) severity, and (c) account, using `get-findings` with a `--query` projection. Then choose the single control that appears most often and write a plan for eliminating it as a *class* rather than instance by instance — for example an SCP, an account baseline from Control Tower, or a Config remediation. Finally, write one paragraph explaining to a non-technical stakeholder why the remaining `MEDIUM` failures do not require the same urgency as the `CRITICAL` ones.
 
@@ -393,7 +393,7 @@ Success looks like: a table of failed controls with counts, one classified remed
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Security Hub User Guide](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html)
 - [AWS Security Finding Format (ASFF)](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html)
@@ -406,7 +406,7 @@ Success looks like: a table of failed controls with counts, one classified remed
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Security Hub tells you what is misconfigured. It does not tell you who is attacking you. The next lesson adds the detection layer that feeds it — GuardDuty, which watches your traffic, your API calls, and your DNS queries for evidence of compromise.
 

@@ -3,7 +3,7 @@
 > **Phase 1 — Core Foundations** · Lesson 03 of 18
 > ⬅️ Previous: [IAM Roles](./02-iam-roles.md) · ➡️ Next: [Service Control Policies](./04-service-control-policies.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 An **IAM policy** is a JSON document that answers one question: *may this principal perform this action on this resource, under these conditions?* Policies never grant anything on their own — they only take effect when attached to a principal (a user, group, or role) or to a resource (like an S3 bucket or KMS key).
 
@@ -43,7 +43,7 @@ That is why the single most useful debugging question for an `AccessDenied` erro
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How the different policy types combine when a request is evaluated:
 
@@ -74,7 +74,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Write and Attach a Least-Privilege Policy
+## Hands-on Lab: Write and Attach a Least-Privilege Policy
 
 **Goal:** Create a policy that lets a user read objects from exactly one S3 bucket, and verify that it cannot read anything else.
 
@@ -149,7 +149,7 @@ If the second command returns data, your policy is too broad — check that you 
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List policies attached to a user
@@ -185,7 +185,7 @@ aws iam simulate-principal-policy \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -198,7 +198,7 @@ aws iam simulate-principal-policy \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -211,7 +211,7 @@ aws iam simulate-principal-policy \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 IAM itself is **free** — there is no charge for users, roles, policies, or API calls to IAM. The real cost of a bad policy is indirect: over-permissive policies are the leading cause of data-breach recovery bills, and a missing `Condition` can allow a compromised access key to spin up expensive GPU instances. Treat policy review as a cost-control activity, not just a security one.
 
@@ -219,7 +219,7 @@ Costs that *are* real here: IAM Access Analyzer charges per analyzer per month p
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Least privilege is iterative.** Start broad in a sandbox, then use IAM Access Advisor and CloudTrail to see what was actually used and trim to that.
 - **Boundaries for delegation.** If you let teams create their own roles, attach a permission boundary so they cannot escalate beyond a ceiling you set.
@@ -228,7 +228,7 @@ Costs that *are* real here: IAM Access Analyzer charges per analyzer per month p
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create a policy named `DynamoAppUser` that allows a user to read and write items in a single DynamoDB table called `orders`, and nothing else. Then prove it works by writing an item successfully and attempting (and failing) to read a different table.
 
@@ -236,7 +236,7 @@ Success looks like: `simulate-principal-policy` returns `allowed` for `dynamodb:
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html)
 - [Policy Evaluation Logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
@@ -245,7 +245,7 @@ Success looks like: `simulate-principal-policy` returns `allowed` for `dynamodb:
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Policies control what happens *inside* your account. The next lesson adds the layer above that: Service Control Policies, which set hard ceilings across every account in an AWS Organization.
 

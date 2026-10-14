@@ -3,7 +3,7 @@
 > **Phase 3 — DevOps and Automation** · Lesson 07 of 13
 > ⬅️ Previous: [Jenkins on AWS](./06-jenkins-on-aws.md) · ➡️ Next: [Containers and ECS](./08-containers-and-ecs.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 GitHub Actions runs workflows defined in `.github/workflows/*.yml` on GitHub-hosted or self-hosted runners. Each workflow has **jobs**, each job runs on a fresh **runner**, and jobs pass data through artifacts or job outputs. Because the runner is ephemeral and lives outside your account, the interesting problem is entirely about identity: how does a runner in GitHub's infrastructure get permission to push an image to ECR?
 
@@ -46,7 +46,7 @@ Finally, **caching** is what keeps this pleasant. `actions/setup-node` with `cac
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The OIDC exchange, with nothing long-lived involved:
 
@@ -89,7 +89,7 @@ flowchart LR
 
 ---
 
-## 🧪 Hands-on Lab: Keyless CI/CD from GitHub to ECS
+## Hands-on Lab: Keyless CI/CD from GitHub to ECS
 
 **Goal:** Wire GitHub Actions to AWS using OIDC, then build, test, push, and deploy a container with an approval gate on production.
 
@@ -482,7 +482,7 @@ aws ecs describe-services --cluster phase3lab-cluster --services phase3lab-api \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Find every role that trusts the GitHub OIDC provider
@@ -511,7 +511,7 @@ gh run rerun 1234567890 --failed
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -529,7 +529,7 @@ gh run rerun 1234567890 --failed
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -546,7 +546,7 @@ gh run rerun 1234567890 --failed
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 GitHub Actions minutes are free for public repositories and metered for private ones: Linux runners cost about **$0.008/minute**, with 2,000 minutes per month included in Team plans. A workflow that runs on every push, builds a container, and deploys takes roughly 8 minutes across its jobs — about $0.06 per run at 300 pushes a month, roughly $19. Caching is the biggest lever: a warm Docker layer cache routinely cuts the build job in half, and `paths-ignore` for documentation changes eliminates runs entirely.
 
@@ -554,7 +554,7 @@ AWS-side costs are small but real. ECR storage is $0.10 per GB-month, so 30 tagg
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Federation replaces secrets; it does not replace least privilege.** A build role should push to exactly one ECR repository, and a deploy role should update exactly one ECS service.
 - **Never trust `pull_request` with credentials.** Workflows triggered by `pull_request` from a fork do not receive secrets or an OIDC token by default; keep it that way, and never use `pull_request_target` with a checkout of untrusted code.
@@ -566,7 +566,7 @@ AWS-side costs are small but real. ECR storage is $0.10 per GB-month, so 30 tagg
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Convert the `test` and `build` jobs in `build-and-deploy.yml` into a single reusable workflow, `reusable-ci.yml`, that takes `node-version` and `repository` as inputs and returns the image digest as an output. Then have two service workflows (`orders` and `payments`) call it.
 
@@ -574,7 +574,7 @@ Success looks like: both service workflows complete without duplicating any buil
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Configuring OpenID Connect in Amazon Web Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 - [GitHub Docs: Configuring OpenID Connect in AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
@@ -585,7 +585,7 @@ Success looks like: both service workflows complete without duplicating any buil
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Your pipeline can now build and deploy a container. The next lesson goes inside the container runtime itself: ECS task definitions, services, launch types, and the rolling and blue/green strategies that keep a deployment invisible to users.
 

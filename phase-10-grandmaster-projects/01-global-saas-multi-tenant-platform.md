@@ -3,7 +3,7 @@
 > **Phase 10 — Grandmaster Projects** · Lesson 01 of 06
 > ⬅️ Previous: [Phase 9 — Cutting-Edge AWS](../phase-9-cutting-edge-aws/README.md) · ➡️ Next: [Chaos Engineering](./02-chaos-engineering.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Multi-tenancy** means one logical system serves many customers (*tenants*) — each tenant's data, configuration, and users must be invisible to every other tenant. Every architectural decision in this lesson is a trade-off between three axes: **isolation strength**, **cost efficiency**, and **operational agility**. No single model wins on all three.
 
@@ -47,7 +47,7 @@ The **silo** model gives each tenant dedicated infrastructure: separate accounts
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 A bridge topology: shared control plane, pooled tier for self-serve tenants, siloed accounts for enterprise tenants.
 
@@ -161,7 +161,7 @@ erDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Pooled Tenancy with ABAC and Per-Tenant Keys
+## Hands-on Lab: Pooled Tenancy with ABAC and Per-Tenant Keys
 
 **Goal:** Stand up a pooled multi-tenant slice — Cognito identity, one DynamoDB table partitioned by tenant, and one KMS key per tenant enforced with encryption context.
 
@@ -384,7 +384,7 @@ aws ce create-cost-category-definition \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List every partition key value present in a pooled table (tenant inventory, small tables only)
@@ -426,7 +426,7 @@ aws ce get-cost-and-usage \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -441,7 +441,7 @@ aws ce get-cost-and-usage \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -455,7 +455,7 @@ aws ce get-cost-and-usage \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 **What drives the bill:** the pooled tier is dominated by request volume and stored bytes (DynamoDB on-demand, Lambda invocations, ECS task hours), while the siloed tier is dominated by *fixed* per-tenant infrastructure — a VPC with NAT Gateway (~$32+/month per AZ), an Aurora cluster (~$50+/month minimum), and idle ECS capacity. At 200 tenants, a silo-per-tenant design can easily cost 5–10× a pooled design, which is why bridge architectures exist.
 
@@ -470,7 +470,7 @@ Concrete levers:
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Isolation is a chain.** Token claim → session tag → IAM condition → storage key. Verify each link with an automated cross-tenant denial test that runs on every deploy.
 - **KMS key policies are the last line of defence.** A tenant key policy should allow only the tenant's application role, the platform's admin break-glass role, and the account's encryption service principals. Add `kms:EncryptionContext` conditions wherever the SDK supports it.
@@ -482,7 +482,7 @@ Concrete levers:
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Extend the lab with a **bridge** design for one tenant:
 
@@ -494,7 +494,7 @@ Success looks like: the acme session can read `saas-orders` and fails with `Acce
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS SaaS Factory — multi-tenant architecture fundamentals](https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html)
 - [Isolating tenants with IAM — ABAC](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html)
@@ -506,7 +506,7 @@ Success looks like: the acme session can read `saas-orders` and fails with `Acce
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You can now isolate tenants, cap their blast radius, and tell exactly what each one costs. The next lesson attacks the opposite question: what happens when the infrastructure underneath a tenant *breaks* — and how you prove, before a real incident, that your failover actually works.
 

@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 06 of 08
 > ⬅️ Previous: [Gaming — GameLift and Scaling](./05-gaming-gamelift-and-scaling.md) · ➡️ Next: [Government — Air-Gapped Regions](./07-government-air-gapped-regions.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 Every video architecture is a chain of **contribution, processing, packaging, and delivery**, and the only thing that changes between use cases is how much latency each stage is allowed to add. A live quiz show needs sub-second so answers feel simultaneous; a keynote needs a few seconds; a VOD library has no latency requirement at all and cares only about cost per delivered GB. Being explicit about the latency budget for each stage is what stops you from over-engineering a solution — and from shipping a "live" product that is actually 30 seconds behind the chat.
 
@@ -44,7 +44,7 @@ Every video architecture is a chain of **contribution, processing, packaging, an
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The live path and the VOD path, which meet in the recording bucket:
 
@@ -116,7 +116,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: A Live Channel, a Transcode Ladder, and Signed Delivery
+## Hands-on Lab: A Live Channel, a Transcode Ladder, and Signed Delivery
 
 **Goal:** Create an IVS channel with recording, upload a source file, transcode it into an adaptive HLS ladder plus an MP4, deliver it through CloudFront with OAC, and restrict access with a signed URL.
 
@@ -459,7 +459,7 @@ Two architectural consequences: you cannot encrypt content that is already publi
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Live channel state during a broadcast
@@ -499,7 +499,7 @@ aws logs start-query \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -516,7 +516,7 @@ aws logs start-query \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -532,7 +532,7 @@ aws logs start-query \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Media is the most variable-cost workload in this phase, because you pay per unit of video rather than per request. Amazon IVS charges for the video ingested into a channel and for the video delivered out, plus recording storage per GB-month. Elemental MediaConvert charges **per minute of output produced**, so a job that writes five renditions costs five times a single-rendition job of the same duration. CloudFront charges per GB delivered plus per request, with regional rates that fall as volume rises.
 
@@ -550,7 +550,7 @@ Price class matters too: `PriceClass_100` (North America and Europe only) is mat
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Treat the stream key as a production secret.** Store it in Secrets Manager, restrict who can read it, and rotate it on staff changes and on any suspicion of exposure.
 - **Authorize playback deliberately.** IVS playback authorization with short-lived signed tokens for live, and CloudFront signed cookies or URLs for VOD. An open playback URL is an open bandwidth bill and a content-licensing violation.
@@ -565,7 +565,7 @@ Price class matters too: `PriceClass_100` (North America and Europe only) is mat
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Add an entitlement layer to the delivery path: an API that authenticates the viewer, checks a subscription record, and returns either a CloudFront signed cookie set for the VOD path or an IVS playback token, with an expiry no longer than two hours. Then measure what happens to delivery cost and error rates when you reduce the ladder from four rungs to three based on actual rendition request data from the access logs.
 
@@ -573,7 +573,7 @@ Success looks like: an unauthenticated request receives 403 from CloudFront, an 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon IVS User Guide](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/what-is.html)
 - [Amazon IVS playback authorization](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels.html)
@@ -585,7 +585,7 @@ Success looks like: an unauthenticated request receives 403 from CloudFront, an 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have the delivery layer for content at scale, including the parts that are commercially rather than technically motivated — signed delivery, geo licensing, and DRM. The next lesson takes a harder constraint and asks what happens when the answer to "which Region?" is not a latency or cost question at all, but a legal one.
 

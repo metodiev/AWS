@@ -3,7 +3,7 @@
 > **Phase 6 — Security and Governance** · Lesson 08 of 11
 > ⬅️ Previous: [Amazon GuardDuty](./07-amazon-guardduty.md) · ➡️ Next: [Compliance: HIPAA, PCI, FedRAMP](./09-compliance-hipaa-pci-fedramp.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **Amazon Macie** answers a question most organizations cannot answer confidently: *where is my sensitive data, and is it exposed?* It is an S3-only, fully managed service that samples and inspects objects, applies pattern matching and machine learning to identify personal data, financial information, and credentials, and then reports both the sensitive data it found and the bucket-level access problems that make that data reachable.
 
@@ -44,7 +44,7 @@ You also get **policy findings**, which are often the more urgent half. Macie ev
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 How Macie inspects data and where findings flow:
 
@@ -97,7 +97,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Classify a Bucket and Automate the Public-Bucket Response
+## Hands-on Lab: Classify a Bucket and Automate the Public-Bucket Response
 
 **Goal:** Enable Macie, write a custom identifier for an internal employee ID, run a scoped classification job, and restrict a bucket automatically when Macie finds it public and sensitive.
 
@@ -291,7 +291,7 @@ If a bucket you expect to see is missing from findings, check that the objects a
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Session control
@@ -340,7 +340,7 @@ aws macie2 get-usage-totals --time-range START=2026-01-01T00:00:00Z,END=2026-02-
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -355,7 +355,7 @@ aws macie2 get-usage-totals --time-range START=2026-01-01T00:00:00Z,END=2026-02-
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -370,7 +370,7 @@ aws macie2 get-usage-totals --time-range START=2026-01-01T00:00:00Z,END=2026-02-
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Macie pricing is simple and directly tied to how much data you look at: you pay a per-gigabyte rate (roughly **$0.10 per GB** in most Regions for classification jobs, varying by Region) for data inspected, plus a much smaller per-object metadata charge for automated discovery evaluations. There is typically a **30-day free trial** for new accounts, which is exactly the window to measure your real per-GB exposure.
 
@@ -378,7 +378,7 @@ The cost trap is scope, not rate. A single 5 TB bucket of Parquet logs scanned a
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Macie reads your data.** Its service-linked role has broad S3 read access inside the account; treat that role as sensitive and review its key policy grants.
 - **Findings reveal where the crown jewels are.** A Macie findings export is a map for an attacker. Restrict `macie2:GetFindings` and never ship raw findings to a broadly readable log bucket.
@@ -390,7 +390,7 @@ The cost trap is scope, not rate. A single 5 TB bucket of Parquet logs scanned a
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take three buckets in your account representing different risk profiles — one with application logs, one with user-uploaded documents, and one with financial exports — and design a classification approach for each: automated discovery only, scheduled job, or 100% one-time inspection. Write the exact `create-classification-job` command for the bucket that needs inspection, including a custom data identifier for something domain-specific in your work. Then create a findings filter that suppresses matches from a synthetic-data prefix and prove that a real finding in another prefix still appears.
 
@@ -398,7 +398,7 @@ Success looks like: three documented scan strategies with a per-bucket estimated
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon Macie User Guide](https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html)
 - [Managed data identifiers](https://docs.aws.amazon.com/macie/latest/user/managed-data-identifiers.html)
@@ -411,7 +411,7 @@ Success looks like: three documented scan strategies with a per-bucket estimated
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have encryption, detection, and data classification in place. The next lesson turns that engineering work into evidence — the shared responsibility model, BAAs, scope reduction, and the AWS services auditors actually ask you to produce artifacts from.
 

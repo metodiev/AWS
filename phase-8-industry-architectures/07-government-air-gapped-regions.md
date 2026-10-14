@@ -3,7 +3,7 @@
 > **Phase 8 — Industry Architectures** · Lesson 07 of 08
 > ⬅️ Previous: [Media — IVS, Transcoder, and CDN](./06-media-ivs-transcoder-and-cdn.md) · ➡️ Next: [Capstone — Industry Reference Architecture](./08-project-industry-reference-architecture.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 AWS is divided into **partitions**. A partition is a fully separate deployment of the AWS control plane with its own identity system, its own key management, and its own ARN namespace. There are three commonly encountered partitions: `aws` (commercial), `aws-us-gov` (AWS GovCloud (US)), and `aws-cn` (China, operated under separate arrangements). The partition appears in every ARN: a GovCloud role is `arn:aws-us-gov:iam::123456789012:role/...`, and that string is meaningless in the commercial partition. Nothing about this is cosmetic. An IAM principal in one partition cannot assume a role in another, an S3 bucket policy in one partition cannot grant access to a principal in another, and a KMS key in one partition cannot decrypt data in another.
 
@@ -44,7 +44,7 @@ AWS is divided into **partitions**. A partition is a fully separate deployment o
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The three environments and the boundaries that cannot be crossed with an API call:
 
@@ -108,7 +108,7 @@ sequenceDiagram
 
 ---
 
-## 🧪 Hands-on Lab: Operate Across Partitions Correctly
+## Hands-on Lab: Operate Across Partitions Correctly
 
 **Goal:** Configure a GovCloud CLI profile, verify the isolation boundary from the inside, prove that a commercial principal cannot be granted access to a GovCloud resource, and deploy a compliance evidence baseline.
 
@@ -305,7 +305,7 @@ aws s3 cp /mnt/staging/app-1.4.0.tar.gz \
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Identity, with the partition visible in the ARN
@@ -339,7 +339,7 @@ aws kms describe-key --key-id alias/gov-workload --profile govcloud --query 'Key
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -355,7 +355,7 @@ aws kms describe-key --key-id alias/gov-workload --profile govcloud --query 'Key
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -372,7 +372,7 @@ aws kms describe-key --key-id alias/gov-workload --profile govcloud --query 'Key
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 GovCloud (US) pricing is set separately from commercial pricing, is generally **higher for the same instance types**, and has no Free Tier, so a lift-and-shift cost model derived from commercial rates will be wrong. Use the GovCloud pricing pages for every estimate and expect a premium, particularly for compute and managed services.
 
@@ -389,7 +389,7 @@ If cost is the binding constraint, the levers are the same as in commercial AWS 
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Personnel restrictions are architectural, not administrative.** If ITAR applies, assume only US persons on US soil may access the environment, including support paths and third-party tools.
 - **Use GovCloud Organizations with SCPs as the primary guardrail.** Centralize the Region restrictions, the encryption requirements, and the denial of unapproved services so no team can drift.
@@ -403,7 +403,7 @@ If cost is the binding constraint, the levers are the same as in commercial AWS 
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Write a one-page **data flow and isolation register** for a workload that ingests controlled technical data from a commercial SaaS tool, processes it in GovCloud, and publishes results to an agency dashboard. For each arrow, state the partitions involved, the mechanism that carries the data, the identity that authorizes it, the encryption applied, and the evidence produced (logs, config items, or signed transfer records). Then list every arrow that cannot be implemented with an IAM trust and explain the alternative you chose.
 
@@ -411,7 +411,7 @@ Success looks like: no arrow crosses a partition using IAM, every cross-partitio
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS GovCloud (US) User Guide](https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/what-is-govcloud.html)
 - [AWS GovCloud (US) sign-up and account provisioning](https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/getting-set-up.html)
@@ -423,7 +423,7 @@ Success looks like: no arrow crosses a partition using IAM, every cross-partitio
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now know where the hard boundaries are and what they cost to work inside. The capstone puts every constraint in this phase together: a regulated vertical, an explicit control set, a residency decision, and a cost model — delivered the way a real architecture engagement is delivered.
 

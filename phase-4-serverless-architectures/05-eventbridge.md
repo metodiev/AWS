@@ -3,7 +3,7 @@
 > **Phase 4 — Serverless Architectures** · Lesson 05 of 09
 > ⬅️ Previous: [Step Functions](./04-step-functions.md) · ➡️ Next: [Amazon SQS](./06-amazon-sqs.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **EventBridge** is a serverless event bus. Producers call `PutEvents` with a structured event; EventBridge matches that event against every **rule** on the bus and delivers a copy to each rule's **targets**. Producers never learn who consumes their events, and consumers never learn who produces them. That decoupling is the whole point: you can add a fraud-check consumer next quarter without touching the ride-creation code.
 
@@ -46,7 +46,7 @@ Two features separate EventBridge from a simple fan-out service. **Archive and r
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 One domain event, many consumers, nobody coupled:
 
@@ -91,7 +91,7 @@ flowchart TD
 
 ---
 
-## 🧪 Hands-on Lab: A Domain Event Bus with Rules, Archives, and Replay
+## Hands-on Lab: A Domain Event Bus with Rules, Archives, and Replay
 
 **Goal:** Publish ride events to a custom bus, route them to different targets with transformed payloads, then archive and replay them.
 
@@ -266,7 +266,7 @@ Success is `State: ENABLED`, two targets listed, and a non-zero `SuccessfulInvoc
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List every bus, including partner buses
@@ -330,7 +330,7 @@ aws pipes create-pipe \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -347,7 +347,7 @@ aws pipes create-pipe \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -363,7 +363,7 @@ aws pipes create-pipe \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Publishing **custom and partner events** costs **$1.00 per million events**. **AWS service events on the default bus are free** — a high-volume S3 bucket emitting millions of object-created events costs nothing at the bus. Cross-account deliveries are billed as custom events.
 
@@ -385,7 +385,7 @@ What drives the bill: how many events you publish, how many times you replay the
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Bus resource policies are the cross-account control.** Use `put-permission` with a specific `principal`, and add a `Condition` limiting it to a `aws:PrincipalOrgID` so only accounts in your organization can publish.
 - **Never trust event content.** Anything can call `PutEvents` on a bus you exposed. Validate `detail` fields in the consumer and treat `account` and `source` as claims to check, not facts.
@@ -398,7 +398,7 @@ What drives the bill: how many events you publish, how many times you replay the
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Create a second custom bus named `payments-domain`, add a rule that matches only `PaymentFailed` events with `detail.amount` greater than 100, and route it to both an SQS queue and a Step Functions state machine. Give each target a different input transformer, attach a DLQ to the state machine target, then publish five events — two matching, three not — and confirm with `describe-replay`, metrics, and queue depth that exactly two reached the queue.
 
@@ -406,7 +406,7 @@ Success looks like: `aws sqs get-queue-attributes --attribute-names ApproximateN
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
 - [Event patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html)
@@ -418,7 +418,7 @@ Success looks like: `aws sqs get-queue-attributes --attribute-names ApproximateN
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 EventBridge is a many-to-many router: it does not store work, and it drops events nobody matches. The next lesson covers the queue that absorbs bursts, guarantees delivery through retries, and gives Lambda somewhere to pull work from at its own pace.
 

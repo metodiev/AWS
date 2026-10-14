@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 01 of 09
 > ⬅️ Previous: [Phase 4 — Serverless Architectures](../phase-4-serverless-architectures/README.md) · ➡️ Next: [AWS Glue](./02-aws-glue.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -17,7 +17,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A **data lake** is object storage plus a convention. The storage is Amazon S3; the convention is a set of rules about where files live, how they are named, what format they use, and how they are partitioned. Get the convention right and every downstream service — Glue, Athena, Redshift Spectrum, EMR, SageMaker — can read your data with zero transformation. Get it wrong and every lesson after this one becomes an exercise in debugging.
 
@@ -91,7 +91,7 @@ Storage Lens aggregates storage and activity metrics across every bucket in an a
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The zone model, with the lifecycle destination of each zone:
 
@@ -140,7 +140,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Build a Partitioned Lake by Hand
+## Hands-on Lab: Build a Partitioned Lake by Hand
 
 **Goal:** Create a bucket, land raw data, produce a partitioned Parquet curated dataset, verify the layout, and attach a lifecycle policy.
 
@@ -306,7 +306,7 @@ You should see `order_date=2026-10-14/part-0.parquet`-style keys and two lifecyc
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # Create a bucket in a non-us-east-1 region
@@ -343,7 +343,7 @@ aws s3control list-storage-lens-configurations --account-id 123456789012
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -359,7 +359,7 @@ aws s3control list-storage-lens-configurations --account-id 123456789012
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -374,7 +374,7 @@ aws s3control list-storage-lens-configurations --account-id 123456789012
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 What drives the bill, in order of impact for a typical lake:
 
@@ -394,7 +394,7 @@ A concrete comparison: 1 TB of raw CSV queried with a 3-column `SELECT` scans ab
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Block Public Access on every bucket, at the account level too.** Accidental public lakes are the most common AWS data breach story.
 - **Encrypt with SSE-KMS, not just SSE-S3**, when the data is sensitive. KMS gives you per-key access control and CloudTrail records of every decrypt.
@@ -411,7 +411,7 @@ A concrete comparison: 1 TB of raw CSV queried with a 3-column `SELECT` scans ab
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Rebuild the lab dataset as an **Iceberg table** instead of a Hive-partitioned Parquet prefix:
 
@@ -423,7 +423,7 @@ Success looks like: the second query returns the pre-update value, and `aws glue
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Amazon S3 Best Practices — Performance](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
 - [Organizing Objects Using Prefixes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html)
@@ -434,7 +434,7 @@ Success looks like: the second query returns the pre-update value, and `aws glue
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 You now have a lake with the right shape. The next lesson adds the layer that makes it usable by everyone else: AWS Glue, which catalogs those files into tables and transforms raw data into curated data on a schedule.
 

@@ -3,7 +3,7 @@
 > **Phase 9 — Cutting-Edge AWS** · Lesson 01 of 06
 > ⬅️ Previous: [Phase 9 overview](./README.md) · ➡️ Next: [Robotics on AWS](./02-aws-robomaker.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -16,7 +16,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 A classical bit is always 0 or 1. A **qubit** is a two-level quantum system that holds a superposition of both until it is measured. Written in the Braket `bra-ket` notation that gives the service its name, a qubit state is `α|0⟩ + β|1⟩`, where α and β are complex amplitudes. The catch is that you can never read α and β directly: measurement collapses the state and returns a single classical bit, with probability `|α|²` for 0 and `|β|²` for 1. That is why quantum programs are always run for many **shots** and you reason statistically about the resulting `measurement_counts`.
 
@@ -74,7 +74,7 @@ One honesty note: **Cirq is not currently a first-party Braket integration.** AW
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The three-stage Braket workflow — build, test, run — and where the money is spent:
 
@@ -150,7 +150,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: From Local Simulator to Real Hardware
+## Hands-on Lab: From Local Simulator to Real Hardware
 
 **Goal:** Build a Bell state, verify it on the free local simulator, then run the identical circuit on a paid managed simulator and a real QPU, and compare the results.
 
@@ -261,7 +261,7 @@ Success looks like: the local simulator reports roughly 50/50 `00` and `11` with
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List the devices you can address (the only supported filter name today is deviceArn)
@@ -308,7 +308,7 @@ aws braket search-jobs --filters name=jobName,values=vqe-h2-demo
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -323,7 +323,7 @@ aws braket search-jobs --filters name=jobName,values=vqe-h2-demo
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -339,7 +339,7 @@ aws braket search-jobs --filters name=jobName,values=vqe-h2-demo
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Braket bills along five independent dimensions, and it is easy to pay for two of them without noticing:
 
@@ -362,7 +362,7 @@ Braket publishes a monthly free tier for on-demand simulation time — check the
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The service-linked role does the S3 write.** Braket creates an SLR when you enable the service; it can write result objects to the buckets you specify. That is why `create-quantum-task` does not need a role ARN but `create-job` does.
 - **Use a dedicated results bucket, not a general-purpose one.** Enable S3 Block Public Access, enforce SSE-KMS, and add a bucket policy that denies `s3:PutObject` unless `aws:PrincipalArn` is the Braket service principal.
@@ -374,7 +374,7 @@ Braket publishes a monthly free tier for on-demand simulation time — check the
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Take the Bell state and turn it into a three-qubit GHZ state (`h(0)`, then `cnot(0,1)`, then `cnot(0,2)`). Run it on the local simulator with 2,000 shots, then on `SV1`, and finally on a QPU with 100 shots. Record `measurement_counts` for each, and compute how far each result deviates from the ideal 50/50 split between `000` and `111`.
 
@@ -382,7 +382,7 @@ Success looks like: a short table of three rows with the counts, an observation 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [What is Amazon Braket?](https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html)
 - [Amazon Braket supported devices and Regions](https://docs.aws.amazon.com/braket/latest/developerguide/braket-devices.html)
@@ -396,7 +396,7 @@ Success looks like: a short table of three rows with the counts, an observation 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Quantum computing reshapes what a computation *is*. The next lesson moves to the opposite end of the stack — physical machines that sense and move — and to the awkward reality of a service AWS has since retired.
 

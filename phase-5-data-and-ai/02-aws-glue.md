@@ -3,7 +3,7 @@
 > **Phase 5 — Data and AI** · Lesson 02 of 09
 > ⬅️ Previous: [Data Lakes on Amazon S3](./01-data-lakes-on-s3.md) · ➡️ Next: [Amazon Athena](./03-amazon-athena.md) · 🏠 [Phase overview](./README.md)
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this lesson you will be able to:
 
@@ -18,7 +18,7 @@ By the end of this lesson you will be able to:
 
 ---
 
-## 🧠 Core Concepts
+## Core Concepts
 
 **AWS Glue** is a serverless data integration service with four moving parts: a **catalog** (metadata), **crawlers** (metadata discovery), **jobs** (compute), and **workflows** (orchestration). You never manage a cluster; you hand Glue a script and a worker count and it provisions Spark, runs, and tears down.
 
@@ -68,7 +68,7 @@ Runtime versions decide the language and library versions available. **Glue 4.0*
 
 ---
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 The catalog as the hub that every other service reads:
 
@@ -129,7 +129,7 @@ stateDiagram-v2
 
 ---
 
-## 🧪 Hands-on Lab: Catalog Raw Data and Publish Curated Parquet
+## Hands-on Lab: Catalog Raw Data and Publish Curated Parquet
 
 **Goal:** Crawl a curated prefix, then run a PySpark Glue job that deduplicates new raw JSON and writes partitioned Parquet using job bookmarks.
 
@@ -319,7 +319,7 @@ You should see `order_date=.../part-*.parquet` objects averaging at least tens o
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 ```bash
 # List databases and tables in the catalog
@@ -357,7 +357,7 @@ aws databrew start-job-run --name orders-profile --dataset-name orders-dataset \
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 | Practice | Why it matters |
 |----------|----------------|
@@ -372,7 +372,7 @@ aws databrew start-job-run --name orders-profile --dataset-name orders-dataset \
 
 ---
 
-## ⚠️ Common Pitfalls
+## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
 |---------|---------|-----|
@@ -388,7 +388,7 @@ aws databrew start-job-run --name orders-profile --dataset-name orders-dataset \
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 Glue bills per **DPU-hour**, and the pricing differs by workload:
 
@@ -412,7 +412,7 @@ The Data Catalog itself is free for the first million objects and requests per m
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **The Glue service role is the blast radius.** Never attach `AmazonS3FullAccess`. Scope it to the lake bucket prefixes and to the specific catalog databases the job needs.
 - **Use connections for JDBC sources** and store credentials in Secrets Manager (`aws glue create-connection` with `SECRET_ID`), never inline in a job argument.
@@ -431,7 +431,7 @@ The Data Catalog itself is free for the first million objects and requests per m
 
 ---
 
-## 🧩 Exercise
+## Exercise
 
 Build a second job called `orders-dq-etl` that reads the curated Parquet and writes two outputs:
 
@@ -444,7 +444,7 @@ Success looks like: `aws glue get-job-run` shows a second `SUCCEEDED` run whose 
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html)
 - [Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/components-overview.html)
@@ -456,7 +456,7 @@ Success looks like: `aws glue get-job-run` shows a second `SUCCEEDED` run whose 
 
 ---
 
-## ➡️ Next Steps
+## Next Steps
 
 Your catalog now describes the lake, and jobs turn raw data into curated data. The next lesson puts a SQL engine on top of that catalog: Amazon Athena, where the cost model makes your partition and format choices from Lesson 01 measurable in dollars per query.
 
